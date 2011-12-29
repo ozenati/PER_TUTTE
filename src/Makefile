@@ -1,16 +1,16 @@
 CC= g++
-OPTION= -Wno-deprecated
-LFLAG= -ltulip -ldl
-IFLAG= -I../include/
-OBJ= util/*.o
+LDFLAGS= -ldl
+IFLAGS= -I../include/
+TULIP_CONFIG=`tulip-config --libs --cxxflags`
+
 
 all: separator
 
-separator: separator.cpp Per_node.o
-	$(CC) $(OPTION) $(IFLAG) separator.cpp Per_node.o $(LFLAG) -o separator
+separator: separator.cpp MyNode.o
+	$(CC) $(IFLAGS) separator.cpp MyNode.o $(TULIP_CONFIG) $(LDFLAGS) -o separator
 
-Per_node.o: Per_node.cpp
-	$(CC) -c $(IFLAG) Per_node.cpp
+MyNode.o: MyNode.cpp
+	$(CC) -c $(IFLAGS) MyNode.cpp
 
 clean:
 	rm -f *.o separator

@@ -1,8 +1,9 @@
 #include <iostream>
 #include <tulip/Graph.h>
+#include <tulip/GlyphManager.h>
 #include <tulip/LayoutProperty.h>
 #include <map>
-#include "Per_node.h"
+#include "MyNode.h"
 
 using namespace std;
 using namespace tlp;
@@ -19,6 +20,8 @@ int main(int argc, char **argv)
   //  Initialisation  //
   //==================//
 
+  initTulipLib();
+
   Graph* graph = loadGraph(argv[1]);
 
   if(graph == NULL)
@@ -27,9 +30,11 @@ int main(int argc, char **argv)
       exit(-1);
     }
 
-  LayoutProperty *layout=graph->getLocalProperty<LayoutProperty>("viewLayout");
+  LayoutProperty *layout = graph->getLocalProperty<LayoutProperty>("viewLayout");
+  BooleanProperty *fixed = graph->getProperty<BooleanProperty>("fixed nodes");
+  BooleanProperty *bordure = graph->getProperty<BooleanProperty>("viewSelection");
 
-  map<int,Per_node *> all_nodes;
+  map<int,MyNode *> all_nodes;
   
   Iterator<node> *itNodes = graph->getNodes();
 
@@ -40,17 +45,18 @@ int main(int argc, char **argv)
   while(itNodes->hasNext()) 
     {
       node n = itNodes->next();
+
       if(all_nodes[n.id] == NULL)
-	all_nodes[n.id] = new Per_node(n.id);
+	{
+	  Coord c = layout->getNodeValue(n);
+	  bool res = !(fixed->getNodeValue(n)) && !(bordure->getNodeValue(n));
+	  all_nodes[n.id] = new MyNode(n, res, c); 
+	}
 
-      Coord c = layout->getNodeValue(n);
+      MyNode *pn = all_nodes[n.id];
 
-      Per_node *pn = all_nodes[n.id];
-      pn->pos.x = c.getX();
-      pn->pos.y = c.getY();
 
       cout << "node: " <<  n.id << endl;
-      cout << c << endl;    
       cout << " neighborhood: {";
       Iterator<node> *itN = graph->getInOutNodes(n);
 
@@ -60,8 +66,12 @@ int main(int argc, char **argv)
 	  cout << n.id;
 	  if (itN->hasNext()) cout << ",";
 	  if(all_nodes[n.id] == NULL)
-	    all_nodes[n.id] = new Per_node(n.id);
-	  pn->neighbors.push_back(all_nodes[n.id]);
+	    {
+	      Coord c = layout->getNodeValue(n);
+	      bool res = !(fixed->getNodeValue(n)) && !(bordure->getNodeValue(n));
+	      all_nodes[n.id] = new MyNode(n, res, c); 
+	    }
+	  pn->getVoisin()->push_back(all_nodes[n.id]);
 	}
 
       delete itN; //!!!Warning : do not forget to delete iterators (memory leak)
