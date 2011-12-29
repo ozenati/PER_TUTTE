@@ -1,0 +1,10 @@
+(tlp "2.3"
+(date "12-27-2011")
+(comments "")
+(nb_nodes 2)
+;(nodes <node_id> <node_id> ...)
+(nodes 0 1)
+(nb_edges 1)
+;(edge <edge_id> <source_id> <target_id>)
+(edge 0 1 0)
+)
