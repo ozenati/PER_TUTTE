@@ -3,6 +3,8 @@
 
 #include <list>
 
+// frozar : mon commentaire
+
 typedef struct
 {
   float x;
