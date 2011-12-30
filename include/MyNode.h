@@ -31,6 +31,7 @@ class MyNode {
   MyNode();
   MyNode(const node n, const Coord coord);
   MyNode(const node n, const bool mob, const Coord coord);
+  MyNode(const MyNode &n);
   ~MyNode();
   
   const node getNode() const;

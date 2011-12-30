@@ -7,10 +7,10 @@ TULIP_CONFIG=`tulip-config --libs --cxxflags`
 all: separator
 
 separator: separator.cpp MyNode.o
-	$(CC) $(IFLAGS) separator.cpp MyNode.o $(TULIP_CONFIG) $(LDFLAGS) -o separator
+	$(CC) -g $(IFLAGS) separator.cpp MyNode.o $(TULIP_CONFIG) $(LDFLAGS) -o separator
 
 MyNode.o: MyNode.cpp
-	$(CC) -c $(IFLAGS) MyNode.cpp
+	$(CC) -g -c $(IFLAGS) MyNode.cpp
 
 clean:
 	rm -f *.o separator

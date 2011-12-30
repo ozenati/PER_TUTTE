@@ -19,6 +19,13 @@ MyNode::MyNode(const node n, const bool mob, const Coord coord):mobile(true), vo
   this->coord = coord;
 }
 
+MyNode::MyNode(const MyNode &n) {
+  this->n = n.n;
+  this->mobile = n.mobile;
+  this->coord = n.coord;
+  this->voisin = n.getVoisin();
+}
+
 MyNode::~MyNode() {
 }
 
