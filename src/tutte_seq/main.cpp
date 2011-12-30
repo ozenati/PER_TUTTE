@@ -51,7 +51,6 @@ int main(int argc, char * argv[])  {
 
   // Libération des ressources enjeux
   delete MyNodes;
-  // delete grille;
   delete graph;
 
   return 0;

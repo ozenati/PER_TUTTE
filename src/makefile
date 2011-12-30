@@ -6,26 +6,26 @@
 #      n'importe quel nom.
 
 CC= g++
-CXXFLAGS=-W -Wall
-LDFLAGS=-lm
+CXXFLAGS=-W -Wall -g
+LDFLAGS= -ldl
+IFLAGS= -I../include/
 TULIP_CONFIG=`tulip-config --libs --cxxflags`
 
-SRC= main.cpp 
+SRC= main.cpp separator.cpp
 OBJ= $(SRC:.cpp=.o)
 EXE= $(OBJ:.o=)
-MYNODEDIR= mynode/
+
+OBJDEP= MyNode.o toolkit.o
 
 all: $(EXE)
 
 %o: %c
 
+$(EXE): $(OBJ) $(OBJDEP) 
+	$(CC) $(CXXFLAGS) $(IFLAGS) $(TULIP_CONFIG) $(LDFLAGS) $(OBJDEP) $@.o -o $@
 
-$(EXE) : $(OBJ) MYNODE toolkit.o
-	$(CC) $(TULIP_CONFIG) $(CXXFLAGS) $@.o $(MYNODEDIR)MyNode.o  toolkit.o -o $@
+# MyNode.o: MyNode.cpp
+# 	$(CC) -g -c $(IFLAGS) MyNode.cpp
 
-MYNODE : 
-	make -C mynode all
-
-clean :
-	rm -f *.o 
-	make -C mynode clean
+clean:
+	rm -f *.o $(EXE)
