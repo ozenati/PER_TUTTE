@@ -6,9 +6,9 @@
 #      n'importe quel nom.
 
 CC= g++
-CXXFLAGS=-W -Wall -g
-LDFLAGS= -ldl
 IFLAGS= -I../include/
+CXXFLAGS=-W -Wall -g $(IFLAGS)
+LDFLAGS= -ldl
 TULIP_CONFIG=`tulip-config --libs --cxxflags`
 
 SRC= main.cpp separator.cpp
@@ -22,7 +22,7 @@ all: $(EXE)
 %o: %c
 
 $(EXE): $(OBJ) $(OBJDEP) 
-	$(CC) $(CXXFLAGS) $(IFLAGS) $(TULIP_CONFIG) $(LDFLAGS) $(OBJDEP) $@.o -o $@
+	$(CC) $(CXXFLAGS) $(IFLAGS) $(OBJDEP) $@.o $(TULIP_CONFIG) $(LDFLAGS) -o $@
 
 # MyNode.o: MyNode.cpp
 # 	$(CC) -g -c $(IFLAGS) MyNode.cpp
