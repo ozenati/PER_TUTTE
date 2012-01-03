@@ -1,0 +1,105 @@
+\documentclass[12pt]{report}
+%\usepackage[francais]{babel}
+\usepackage{lmodern}
+\usepackage[a4paper]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}  
+\usepackage{moreverb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{pifont}
+\usepackage{geometry}
+\usepackage[pdftex]{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{color}
+\usepackage[nottoc, notlof, notlot]{tocbibind}
+\usepackage[french]{varioref}
+\usepackage[Glenn]{fncychap}
+\usepackage{pdfpages}
+
+\usepackage{multicol}
+
+\usepackage{listings}
+
+\lstset{%configuration de listings
+float=hbp,%
+basicstyle=\ttfamily\small, %
+columns=flexible, %
+tabsize=2, %
+frame=trBL, %
+frameround=tttt, %
+extendedchars=true, %
+showspaces=false, %
+showstringspaces=false, %
+numbers=left, %
+numberstyle=\tiny, %
+breaklines=true, %
+breakautoindent=true, %
+captionpos=b,%
+xrightmargin=0cm, %
+xleftmargin=-0cm, %
+language=tex, %
+frameround=fttt;%
+}
+
+%%%%%%%%%%%%%%%% Lengths %%%%%%%%%%%%%%%%
+\geometry{a4paper,twoside,left=2cm,right=2cm,marginparwidth=1.2cm,marginparsep=3mm,top=1.7cm,bottom=1.5cm}
+
+\newcommand{\stamp}{{\tt \textit{Stamp }}}
+\newcommand{\class}{{\tt \textit{class }}}
+\newcommand{\initarg}{{\tt \textit{Initarg }}}
+\bibliographystyle{plain}
+\urlstyle{sf}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{vcenterpage}
+{\newpage\vspace*{\fill}}
+{\vspace*{\fill}\par\pagebreak}
+
+\newtheorem{ex}{Exemple}%[section]
+\newcommand{\tuple}[1]{\ensuremath{\langle #1 \rangle}}
+
+\begin{document}
+%%%% Page de titre %%%%
+\input{src/title}
+
+%%%%% notice analystique %%%%
+%\input{src/noticeAnalytique}
+
+%%%%% terminologie %%%%%%%%%%
+\input{src/terminologie}
+
+%%%% resume %%%%%%%%%
+\begin{abstract}
+\input{src/resume}
+\end{abstract}
+
+%%%% plan %%%%%
+\tableofcontents
+\listoffigures
+%\listoftables
+
+%%%% remerciement %%%%%%%
+\input{src/remerciement}
+\addcontentsline{toc}{chapter}{Thanks}
+
+%%%%% corps du rapport %%%%%%%%%
+\input{src/Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+
+\addcontentsline{toc}{chapter}{Conclusion}
+\input{src/Conclusion}
+
+\input{src/Bibliographie}
+
+%%%%%% Liste des annexes %%%%%%%%%%
+\part{Annexes}
+\appendix
+\input{src/annexeA}
+\end{document}
