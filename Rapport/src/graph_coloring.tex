@@ -1,0 +1,24 @@
+\section*{Distribution of nodes: Graph coloring}
+In order to implement a parallel asynchronous version of Tutte algorithm, it is necessary to separate graph nodes into different sets. Each node must be independant with others node in the same set. This problem is similar to the famous problem of graph colorating.
+\paragraph*{}
+The objectif of the modified Tutte algorithm is to handle graph of thousands nodes. To separate such a number of nodes, it is more performant to use a heuristic of the algorithm of graph coloring.\\
+The greedy algorithm is a simple and good solution to separate nodes into sets fastly and effictively.
+\paragraph*{}
+The algorithm used in this project is :
+\begin{verbatim}
+G={V,E}
+Y = V
+color = 0
+While Y is not empty
+   Z = Y
+   While Z is not empty
+      Choose a node v from Z
+      Colorate v with color
+      Y = Y - v
+      Z = Z - v - {neighbors of v}
+   End while
+   color ++
+End while
+\end{verbatim}
+
+Reference : Introduction to Algorithms (Cormen, Leiserson, Rivest, and Stein) 2001, Chapter 16 "Greedy Algorithms".
