@@ -1,0 +1,20 @@
+\chapter*{Introduction}
+
+The article summarized in this document was written by A.Lambert, R.Bourqui and D . Auber, researchers in LaBRI in Bordeaux.
+
+The article we are currently working on deals with how to visualize graphs containing many nodes and edges. With improvements in data acquisition comes an increase of the size and the complexity of graph and this huge amount of data generally causes visual clutter, in our case due to edges crossing.
+
+For example, it could be interesting to visualize data in fields like biology, social sciences, data mining, or computer science and then emphasize their high-level pattern to help users perceive underlying models.
+
+Some classes of graph, such as trees or acyclic graphs, clearly facilitate user understanding by effective representation. However, most of graphs do not belong to these classes and algorithm giving nice results in terms of time and space complexity but also in terms of aesthetic criteria for any graph do not exist yet. For example, force-directed method produces pleasant and structurally significant results but do not help users comprehension due to data complexity.
+
+Up to now, several techniques were used to reduce this clutter, based on compound visualization or edge bundling. In a compound visualization, nodes are gathered into metanodes and inter-cluster edges are merged into metaedges. To retrieve the information, metanodes could be collapsing or expanding. Edge bundling technique routes edges into bundles. This uncover high level edge pattern and emphasize relationships.
+
+Yet an important constraint is the impossibility for some nodes to move while avoiding edges crossing because node positions bring information: the compound visualization is consequently not suitable.
+
+Some existing representations take into account this duty: some reducing edge clutters (Edge routing, Interactive techniques, Confluent Drawing, Node clustering, Edge clustering) and the other enhancing edge bundles visualization (Smoothing curves, Coloring edges). Edge routing use shortest-path edge routing to bound the number of edge crossings and use non-point-size to avoid node-edge overlaps. It do not highlight the underlying model. Interactive techniques remove clutter around the user’s focii in a fisheye-like manner while preserving node position: this technique does not reduce the clutter of the entire representation. In Confluent Drawing, groups of crossing edges are drawn as curved overlapping lines. Node Clustering routed edge along the hierarchy tree branches. Both methods can not be applied to any graph.
+Edge Clustering route edges either on the outer face of the circle or in its inner faces and bundle them to optimize area utilization.
+
+Our solution is based on an edge bundling technique coupled with a grid built from the original graph. We also used a GPU-based rendering method to highlight bundles densities without losing edge color.
+
+Finally, our resolution allow an improvement of the clutter reduction and the performance compared with existent methods 
