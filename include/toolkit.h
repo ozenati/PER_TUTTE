@@ -7,7 +7,7 @@
 #include <cmath>
 
 #include <tulip/Graph.h>
-//#include <tulip/GraphProperty.h>
+#include <tulip/Vector.h>
 #include <tulip/LayoutProperty.h>
 #include <tulip/GlyphManager.h>
 

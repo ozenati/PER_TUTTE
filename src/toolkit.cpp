@@ -59,6 +59,70 @@ vector<MyNode> * convertGraph2Vector(Graph * grille) {
   return MyNodes;
 }
 
+// Hack 
+class MyNode_ver2 {
+ private:
+  node n;
+  bool mobile;
+};
+
+void convertGraph2Vector_ver2(Graph * grille, vector<MyNode_ver2> * MyNodes_2, 
+			      vector<vector<int> > * Neighbourhoods, vector<Vec2f> * coords) {
+  Graph * graph = grille->getSuperGraph();
+  // On récupére la propriété pour les coordonnées (layout) et pour fixer les noeuds
+  LayoutProperty *layout=graph->getLocalProperty<LayoutProperty>("viewLayout");
+  BooleanProperty * fixed=graph->getProperty<BooleanProperty>("fixed nodes");
+  BooleanProperty * bordure=graph->getProperty<BooleanProperty>("viewSelection");
+
+  // Récupérer tous les noeuds du graph dans une map de MyNode
+  map<node, int, nidCompare> AllNodes;
+  vector<MyNode> * MyNodes= new vector<MyNode>;
+  
+  Iterator<node> *itN = grille->getNodes();
+  int i = 0;
+  while(itN->hasNext()) {
+    node tmp_n = itN->next();
+    AllNodes[tmp_n] = i;
+
+    // On construit chaque élément du vecteur
+    // Seul le voisinage n'est pas encore construit
+    Coord c = layout->getNodeValue(tmp_n);
+    // Un noeud est mobile s'il n'est pas fixe et s'il n'appartient pas à la bordure
+    bool res = !(fixed->getNodeValue(tmp_n)) && !(bordure->getNodeValue(tmp_n));
+    MyNode n(tmp_n, res, c); 
+    
+    MyNodes->push_back(n);
+    i++;
+  } delete itN;
+
+  Iterator <edge> *itE = grille->getEdges();
+  while (itE->hasNext()) {
+    edge current_edge = itE->next();
+    if (bordure->getEdgeValue(current_edge)) {
+      pair<node, node> nodes = grille->ends(current_edge);
+
+      int key = AllNodes[nodes.first];
+      (* MyNodes)[key].setMobile(false);
+	
+      key = AllNodes[nodes.second];
+      (* MyNodes)[key].setMobile(false);
+    }
+  }delete itE;
+
+  // Récupérer le voisinage de chaque noeud de la map
+  for (unsigned int i = 0; i < MyNodes->size(); i++) {
+    Iterator<node> *itN=grille->getInOutNodes((* MyNodes)[i].getNode());
+    while(itN->hasNext()) {
+      // La map AllNodes sert uniquement à récupérer l'emplacement d'un noeud dans le vecteur MyNodes
+      int key = AllNodes[itN->next()];      
+      (* MyNodes)[i].getVoisin()->push_back(&(* MyNodes)[key]);
+    } delete itN;
+  }
+
+  //return MyNodes;
+}
+
+
 // On MAJ les coordonnées de chaque noeud de la grille de départ
 void convertVector2Graph(vector<MyNode> * MyNodes, Graph * grille) {
   Graph * graph = grille->getSuperGraph();
