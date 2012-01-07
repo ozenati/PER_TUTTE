@@ -63,6 +63,7 @@ frameround=fttt;%
 {\vspace*{\fill}\par\pagebreak}
 
 \newtheorem{ex}{Exemple}%[section]
+\newtheorem{theo}{Theroem}
 \newcommand{\tuple}[1]{\ensuremath{\langle #1 \rangle}}
 
 \begin{document}
@@ -90,15 +91,30 @@ frameround=fttt;%
 \addcontentsline{toc}{chapter}{Thanks}
 
 %%%%% corps du rapport %%%%%%%%%
-\input{src/Introduction}
+\input{src/introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
+<<<<<<< HEAD
 \input{src/graph_coloring}
+=======
+\part{The context}
+\chapter{The subject}
+
+\part{The algorithms}
+\input{src/tutte}
+
+\input{src/graph_coloring.tex}
+
+\part{Implementations}
+%il faut que nous justifions le choix du langage etc 
+\chapter{The data structure}
+\input{src/dataStructure}
+>>>>>>> 07c4abb5c95da50894a550394c0a2318e543d135
 
 \addcontentsline{toc}{chapter}{Conclusion}
-\input{src/Conclusion}
+\input{src/conclusion}
 
-\input{src/Bibliographie}
+\input{src/bibliographie}
 
 %%%%%% Liste des annexes %%%%%%%%%%
 \part{Annexes}
