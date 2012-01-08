@@ -164,6 +164,19 @@ void convertGraph2Vector_ver2(Graph * grille, vector<MyNode_ver2> * MyNodes_2,
   //cout << "coords->size() : " << coords->size() << endl;
 
   // FAIRE UNE BOUCLE SUR LES ARÊTES POUR DETECTER LES ARÊTES FIXES ET METTRE A JOUR LA MOBILITE DES NOEUDS
+  Iterator <edge> *itE = grille->getEdges();
+  while (itE->hasNext()) {
+    edge current_edge = itE->next();
+    if (bordure->getEdgeValue(current_edge)) {
+      pair<node, node> nodes = grille->ends(current_edge);
+
+      int key = AllNodes[nodes.first];
+      (* MyNodes_2)[key].mobile = false;
+	
+      key = AllNodes[nodes.second];
+      (* MyNodes_2)[key].mobile = false;
+    }
+  }delete itE;
 
   // On regarde le voisinage du troisième noeud
 //   cout << "id_print : " << id_toprint << endl;
@@ -301,3 +314,4 @@ void tutte_2(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods,
   cout << "TOTAL itération : " << nbIter << endl;
   cout << endl;
 }
+
