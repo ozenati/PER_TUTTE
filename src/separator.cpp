@@ -4,6 +4,7 @@
 #include <tulip/LayoutProperty.h>
 #include <map>
 #include "MyNode.h"
+#include "separator.h"
 
 using namespace std;
 using namespace tlp;
@@ -90,50 +91,64 @@ convertGraph2Map(Graph *graph)
   return new map<int, MyNode *>(all_nodes);
 }
 
-
-
-int main(int argc, char **argv)
-{
-  if(argc != 2)
-    {
-      cerr << "Usage: " << argv[0] << " <graph_file>" << endl;
-      exit(-1);
-    }
-
-  //==================//
-  //  Initialisation  //
-  //==================//
-
-  initTulipLib();
-
-  Graph* graph = loadGraph(argv[1]);
-
-  if(graph == NULL)
-    {
-      cerr << argv[1] << " is not a graph file" << endl;
-      exit(-1);
-    }
-
-  map<int, MyNode *> *all_nodes = convertGraph2Map(graph);
-
-  vector<vector<MyNode *> *> *vectors = separateMap2Vectors(all_nodes);
-
-  int i;
+void applyVectors2Graph(vector<vector<MyNode *> *> *vectors, Graph * graph) {
+  LayoutProperty *layout=graph->getLocalProperty<LayoutProperty>("viewLayout");
+  
   vector<vector<MyNode *> *>::iterator it;
-  for (it=vectors->begin(), i = 0 ; it < vectors->end(); it++, i++)
+  for (it=vectors->begin(); it < vectors->end(); it++)
     {
-      cout << "Ensemble " << i << " contient:" << endl;
-      cout << "{";
-      vector<MyNode *>::iterator it2 = (*it)->begin();
-      for (it2=(*it)->begin(); it2 < (*it)->end(); it2++)
-	{
-	  MyNode *n = *it2;
-	  cout << n->getNode().id << " ";
-	}
-      cout << "}" << endl; 
+      // Selection de l'ensemble courant;
+      vector<MyNode *> *MyNodes = (*it);
+      
+      for(uint i = 0; i < MyNodes->size(); i++) {
+	layout->setNodeValue((* MyNodes)[i]->getNode(), (* MyNodes)[i]->getCoord());
+      }
     }
-  delete all_nodes;
-  delete graph;
-  return 0;
 }
+
+
+// int main(int argc, char **argv)
+// {
+//   if(argc != 2)
+//     {
+//       cerr << "Usage: " << argv[0] << " <graph_file>" << endl;
+//       exit(-1);
+//     }
+
+//   //==================//
+//   //  Initialisation  //
+//   //==================//
+
+//   initTulipLib();
+
+//   Graph* graph = loadGraph(argv[1]);
+
+//   if(graph == NULL)
+//     {
+//       cerr << argv[1] << " is not a graph file" << endl;
+//       exit(-1);
+//     }
+
+//   map<int, MyNode *> *all_nodes = convertGraph2Map(graph);
+
+//   vector<vector<MyNode *> *> *vectors = separateMap2Vectors(all_nodes);
+
+//   int i;
+//   vector<vector<MyNode *> *>::iterator it;
+//   for (it=vectors->begin(), i = 0 ; it < vectors->end(); it++, i++)
+//     {
+//       cout << "Ensemble " << i << " contient:" << endl;
+//       cout << "{";
+//       vector<MyNode *>::iterator it2 = (*it)->begin();
+//       for (it2=(*it)->begin(); it2 < (*it)->end(); it2++)
+// 	{
+// 	  MyNode *n = *it2;
+// 	  cout << n->getNode().id << " ";
+// 	}
+//       cout << "}" << endl; 
+//     }
+//   delete all_nodes;
+//   delete graph;
+//   return 0;
+// }
 
