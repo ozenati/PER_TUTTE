@@ -50,7 +50,6 @@ void tutte_seq_2(Graph * graph, Graph * grille, char * filename_out) {
 
   // On applique tutte sur notre structure de noeud
   tutte_2(&MyNodes_2, &Neighbourhoods, &coords, 1e-6);
-  //tutte_2(MyNodes_2, Neighbourhoods, coords, 1e-6);
 
   // On récupére les déplacement dans notre grille
   convertVector_ver2_2Graph(&MyNodes_2, &coords, grille);

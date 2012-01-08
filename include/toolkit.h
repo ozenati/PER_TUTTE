@@ -31,8 +31,6 @@ void tutte(vector<MyNode> * MyNodes, double eps);
 
 void tutte_2(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods,
 	     vector<Vec2f> * coords, double eps);
-/* void tutte_2(vector<MyNode_ver2> MyNodes_2, vector<int> Neighbourhoods,  */
-/* 	     vector<Vec2f> coords, double eps); */
 
 void convertVector2Graph(vector<MyNode> * MyNodes, Graph * graph);
 
