@@ -26,6 +26,28 @@
 (edge 17 3 8)
 (edge 18 8 4)
 (edge 19 0 3)
+(property  0 bool "fixed nodes"
+(default "false" "false")
+(node 0 "true")
+(node 1 "true")
+(node 2 "true")
+(node 3 "true")
+(node 4 "true")
+(node 5 "true")
+(node 9 "true")
+)
+(property  0 int "id"
+(default "0" "0")
+(node 1 "1")
+(node 2 "2")
+(node 3 "3")
+(node 4 "4")
+(node 5 "5")
+(node 6 "6")
+(node 7 "7")
+(node 8 "8")
+(node 9 "9")
+)
 (property  0 color "viewBorderColor"
 (default "(0,0,0,255)" "(0,0,0,255)")
 )
@@ -42,7 +64,16 @@
 (default "18" "18")
 )
 (property  0 string "viewLabel"
-(default "" "")
+(default "0" "")
+(node 1 "1")
+(node 2 "2")
+(node 3 "3")
+(node 4 "4")
+(node 5 "5")
+(node 6 "6")
+(node 7 "7")
+(node 8 "8")
+(node 9 "9")
 )
 (property  0 color "viewLabelColor"
 (default "(0,0,0,255)" "(0,0,0,255)")
@@ -137,7 +168,7 @@
 (string "scene" "<?xml version=\"1.0\"?>
 <scene>
   <data>
-    <viewport>(0,0,556,448)</viewport>
+    <viewport>(0,0,556,459)</viewport>
     <background>(255,255,255,255)</background>
   </data>
   <children>
@@ -151,6 +182,8 @@
             <zoomFactor>1</zoomFactor>
             <sceneRadius>17.3205</sceneRadius>
             <d3>0</d3>
+            <sceneBoundingBox0>(0,0,0)</sceneBoundingBox0>
+            <sceneBoundingBox1>(0,0,0)</sceneBoundingBox1>
           </data>
         </camera>
         <visible>0</visible>
@@ -179,8 +212,8 @@
       <data>
         <camera>
           <data>
-            <center>(0,0,0)</center>
-            <eyes>(0,0,17.3205)</eyes>
+            <center>(1.16979,-0.452823,0)</center>
+            <eyes>(1.16979,-0.452823,17.3205)</eyes>
             <up>(0,1,0)</up>
             <zoomFactor>1</zoomFactor>
             <sceneRadius>17.3205</sceneRadius>
@@ -255,7 +288,7 @@
 (int "x" -4)
 (int "y" -24)
 (int "width" 564)
-(int "height" 476)
+(int "height" 487)
 (bool "maximized" true)
 )
 )

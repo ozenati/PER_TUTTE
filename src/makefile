@@ -19,6 +19,8 @@ OBJDEP= MyNode.o toolkit.o tutte_parallel_asynchrone.o separator.o
 
 all: $(EXE)
 
+tutte_parallel_asynchrone.o:tutte_parallel_asynchrone.cpp
+	$(CC) -c -fopenmp  `tulip-config --cxxflags` $(IFLAGS) tutte_parallel_asynchrone.cpp
 %o: %c
 
 $(EXE): $(OBJ) $(OBJDEP) 
