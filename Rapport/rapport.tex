@@ -70,8 +70,9 @@ frameround=fttt;%
 %%%% Page de titre %%%%
 \input{src/title}
 
-%%%%% notice analystique %%%%
-%\input{src/noticeAnalytique}
+%%%% remerciement %%%%%%%
+\input{src/remerciement}
+\addcontentsline{toc}{chapter}{Thanks}
 
 %%%%% terminologie %%%%%%%%%%
 \input{src/terminologie}
@@ -86,34 +87,58 @@ frameround=fttt;%
 \listoffigures
 %\listoftables
 
-%%%% remerciement %%%%%%%
-\input{src/remerciement}
-\addcontentsline{toc}{chapter}{Thanks}
+
 
 %%%%% corps du rapport %%%%%%%%%
 \input{src/introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
-<<<<<<< HEAD
 \input{src/graph_coloring}
 =======
-\part{The context}
-\chapter{The subject}
+\chapter{The context}
 
-\part{The algorithms}
+%\input{src/context}
+
+\chapter{Initialisation}
+
+\section{Grid Presentation}
+%it is asked here to talk about the situation of the graph is before we start the implementation: how do we manage to have the graph
+
+\section{Tutte Algorithm}
+%It is asked here to talk briefly about the algorithm we are going to use in the project: how it works (hope you see what I mean) 
 \input{src/tutte}
 
-\input{src/graph_coloring.tex}
 
-\part{Implementations}
-%il faut que nous justifions le choix du langage etc 
-\chapter{The data structure}
+
+
+\chapter{Implementations Issues}
+
+\section{Naive implementation}
+
+\subsection{Data Structure}
+%here sould be presented the first data structure used
+\subsection{Tutte Algorithm}
+%here should be the implementation of Tutte with basic structure 
+\section{First Optimization}
+%in this first optimization Frozar you are suggested to put the improvement due to the new data structure you took
+\section{Second Optimization}
+%in this optimization Frozar you are suggested to talk about results with openMP
+\section{third Optimization}
+%in this optimization Ozenati you are suggested to talk about the asynchronous implementation (if faster than the others) with graph coloration
 \input{src/dataStructure}
->>>>>>> 07c4abb5c95da50894a550394c0a2318e543d135
+\input{src/graph_coloring}
+
+\chapter{Level of reduction}
+
+\section{Improvements of our implementation}
+%somebody is suggested to talk about limits of Tutte algorithm on some cases of grid and why our implementation is better than what we had at the beginning
+\section{Results on graphs}
+%compare Benchmarks on the graphs given and the different implementations and improvements 
+
 
 \addcontentsline{toc}{chapter}{Conclusion}
 \input{src/conclusion}
-
+%I suggest here to talk about what can be do in the future (there is a quite start of this in my context written in Wiki) 
 \input{src/bibliographie}
 
 %%%%%% Liste des annexes %%%%%%%%%%
