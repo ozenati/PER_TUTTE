@@ -7,7 +7,7 @@
 
 CC= g++
 IFLAGS= -I../include/
-CXXFLAGS=-W -Wall -g $(IFLAGS)
+CXXFLAGS=-W -Wall -g $(IFLAGS) -fopenmp
 LDFLAGS= -ldl
 TULIP_CONFIG=`tulip-config --libs --cxxflags`
 

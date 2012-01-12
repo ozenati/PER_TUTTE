@@ -35,20 +35,20 @@ int main(int argc, char * argv[])  {
 
   vector<vector<MyNode *> *> *vectors = separateMap2Vectors(all_nodes);
 
-  int i;
-  vector<vector<MyNode *> *>::iterator it;
-  for (it=vectors->begin(), i = 0 ; it < vectors->end(); it++, i++)
-    {
-      cout << "Ensemble " << i << " contient:" << endl;
-      cout << "{";
-      vector<MyNode *>::iterator it2 = (*it)->begin();
-      for (it2=(*it)->begin(); it2 < (*it)->end(); it2++)
-	{
-	  MyNode *n = *it2;
-	  cout << n->getNode().id << " ";
-	}
-      cout << "}" << endl; 
-    }
+  // int i;
+  // vector<vector<MyNode *> *>::iterator it;
+  // for (it=vectors->begin(), i = 0 ; it < vectors->end(); it++, i++)
+  //   {
+  //     cout << "Ensemble " << i << " contient:" << endl;
+  //     cout << "{";
+  //     vector<MyNode *>::iterator it2 = (*it)->begin();
+  //     for (it2=(*it)->begin(); it2 < (*it)->end(); it2++)
+  // 	{
+  // 	  MyNode *n = *it2;
+  // 	  cout << n->getNode().id << " ";
+  // 	}
+  //     cout << "}" << endl; 
+  //   }
 
   struct timeval timeBegin, timeEnd;
   gettimeofday(&timeBegin, NULL);

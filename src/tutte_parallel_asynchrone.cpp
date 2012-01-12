@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <cstdio>
 #include <iostream>
 #include <cmath>
 #include <tulip/Graph.h>
@@ -6,20 +6,21 @@
 #include "MyNode.h"
 #include "tutte.h"
 
-#include "omp.h"
+#include <omp.h>
 
 #define max(x, y)   x>y?x:y
 
 void tutte_parallel_asynchrone(vector<vector<MyNode *> *> *vectors, double eps) { 
   double global_eps = 0;
   uint nbIter = 0;
+  vector<MyNode *> * current_voisin;
+  vector<vector<MyNode *> *>::iterator it;
+
   do 
     {
       global_eps = 0;
-      vector<MyNode *> * current_voisin;
       cout << "Iteration " << nbIter << endl;
       // Pour tout ensemble de noeuds
-      vector<vector<MyNode *> *>::iterator it;
       for (it=vectors->begin(); it < vectors->end(); it++)
 	{
 	  // Selection de l'ensemble courant;
@@ -27,6 +28,7 @@ void tutte_parallel_asynchrone(vector<vector<MyNode *> *> *vectors, double eps) 
 
 #pragma omp parallel
 	  {
+	    fprintf(stderr, "1 passe : nbIter : %d\n", nbIter);
 	    double my_eps = global_eps;
 #pragma omp for
 	    // Pour chaque noeud de l'ensemble courant
@@ -55,10 +57,11 @@ void tutte_parallel_asynchrone(vector<vector<MyNode *> *> *vectors, double eps) 
 		      }
 		    // On MAJ les coordonnées du noeud courant
 		    current_n->setCoord(Coord(resX/degre, resY/degre, 0));
-		    cout << current_n->getNode().id << " " << current_n->getCoord() << endl;
+		    //cout << current_n->getNode().id << " " << current_n->getCoord() << endl;
 		    // On MAJ l'epsilon
 		    my_eps = max(my_eps, sqrt(pow(lastX - resX/degre,2) + pow(lastY - resY/degre,2)));
 		  }
+		fprintf(stderr, "2 passe : nbIter : %d\n", nbIter);
 	      } // fin de la boucle sur les noeuds de l'ensemble courant
 	    if (my_eps>global_eps) 
 	      {
@@ -72,6 +75,7 @@ void tutte_parallel_asynchrone(vector<vector<MyNode *> *> *vectors, double eps) 
       nbIter++;
     }
   while (global_eps > eps);
+
 
   cout << "GLOBAL epsilon : " << global_eps << endl;
   cout << "TOTAL itération : " << nbIter << endl;

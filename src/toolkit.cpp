@@ -315,3 +315,67 @@ void tutte_2(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods,
   cout << endl;
 }
 
+void tutte_2_openmpDirty(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods, 
+		    vector<Vec2f> * coords, double eps) {
+  double current_eps = 0;
+  uint nbIter = 0, i;
+  int tid;
+
+  // Pour éviter les mauvais comportements, copier les positions du tour précédent pour faire les calculs
+  // du tour actuel : comportement synchrone
+
+  do {
+    current_eps = 0;
+#pragma omp parallel shared(nbIter, current_eps) private(i, tid)
+    {
+      tid = omp_get_thread_num();
+      // if (tid == 0) {
+      //   cout << "tid : " << tid << " nbIter : " << nbIter << " current_eps : " << current_eps << endl; 
+      // }
+      // Pour chaque noeud du graphe
+#pragma omp for schedule(static)
+      for(i = 0; i < MyNodes_2->size(); i++) {
+	//cout << "Number of threads = " << omp_get_num_threads() << endl;
+	  
+	MyNode_ver2 * current_n = &(* MyNodes_2)[i];
+	  
+	// On ne considére que les noeuds mobiles
+	if (current_n->mobile) {
+
+	  float lastX = (* coords)[i][0];
+	  float lastY = (* coords)[i][1];
+	    
+	  float resX=0, resY=0;
+	  int index_neigh = 0;
+	  for(int j = 0; j < current_n->degre; j++) {
+	    index_neigh = (* Neighbourhoods)[current_n->index_neighbourhood + j];
+	    // #pragma omp critical
+	    // 	    {
+	    resX += (* coords)[index_neigh][0];
+	    resY += (* coords)[index_neigh][1];
+	    // }
+	  }
+	  (* coords)[i][0] = resX/current_n->degre;
+	  (* coords)[i][1] = resY/current_n->degre;
+	    
+	  // On MAJ l'epsilon par rapport à X et Y
+#pragma omp critical
+	  {
+	    current_eps = max(current_eps, abs(lastX - (* coords)[i][0]) );
+	    current_eps = max(current_eps, abs(lastY - (* coords)[i][1]) );
+	  }
+	}
+
+      } // fin du for(uint i = 0; i < MyNodes->size(); i++)
+    }
+#pragma omp atomic
+    nbIter++;
+  }
+  while (current_eps > eps);
+    
+  cout << endl;
+  cout << "GLOBAL epsilon : " << current_eps << endl;
+  cout << "TOTAL itération : " << nbIter << endl;
+  cout << endl;
+}
+
