@@ -14,7 +14,6 @@ using namespace tlp;
 
 class Data {
  public:
-  int id;
   node n;
   Coord coord;
   bool mobile;

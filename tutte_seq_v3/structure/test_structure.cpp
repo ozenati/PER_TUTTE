@@ -30,7 +30,7 @@ void test_getMappedGraph(Graph * graph) {
   // On récupére la propriété viewLayout
   LayoutProperty *layout=graph->getLocalProperty<LayoutProperty>("viewLayout");
 
-  // Récupérer tous les noeuds du graph dans une map de MyNode
+  // Récupérer tous les noeuds du graph dans MyGraph
   map<node, int> AllNodes;
   MyGraph my_graph;
   
@@ -39,7 +39,6 @@ void test_getMappedGraph(Graph * graph) {
   while(itN->hasNext()) {
     Data d;
     d.n = itN->next();
-    d.id = i;
     AllNodes[d.n] = i;
     d.coord = layout->getNodeValue(d.n);
     my_graph.datas.push_back(d);

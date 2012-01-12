@@ -31,7 +31,7 @@ std::ostream& operator<<(std::ostream &os, const MyGraph &my_g) {
   os << endl << "Datas -> size = " << size_d << endl;
   for(uint i = 0; i < size_d; i++) {
     Data d = datas[i];
-    os << "id : " << d.id 
+    os << "id : " << i 
        << " node : " << d.n 
        << " coord : " << d.coord << endl;
   }
