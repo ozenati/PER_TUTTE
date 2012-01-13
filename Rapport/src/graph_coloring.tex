@@ -1,5 +1,4 @@
-\section{Tutte parallel asynchrone algorithm}
-\subsection{Distribution of nodes: Graph coloring}
+\subsubsection{Distribution of nodes: Graph coloring}
 In order to implement a parallel asynchronous version of Tutte algorithm, it is necessary to separate graph nodes into different sets. The objectif is to extract an independance between nodes. In fact, each node have to move while maintaining neighbors positions. Thus, the independance must be between node and his neighbors. This problem is similar to the famous problem of graph colorating.
 \paragraph*{}
 The objectif of the modified Tutte algorithm is to handle graph of thousands nodes. To separate such a number of nodes, it is more performant to use a heuristic of the algorithm of graph coloring.\\
@@ -21,7 +20,7 @@ While Y is not empty
    color ++
 End while
 \end{verbatim}
-\subsection{Applying Tutte algorithm to sets}
+\subsubsection{Applying Tutte algorithm to sets}
 Once a sets of nodes is obteined, it is possible to apply a parallel Tutte algorithm. The question is how to parallelize it on sets of nodes. The natural idea is to attribute one sets per thread :
 \begin{figure}[!h]
 \centering

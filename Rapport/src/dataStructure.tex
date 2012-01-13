@@ -5,13 +5,24 @@ As a format tulip contains a lot of informations so it costs a lot to manipulate
 \begin{enumerate}
 \item The fact that a given node is fixed or not is indicated firsly by a mobility property. However there is anover property incating nodes wich are part of graph contouring and these nodes need to be fixed too. So to deal with the fact that a given node is fixed or not we need to manipulate two properties that cost a lot.
 
-\item The data structure in a tulip graph ...
+\item In tulip format there is an hierarchy of graphs or we only need
+  the parent of the graph, the one which is not subgraph of another
+  one. we do not need the sub-graph relation between graphs.
+
+\item 
 
 \end{enumerate}  
 
 \subsection{First implementation}
-In order to avoid memory leak and implemente easily the Tutte's algorithme, we merely stock in our sttructure only the informations needed to run the algorithm. We implemented our structure so that one can easily access the neighbourhood of a given node for it is very crucial in a Tutte'algorithm. To do this we define a class that contains diferent informations needed on a given node (the attibuts) and all the operations we need to run on a node (the methods).
+In order to avoid memory leak and implemente easily the Tutte's
+algorithme, we merely stock in our sttructure only the informations
+needed to run the algorithm. We implemented our structure so that one
+can easily access the neighbourhood of a given node for it is very
+crucial in a Tutte'algorithm. To do this we define a class that
+contains diferent informations needed on a given node (the attibuts)
+and all the operations we need to run on a node (the methods).
 
+\newpage
 \begin{lstlisting}
 class MyNode {
  private:
