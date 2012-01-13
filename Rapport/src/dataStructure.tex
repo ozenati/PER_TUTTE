@@ -1,17 +1,16 @@
-Dans l'implémention de l'algorithme nous avons défini notre propre structure de données sur laquelle nous avons deroulé l'algorithme. Des moules nous permettent de passer d'un graphe tulip à notre structure et aussi de recuperer des informations de notre structure pour les insérer dans un graphe tulip de sorte à ce que notre structure soit uns structure temporaire de stockage d'informations sur les noeuds d'un graphe passé en paramètre de notre programme. 
+In the implementation of our sulution we have defined our own data structure on which we excute the Tutte's algorithm. We have implemented some mechanisms to convert a tulip format graph to our own graph structure and also to get informations from our structure inserted in a tulip format graph. In other words our structure is a temporary structure for storing informations about nodes in order to execute the Tutte's algorithm.
 
-\section{Aim}
-Il est très couteux de manipuler les graphes tulip et surtout nous n'avons pas besoin de toutes les propriétés des noeuds pour le déroulement de l'algo de tute. En plus il fallait une structure légère et adaptée à l'algorithme de tutte danas la mesure où nous sommes en quête de performance. Ci-dessous quelques raisons qui nous ont conduit à la mise en place d'une nouvelle structure de données.
+\subsection{Aim}
+As a format tulip contains a lot of informations so it costs a lot to manipulate them and so far away we do not need all the informations about a given tulip graph. To point out we especially do not need all the properties about nodes to conduct the Tutte's algorithm.For intance, for a given node we just want to know if it is fixed for a fixed node's position nevers changes during the tutte's algorithme. In addition of that, as we are looking for performance, we need a light and adapted structure to the principe of Tutte's algorithm. Below are some of criterias which make us thought we need a new data structure.
 \begin{enumerate}
-\item La propriétés nous nous avons seulement bésoin de savoir si un sommet est au bord pour le considérer comme fixe pendant le déroulement de l'alo de tutte.
-\item
-\item
-\item
+\item The fact that a given node is fixed or not is indicated firsly by a mobility property. However there is anover property incating nodes wich are part of graph contouring and these nodes need to be fixed too. So to deal with the fact that a given node is fixed or not we need to manipulate two properties that cost a lot.
+
+\item The data structure in a tulip graph ...
+
 \end{enumerate}  
 
-\section{Structure's contents}
-
-Dans l'implémentation de notre structure pour éviter les charges en mémoire et faciliter sa anipuler l'information la plus minimale possible pour l'exécution de l'algorithme de tutte sur un graphe. Pour ce faire nous définissons une classe qui va contenir les diifértentes dont nous avons bésoins sur un noeud (les attibuts) et toutes les opérations dont nous aurons bésoin d'effectuer sur un noeud(les méthodes).
+\subsection{First implementation}
+In order to avoid memory leak and implemente easily the Tutte's algorithme, we merely stock in our sttructure only the informations needed to run the algorithm. We implemented our structure so that one can easily access the neighbourhood of a given node for it is very crucial in a Tutte'algorithm. To do this we define a class that contains diferent informations needed on a given node (the attibuts) and all the operations we need to run on a node (the methods).
 
 \begin{lstlisting}
 class MyNode {
@@ -37,7 +36,9 @@ class MyNode {
 };
 \end{lstlisting}
 
-\subsection{The vertex's attributs needed}
+\subsubsection{The vertex's attributs needed}
 
 
-\subsection{The operations on a vertex}
+\subsubsection{The operations on a vertex}
+
+\subsection{Enhanced implementation}
