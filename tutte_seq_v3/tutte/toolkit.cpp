@@ -4,18 +4,15 @@
 
 #define max(x, y)   ((x)>(y))?(x):(y)
 void convertGraph2MyGraph(Graph * grille, MyGraph * my_graph) {
-
   Graph * graph = grille->getSuperGraph();
 
   // On récupére la propriété pour les coordonnées (layout) et pour fixer les noeuds
   LayoutProperty *layout=graph->getLocalProperty<LayoutProperty>("viewLayout");
-cout << "ok! in convert *layout*" << endl; 
  BooleanProperty * fixed=graph->getProperty<BooleanProperty>("fixed nodes");
  BooleanProperty * bordure=graph->getProperty<BooleanProperty>("viewSelection");
 
   // Récupérer tous les noeuds du graph dans une map de MyNode
   map<node, int> AllNodes;
- cout << "ok! in convert *iterator*" << endl; 
   Iterator<node> *itN = graph->getNodes();
   int i = 0;
   while(itN->hasNext()) {
@@ -61,7 +58,7 @@ void tutte(MyGraph *my_g, double eps){
     vector<vector<int >*> matrix = (*my_g).matrix; 
     uint size = matrix.size();
     vector<Data> datas = (*my_g).datas; 
-    
+    cout << "ok ici! do" << endl;
     for(uint i = 0; i < size; i++) {
       Data current_d = datas[i];
       vector<int> voisins;
@@ -82,6 +79,7 @@ void tutte(MyGraph *my_g, double eps){
 	  resX += x;
 	  resY += y;
 	}
+	cout << "ok ici yep ! " << size  << endl;
 	// On MAJ les coordonnées du noeud courant
 	x = resX/degre;
 	y = resY/degre;
