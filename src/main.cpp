@@ -2,7 +2,7 @@
 
 #include <sys/time.h>
 
-#include "MyNode.h"
+#include "myNode.h"
 #include "toolkit.h"
 #include <cstdio>
 
@@ -109,9 +109,9 @@ int main(int argc, char * argv[])  {
   // Récupérer la grille sur laquelle il faut appliquer l'algo de Tutte
   tlp::Graph *grille = graph->getSubGraph(2);
 
-  //tutte_seq(graph, grille, argv[2]);
+  tutte_seq(graph, grille, argv[2]);
   //tutte_seq_2(graph, grille, argv[2]);
-  tutte_seq_2_openmpDirty(graph, grille, argv[2]);
+  //tutte_seq_2_openmpDirty(graph, grille, argv[2]);
   
   delete graph;
 

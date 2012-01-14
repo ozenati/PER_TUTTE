@@ -3,7 +3,8 @@
 #include <tulip/GlyphManager.h>
 #include <tulip/LayoutProperty.h>
 #include <map>
-#include "MyNode.h"
+
+#include "myNode.h"
 #include "separator.h"
 
 using namespace std;

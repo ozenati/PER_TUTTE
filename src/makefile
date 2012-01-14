@@ -15,7 +15,7 @@ SRC= main.cpp tutter.cpp
 OBJ= $(SRC:.cpp=.o)
 EXE= $(OBJ:.o=)
 
-OBJDEP= MyNode.o toolkit.o tutte_parallel_asynchrone.o separator.o
+OBJDEP= myNode.o toolkit.o tutte_parallel_asynchrone.o separator.o
 
 all: $(EXE)
 
@@ -25,9 +25,6 @@ tutte_parallel_asynchrone.o:tutte_parallel_asynchrone.cpp
 
 $(EXE): $(OBJ) $(OBJDEP) 
 	$(CC) $(CXXFLAGS) $(IFLAGS) $(OBJDEP) $@.o $(TULIP_CONFIG) $(LDFLAGS) -fopenmp -o $@
-
-# MyNode.o: MyNode.cpp
-# 	$(CC) -g -c $(IFLAGS) MyNode.cpp
 
 clean:
 	rm -f *.o $(EXE)

@@ -368,7 +368,7 @@ void tutte_2_openmpDirty(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbou
 
       } // fin du for(uint i = 0; i < MyNodes->size(); i++)
     }
-#pragma omp atomic
+    //#pragma omp atomic
     nbIter++;
   }
   while (current_eps > eps);

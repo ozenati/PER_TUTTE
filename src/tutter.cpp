@@ -5,7 +5,7 @@
 
 #include <sys/time.h>
 
-#include "MyNode.h"
+#include "myNode.h"
 #include "separator.h"
 #include <tutte.h>
 

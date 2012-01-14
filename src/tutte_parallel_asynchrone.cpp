@@ -3,7 +3,8 @@
 #include <cmath>
 #include <tulip/Graph.h>
 #include <tulip/Vector.h>
-#include "MyNode.h"
+
+#include "myNode.h"
 #include "tutte.h"
 
 #include <omp.h>
