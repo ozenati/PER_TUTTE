@@ -95,8 +95,16 @@ void tutte_seq_2_openmpDirty(Graph * graph, Graph * grille, char * filename_out)
 }
 
 int main(int argc, char * argv[])  {
-  if (argc != 3) {
-    cout << "Usage : "<< argv[0] << " <graphe_file_in> <graphe_filename_out>" << endl;
+  if (strcmp(argv[1], "-l") == 0) {
+    cout << "  ==  Tutte versions   ==  " << endl;
+    cout << "0 : sequential tutte" << endl;
+    cout << "1 : sequential tutte version 2" << endl;
+    cout << "2 : openMP tutte version Dirty" << endl;
+    exit(EXIT_SUCCESS);
+  }
+
+  if (argc != 4) {
+    cout << "Usage : "<< argv[0] << " <graphe_file_in> <tutte_version> <graphe_filename_out>" << endl;
     exit(1);
   }
 
@@ -105,13 +113,27 @@ int main(int argc, char * argv[])  {
 
   // Lecture d'un graphe d'entré
   tlp::Graph* graph = tlp::loadGraph(argv[1]);
-
+  
   // Récupérer la grille sur laquelle il faut appliquer l'algo de Tutte
+  // Il faut que la grille sur laquelle on doit appliquer l'algorithme ait l'indentifiant 2
   tlp::Graph *grille = graph->getSubGraph(2);
 
-  tutte_seq(graph, grille, argv[2]);
-  //tutte_seq_2(graph, grille, argv[2]);
-  //tutte_seq_2_openmpDirty(graph, grille, argv[2]);
+  int tutte_version = atoi(argv[2]);
+
+  char * filename_output = argv[3];
+  switch(tutte_version) {
+  case 0:
+    tutte_seq(graph, grille, filename_output);
+    break;
+  case 1:
+    tutte_seq_2(graph, grille, filename_output);
+    break;
+  case 2:
+    tutte_seq_2_openmpDirty(graph, grille, filename_output);
+    break;
+  default:
+    cout << "The tutte_version must in 0..2" << endl;
+  }
   
   delete graph;
 
