@@ -10,13 +10,9 @@ void convertGraph2MyGraph(Graph * grille, MyGraph * my_graph) {
 
   // On récupére la propriété pour les coordonnées (layout) et pour fixer les noeuds
   LayoutProperty *layout=graph->getLocalProperty<LayoutProperty>("viewLayout");
-<<<<<<< HEAD
+
   BooleanProperty * fixed=graph->getProperty<BooleanProperty>("fixed nodes");
   BooleanProperty * bordure=graph->getProperty<BooleanProperty>("viewSelection");
-=======
- BooleanProperty * fixed=graph->getProperty<BooleanProperty>("fixed nodes");
- BooleanProperty * bordure=graph->getProperty<BooleanProperty>("viewSelection");
->>>>>>> c1ac84856b5b3264b6a795fb65c98f2e613e40cf
 
   // Récupérer tous les noeuds du graph dans une map de MyNode
   map<node, int> AllNodes;
