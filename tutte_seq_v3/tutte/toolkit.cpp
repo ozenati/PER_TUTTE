@@ -57,44 +57,36 @@ void tutte(MyGraph *my_g, double eps){
   do {
     current_eps = 0;
 
-    // Pour chaque noeud du graphe
-    vector<vector<int >*> * matrix = &((*my_g).matrix); 
-    uint size = matrix->size();
-    vector<Data> datas = (*my_g).datas; 
-    cout << "ok ici! do" << endl;
-    for(uint i = 0; i < size; i++) {
-      Data * current_d = &datas[i];
-      vector<int> * voisins;
+    // Pour chaque noeud du graphe 
+    uint size = (*my_g).matrix.size(); 
+    for(uint i = 0; i < size; ++i) {
       // On ne considére que les noeuds mobiles
-      if (current_d->mobile) {
+      if ((*my_g).datas[i].mobile) {
 	// On récupère le voisinage et le position courante en X
-	voisins = ((*matrix)[i]);
-	float lastX = current_d->coord.getX();
-	float lastY = current_d->coord.getY();
+	float lastX = (*my_g).datas[i].coord.getX();
+	float lastY = (*my_g).datas[i].coord.getY();
       
 	// On calcul le barycentre de ce voisinage
 	// On ne considère pas la troisième coordonnée
-	uint degre = (*voisins).size();
+	uint degre = (*((*my_g).matrix)[i]).size();
 	float resX=0, resY=0;
 	float x, y, z;
 	for(uint j = 0; j < degre; j++) {
-	  datas[(*voisins)[j]].coord.get(x, y, z);
+	  (*my_g).datas[(*(my_g->matrix[i]))[j]].coord.get(x, y, z);
 	  resX += x;
 	  resY += y;
 	}
-	cout << "ok ici yep ! " << size  << endl;
 	// On MAJ les coordonnées du noeud courant
 	x = resX/degre;
 	y = resY/degre;
-	current_d->coord = Coord(x, y, 0);
-	
+	(*my_g).datas[i].coord = Coord(x, y, 0);
+
 	// On MAJ l'epsilon
 	x = abs(lastX - x);
 	y = abs(lastY - y);
 	current_eps = max (current_eps, max(x,y));
       }
     } // fin du for(uint i = 0; i < MyNodes->size(); i++)
-    cout << eps << "\t" << current_eps << endl;
     nbIter++;
   }
   while (eps < current_eps);
