@@ -4,7 +4,7 @@
 
 #include "myNode.h"
 #include "toolkit.h"
-#include <cstdio>
+#include "tutte.h"
 
 #include <omp.h>
 
@@ -44,14 +44,43 @@ void tutte_seq_2(Graph * graph, Graph * grille, char * filename_out) {
   vector<int> Neighbourhoods;           // contient l'indice de tous les noeuds du voisinage de chaque noeud
   vector<Vec2f> coords;                      // contient les coordonnées de chaque noeud
 
+  struct timeval timeBegin, timeEnd;
+  gettimeofday(&timeBegin, NULL);
+
   // On récupére les noeuds de la grille dans nos vecteur
   convertGraph2Vector_ver2(grille, &MyNodes_2, &Neighbourhoods, &coords);
+
+  // On applique tutte sur notre structure de noeud
+  tutte_2(&MyNodes_2, &Neighbourhoods, &coords, 1e-6);
+
+  // On récupére les déplacement dans notre grille
+  convertVector_ver2_2Graph(&MyNodes_2, &coords, grille);
+
+  gettimeofday(&timeEnd, NULL);
+  double res = timeEnd.tv_sec - timeBegin.tv_sec + (double)(timeEnd.tv_usec - timeBegin.tv_usec)/1e6;
+
+  cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
+
+ // On sauvegarde le graphe complet avec la grille modifiée
+  tlp::saveGraph(graph, filename_out);
+}
+
+void tutte_seq_2_bis(Graph * graph, Graph * grille, char * filename_out) {
+  (void)graph;
+  (void)filename_out;
+  
+  vector<MyNode_ver2> MyNodes_2;   // contient l'ensemble des noeuds
+  vector<int> Neighbourhoods;           // contient l'indice de tous les noeuds du voisinage de chaque noeud
+  vector<Vec2f> coords;                      // contient les coordonnées de chaque noeud
 
   struct timeval timeBegin, timeEnd;
   gettimeofday(&timeBegin, NULL);
 
+  // On récupére les noeuds de la grille dans nos vecteur
+  convertGraph2Vector_ver2(grille, &MyNodes_2, &Neighbourhoods, &coords);
+
   // On applique tutte sur notre structure de noeud
-  tutte_2(&MyNodes_2, &Neighbourhoods, &coords, 1e-6);
+  tutte_2_bis(&MyNodes_2, &Neighbourhoods, &coords, 1e-6);
 
   // On récupére les déplacement dans notre grille
   convertVector_ver2_2Graph(&MyNodes_2, &coords, grille);
@@ -73,11 +102,11 @@ void tutte_seq_2_openmpDirty(Graph * graph, Graph * grille, char * filename_out)
   vector<int> Neighbourhoods;           // contient l'indice de tous les noeuds du voisinage de chaque noeud
   vector<Vec2f> coords;                      // contient les coordonnées de chaque noeud
 
-  // On récupére les noeuds de la grille dans nos vecteur
-  convertGraph2Vector_ver2(grille, &MyNodes_2, &Neighbourhoods, &coords);
-
   struct timeval timeBegin, timeEnd;
   gettimeofday(&timeBegin, NULL);
+
+  // On récupére les noeuds de la grille dans nos vecteur
+  convertGraph2Vector_ver2(grille, &MyNodes_2, &Neighbourhoods, &coords);
 
   // On applique tutte sur notre structure de noeud
   tutte_2_openmpDirty(&MyNodes_2, &Neighbourhoods, &coords, 1e-6);
@@ -92,6 +121,7 @@ void tutte_seq_2_openmpDirty(Graph * graph, Graph * grille, char * filename_out)
 
  // On sauvegarde le graphe complet avec la grille modifiée
   tlp::saveGraph(graph, filename_out);
+  cerr << "passe" << endl;
 }
 
 int main(int argc, char * argv[])  {
@@ -99,7 +129,8 @@ int main(int argc, char * argv[])  {
     cout << "  ==  Tutte versions   ==  " << endl;
     cout << "0 : sequential tutte" << endl;
     cout << "1 : sequential tutte version 2" << endl;
-    cout << "2 : openMP tutte version Dirty" << endl;
+    cout << "2 : sequential tutte version 2 bis (Vec2f)" << endl;
+    cout << "3 : openMP tutte version Dirty" << endl;
     exit(EXIT_SUCCESS);
   }
 
@@ -129,10 +160,13 @@ int main(int argc, char * argv[])  {
     tutte_seq_2(graph, grille, filename_output);
     break;
   case 2:
+    tutte_seq_2_bis(graph, grille, filename_output);
+    break;
+  case 3:
     tutte_seq_2_openmpDirty(graph, grille, filename_output);
     break;
   default:
-    cout << "The tutte_version must in 0..2" << endl;
+    cout << "The tutte_version must in 0..3" << endl;
   }
   
   delete graph;

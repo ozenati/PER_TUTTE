@@ -210,6 +210,7 @@ void convertVector_ver2_2Graph(vector<MyNode_ver2> * MyNodes_2, vector<Vec2f> * 
   }
 }
 
+// TUTTE VERSION 1
 void tutte(vector<MyNode> * MyNodes, double eps) { 
   double current_eps = 0;
   uint nbIter = 0;
@@ -261,80 +262,30 @@ void tutte(vector<MyNode> * MyNodes, double eps) {
   cout << endl;
 }
 
-
-void tutte_2(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods, 
-	     vector<Vec2f> * coords, double eps) {
-  double current_eps = 0;
-  uint nbIter = 0;
-
-  do {
-    current_eps = 0;
-   
-    // Pour chaque noeud du graphe
-    for(uint i = 0; i < MyNodes_2->size(); i++) {
-
-      MyNode_ver2 * current_n = &(* MyNodes_2)[i];
-
-      // On ne considére que les noeuds mobiles
-      if (current_n->mobile) {
-
-	float lastX = (* coords)[i][0];
-	float lastY = (* coords)[i][1];
-
-	// if (i == 1) {
-	//   cout   << "id : " << i
-	// 	 << " id_reel : " << current_n->n
-	// 	 << "  <" << (* coords)[i][0] << ", " << (* coords)[i][1] << ">" << endl;
-	// }
-
-	float resX=0, resY=0;
-	int index_neigh = 0;
-	for(int j = 0; j < current_n->degre; j++) {
-	  index_neigh = (* Neighbourhoods)[current_n->index_neighbourhood + j];
-	  resX += (* coords)[index_neigh][0];
-	  resY += (* coords)[index_neigh][1];
-	}
-	(* coords)[i][0] = resX/current_n->degre;
-	(* coords)[i][1] = resY/current_n->degre;
-
-	// On MAJ l'epsilon par rapport à X et Y
-	current_eps = max(current_eps, abs(lastX - (* coords)[i][0]) );
-	current_eps = max(current_eps, abs(lastY - (* coords)[i][1]) );
-      }
-    } // fin du for(uint i = 0; i < MyNodes->size(); i++)
-
-    nbIter++;
-    // cout << "nbIter : " << nbIter << endl;
-    // cout << "epsilon courant : " << current_eps << endl;
-  }
-  while (current_eps > eps);
-
-  cout << endl;
-  cout << "GLOBAL epsilon : " << current_eps << endl;
-  cout << "TOTAL itération : " << nbIter << endl;
-  cout << endl;
-}
-
+// TUTTE VERSION 2 parallèle : à réparer
 void tutte_2_openmpDirty(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods, 
 		    vector<Vec2f> * coords, double eps) {
   double current_eps = 0;
   uint nbIter = 0, i;
-  int tid;
+  // int tid;
 
   // Pour éviter les mauvais comportements, copier les positions du tour précédent pour faire les calculs
   // du tour actuel : comportement synchrone
+  
+  vector<Vec2f> newCoords (*coords);
+  uint size = MyNodes_2->size();
 
   do {
     current_eps = 0;
-#pragma omp parallel shared(nbIter, current_eps) private(i, tid)
+#pragma omp parallel shared(newCoords, coords, current_eps) private(i)
     {
-      tid = omp_get_thread_num();
+      //tid = omp_get_thread_num();
       // if (tid == 0) {
       //   cout << "tid : " << tid << " nbIter : " << nbIter << " current_eps : " << current_eps << endl; 
       // }
-      // Pour chaque noeud du graphe
 #pragma omp for schedule(static)
-      for(i = 0; i < MyNodes_2->size(); i++) {
+      // Pour chaque noeud du graphe
+      for(i = 0; i < size; ++i) {
 	//cout << "Number of threads = " << omp_get_num_threads() << endl;
 	  
 	MyNode_ver2 * current_n = &(* MyNodes_2)[i];
@@ -347,26 +298,38 @@ void tutte_2_openmpDirty(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbou
 	    
 	  float resX=0, resY=0;
 	  int index_neigh = 0;
-	  for(int j = 0; j < current_n->degre; j++) {
-	    index_neigh = (* Neighbourhoods)[current_n->index_neighbourhood + j];
-	    // #pragma omp critical
-	    // 	    {
+	  int * p_neigh = &((* Neighbourhoods)[current_n->index_neighbourhood]);
+	  int degre = current_n->degre;
+	  for(int j = 0; j < degre; ++j, ++p_neigh) {
+	    index_neigh = *p_neigh;
 	    resX += (* coords)[index_neigh][0];
 	    resY += (* coords)[index_neigh][1];
-	    // }
 	  }
-	  (* coords)[i][0] = resX/current_n->degre;
-	  (* coords)[i][1] = resY/current_n->degre;
+	  
+	  // (* coords)[i][0] = resX/current_n->degre;
+	  // (* coords)[i][1] = resY/current_n->degre;	  
+
+	  // cout << "resX   : " << resX/current_n->degre 
+	  //      << "\nres[0] : " << res[0] 
+	  //      << "\n(* coords)[i][0] : " << (* coords)[i][0]
+	  //      << endl;
+
+	  newCoords[i][0] = resX/current_n->degre;
+	  newCoords[i][1] = resY/current_n->degre;
 	    
 	  // On MAJ l'epsilon par rapport à X et Y
 #pragma omp critical
 	  {
-	    current_eps = max(current_eps, abs(lastX - (* coords)[i][0]) );
-	    current_eps = max(current_eps, abs(lastY - (* coords)[i][1]) );
+	    // current_eps = max(current_eps, abs(lastX - (* coords)[i][0]) );
+	    // current_eps = max(current_eps, abs(lastY - (* coords)[i][1]) );
+	    current_eps = max(current_eps, abs(lastX - newCoords[i][0]) );
+	    current_eps = max(current_eps, abs(lastY - newCoords[i][1]) );
 	  }
 	}
 
       } // fin du for(uint i = 0; i < MyNodes->size(); i++)
+
+      newCoords.swap(*coords);
     }
     //#pragma omp atomic
     nbIter++;
