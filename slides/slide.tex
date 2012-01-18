@@ -1,0 +1,62 @@
+\makeatletter\let\ifGm@compatii\relax\makeatother
+\documentclass{beamer}
+\usetheme{Warsaw}
+\useoutertheme{infolines}
+\setbeamertemplate{headline}[default]
+\usepackage{lmodern}
+\usepackage{moreverb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{pifont}
+
+%\setbeamercovered{transparent}
+%\setbeamertemplate{footline}[default]
+%\setbeamertemplate{headline}[split]
+\usepackage[utf8]{inputenc}
+%\usepackage[francais]{babel}
+\usepackage{color}  
+
+\usepackage{multicol}
+
+% input of the tilte
+\input{src/title}
+
+\begin{document}
+
+%%%% Page de titre %%%%
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\begin{frame}{Plan}
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+% ===============
+% Les actions
+% ===============
+
+\AtBeginSection[]{
+  \begin{frame}{Contents}
+  \tableofcontents[currentsection,hideallsubsections]
+  \end{frame}
+}
+
+\AtBeginSubsection[]{
+  \begin{frame}{Contents}
+  \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+% ===============
+% Le plan
+% ===============               
+\section{Introduction}
+\input{src/introduction}
+
+\section{Conclusion}
+\input{src/conclusion}
+\end{document}
