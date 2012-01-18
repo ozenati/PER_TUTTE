@@ -21,6 +21,9 @@ int main(int argc, char * argv[])  {
   
   tlp::Graph* graph = tlp::loadGraph(argv[1]);
 
+  struct timeval timeBegin, timeEnd;
+  //gettimeofday(&timeBegin, NULL);
+
   // Récupérer la grille sur laquelle il faut appliquer l'algo de Tutte
   tlp::Graph *grille = graph->getSubGraph(2);
  
@@ -28,24 +31,21 @@ int main(int argc, char * argv[])  {
   MyGraph my_g;
   convertGraph2MyGraph(grille, &my_g);
 
-  struct timeval timeBegin, timeEnd;
   gettimeofday(&timeBegin, NULL);
 
   // On applique tutte sur notre structure de noeud
   tutte(&my_g, 1e-6);
 
   gettimeofday(&timeEnd, NULL);
-  double res = timeEnd.tv_sec - timeBegin.tv_sec + (double)(timeEnd.tv_usec - timeBegin.tv_usec)/1e6;
-
-  cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
 
   // On récupére les déplacement dans notre grille
   updateGraphByMyGraph(&my_g, grille);
 
-  //gettimeofday(&timeEnd, NULL);
-  //double res = timeEnd.tv_sec - timeBegin.tv_sec + (double)(timeEnd.tv_usec - timeBegin.tv_usec)/1e6;  
+  //  gettimeofday(&timeEnd, NULL);
 
-  //cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
+  double res = timeEnd.tv_sec - timeBegin.tv_sec + (double)(timeEnd.tv_usec - timeBegin.tv_usec)/1e6;  
+
+  cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
 
   // On sauvegarde le graphe complet avec la grille modifiée
   tlp::saveGraph(graph, argv[2]);
