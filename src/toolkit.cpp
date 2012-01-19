@@ -73,17 +73,14 @@ void convertGraph2Vector_ver2(Graph * grille, vector<MyNode_ver2> * MyNodes_2,
   Iterator<node> *itN = grille->getNodes();
   int index_current_node = 0;
   int index_neigh = 0;
-
-  // int id_toprint = 1;
-  // int i = 0;
-  
+    
   // boucle principale : pour tout les noeuds du graphe, faire
   while(itN->hasNext()) {
     node tmp_n = itN->next();
     
     // Si le noeud n'a pas été ajouté au vecteur de MyNodes_ver2
     if (AllNodes.count(tmp_n) == 0) {
-      AllNodes[tmp_n] = index_current_node++;
+      AllNodes[tmp_n] = index_current_node;
 
       // On construit chaque élément du vecteur
       // Seul le voisinage n'est pas encore construit
@@ -100,16 +97,19 @@ void convertGraph2Vector_ver2(Graph * grille, vector<MyNode_ver2> * MyNodes_2,
       // MAJ index_neigh
       index_neigh += N.degre;
       
-      MyNodes_2->push_back(N);
+      (* MyNodes_2)[index_current_node] = N;
 
       Vec2f v;
       v[0] = c.getX();
       v[1] = c.getY();
-      coords->push_back(v);
+      (* coords)[index_current_node] = v;
+
+      index_current_node++;
     }  // fin de if (AllNodes.count(tmp_n) == 0)
 
     // Si le noeud est déjà connu
     else {
+      // MAJ de l'index voisinage du noeud déjà dans la map
       MyNode_ver2 * N = &(* MyNodes_2)[AllNodes[tmp_n]];
       N->index_neighbourhood = index_neigh;
       
@@ -124,8 +124,8 @@ void convertGraph2Vector_ver2(Graph * grille, vector<MyNode_ver2> * MyNodes_2,
 
       // Si le noeud n'a pas été ajouté
       if (AllNodes.count(tmp_n2) == 0) {
-	AllNodes[tmp_n2] = index_current_node++;
-	
+	AllNodes[tmp_n2] = index_current_node;
+		
 	bool res = !(fixed->getNodeValue(tmp_n2)) && !(bordure->getNodeValue(tmp_n2));
 	
 	// index_neighbourhood n'est pas mis à jour
@@ -134,13 +134,16 @@ void convertGraph2Vector_ver2(Graph * grille, vector<MyNode_ver2> * MyNodes_2,
 	N2.mobile = res;
 	N2.degre = grille->deg(tmp_n2);
 	
-	MyNodes_2->push_back(N2);
+	//MyNodes_2->push_back(N2);
+	(* MyNodes_2)[index_current_node] = N2;
 	
 	Coord c = layout->getNodeValue(tmp_n2);
 	Vec2f v;
 	v[0] = c.getX();
 	v[1] = c.getY();
-	coords->push_back(v);
+	(* coords)[index_current_node] = v;
+
+	index_current_node++;
       } // fin du if (AllNodes.count(tmp_n) == 0)
 
       // On l'ajout dans le voisinage du noeud d'avant
@@ -274,15 +277,12 @@ void tutte_2_openmpDirty(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbou
   
   vector<Vec2f> newCoords (*coords);
   uint size = MyNodes_2->size();
+  float tmp_eps;
 
   do {
     current_eps = 0;
 #pragma omp parallel shared(newCoords, coords, current_eps) private(i)
     {
-      //tid = omp_get_thread_num();
-      // if (tid == 0) {
-      //   cout << "tid : " << tid << " nbIter : " << nbIter << " current_eps : " << current_eps << endl; 
-      // }
 #pragma omp for schedule(static)
       // Pour chaque noeud du graphe
       for(i = 0; i < size; ++i) {
@@ -306,32 +306,25 @@ void tutte_2_openmpDirty(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbou
 	    resY += (* coords)[index_neigh][1];
 	  }
 	  
-	  // (* coords)[i][0] = resX/current_n->degre;
-	  // (* coords)[i][1] = resY/current_n->degre;	  
-
-	  // cout << "resX   : " << resX/current_n->degre 
-	  //      << "\nres[0] : " << res[0] 
-	  //      << "\n(* coords)[i][0] : " << (* coords)[i][0]
-	  //      << endl;
-
 	  newCoords[i][0] = resX/current_n->degre;
 	  newCoords[i][1] = resY/current_n->degre;
 	    
 	  // On MAJ l'epsilon par rapport à X et Y
-#pragma omp critical
-	  {
-	    // current_eps = max(current_eps, abs(lastX - (* coords)[i][0]) );
-	    // current_eps = max(current_eps, abs(lastY - (* coords)[i][1]) );
-	    current_eps = max(current_eps, abs(lastX - newCoords[i][0]) );
-	    current_eps = max(current_eps, abs(lastY - newCoords[i][1]) );
-	  }
+// #pragma omp critical
+// 	  {
+	  tmp_eps = abs(lastX - newCoords[i][0]);
+	  current_eps = max(current_eps, tmp_eps);
+	  
+	  tmp_eps = abs(lastY - newCoords[i][1]);
+	  current_eps = max(current_eps, tmp_eps);
+	  // }
 	}
-
+	
       } // fin du for(uint i = 0; i < MyNodes->size(); i++)
-
+      
       newCoords.swap(*coords);
     }
-    //#pragma omp atomic
+    
     nbIter++;
   }
   while (current_eps > eps);
