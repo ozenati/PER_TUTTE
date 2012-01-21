@@ -27,13 +27,13 @@ class MyNode_ver2 {
 
 vector<MyNode> * convertGraph2Vector(Graph * graph);
 
-void tutte(vector<MyNode> * MyNodes, double eps);
+/* void tutte(vector<MyNode> * MyNodes, double eps); */
 
 /* void tutte_2(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods, */
 /* 	     vector<Vec2f> * coords, double eps); */
 
-void tutte_2_openmpDirty(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods, 
-		    vector<Vec2f> * coords, double eps);
+/* void tutte_2_openmpDirty(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods,  */
+/* 		    vector<Vec2f> * coords, double eps); */
 
 void convertVector2Graph(vector<MyNode> * MyNodes, Graph * graph);
 

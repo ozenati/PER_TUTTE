@@ -15,7 +15,8 @@ SRC= main.cpp tutter.cpp
 OBJ= $(SRC:.cpp=.o)
 EXE= $(OBJ:.o=)
 
-OBJDEP= myNode.o toolkit.o tutte_parallel_asynchrone.o separator.o tutte_sequentiel_asynchrone.o
+OBJDEP= myNode.o toolkit.o tutte_sequentiel_asynchrone.o separator.o \
+	 tutte_parallel_synchrone.o tutte_parallel_asynchrone.o 
 
 all: $(EXE)
 

@@ -11,6 +11,9 @@
 
 #define max(x, y)   x>y?x:y
 
+// TODO 
+// Créer une version asynchrone sur la structure de donnée 2
+
 void tutte_parallel_asynchrone(vector<vector<MyNode *> *> *vectors, double eps) { 
   double global_eps = 0;
   uint nbIter = 0;

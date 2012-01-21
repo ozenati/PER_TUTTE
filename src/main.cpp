@@ -96,7 +96,7 @@ void tutte_seq_2_bis(Graph * graph, Graph * grille, char * filename_out) {
   free(coords);
 }
 
-void tutte_seq_2_openmpDirty(Graph * graph, Graph * grille, char * filename_out) {
+void tutte_seq_2_openmp(Graph * graph, Graph * grille, char * filename_out) {
   (void)graph;
   (void)filename_out;
   
@@ -111,7 +111,7 @@ void tutte_seq_2_openmpDirty(Graph * graph, Graph * grille, char * filename_out)
   convertGraph2Vector_ver2(grille, &MyNodes_2, &Neighbourhoods, coords);
 
   // On applique tutte sur notre structure de noeud
-  tutte_2_openmpDirty(&MyNodes_2, &Neighbourhoods, coords, 1e-6);
+  tutte_2_openmp(&MyNodes_2, &Neighbourhoods, coords, 1e-6);
 
   // On récupére les déplacement dans notre grille
   convertVector_ver2_2Graph(&MyNodes_2, coords, grille);
@@ -170,7 +170,7 @@ int main(int argc, char * argv[])  {
     break;
   case 3:
     cout << "Tutte parallèle synchrone." << endl;
-    tutte_seq_2_openmpDirty(graph, grille, filename_output);
+    tutte_seq_2_openmp(graph, grille, filename_output);
     // cerr << "passe2" << endl;
     break;
   default:
