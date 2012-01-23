@@ -24,7 +24,7 @@ void tutte_parallel_asynchrone(vector<vector<MyNode *> *> *vectors, double eps) 
     {
       global_eps = 0;
       cout << "Iteration " << nbIter << endl;
-      // Pour tout ensemble de noeuds
+      // Pour toutes les classes de couleurs de noeuds
       for (it=vectors->begin(); it < vectors->end(); it++)
 	{
 	  // Selection de l'ensemble courant;
@@ -75,7 +75,7 @@ void tutte_parallel_asynchrone(vector<vector<MyNode *> *> *vectors, double eps) 
 		}
 	      }
 	  } // fin du bloc parallel
-	} // fin de la boucle sur les ensembles
+	} // fin de la boucle sur toutes les classes de couleurs
       nbIter++;
     }
   while (global_eps > eps);
