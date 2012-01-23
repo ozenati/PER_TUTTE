@@ -129,16 +129,21 @@ void tutte_seq_2_openmp(Graph * graph, Graph * grille, char * filename_out) {
 
 int main(int argc, char * argv[])  {
   if (strcmp(argv[1], "-l") == 0) {
+    cout << "" << endl;
     cout << "  ==  Tutte versions   ==  " << endl;
     cout << "0 : sequential tutte" << endl;
     cout << "1 : sequential tutte version 2" << endl;
     cout << "2 : sequential tutte version 2 bis (Vec2f)" << endl;
-    cout << "3 : openMP tutte version Dirty" << endl;
+    cout << "3 : openMP tutte" << endl;
+    cout << "" << endl;
     exit(EXIT_SUCCESS);
   }
 
   if (argc != 4) {
     cout << "Usage : "<< argv[0] << " <graphe_file_in> <tutte_version> <graphe_filename_out>" << endl;
+    cout << "" << endl;
+    cout << "Type \"./main -l\" to view the list of tutte version." <<endl;
+    cout << "" << endl;
     exit(1);
   }
 
@@ -171,7 +176,6 @@ int main(int argc, char * argv[])  {
   case 3:
     cout << "Tutte parallèle synchrone." << endl;
     tutte_seq_2_openmp(graph, grille, filename_output);
-    // cerr << "passe2" << endl;
     break;
   default:
     cout << "The tutte_version must in 0..3" << endl;
