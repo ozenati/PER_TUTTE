@@ -44,4 +44,17 @@ class MyNode {
 };
 
 std::ostream& operator<<(std::ostream &os, const MyNode &my_n);
+
+/*
+ * node data structure for tutte v3 
+ */
+class Data {
+ public:
+  node n;
+  Coord coord;
+  bool mobile;
+
+  Data();
+  ~Data();
+};
 #endif

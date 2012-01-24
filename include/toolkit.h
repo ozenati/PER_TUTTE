@@ -42,4 +42,12 @@ void convertGraph2Vector_ver2(Graph * grille, vector<MyNode_ver2> * MyNodes_2,
 
 void convertVector_ver2_2Graph(vector<MyNode_ver2> * MyNodes_2, vector<Vec2f> * coords, Graph * grille);
 
+/*
+ * toolkit for tutte on V3 of our structure
+ */
+
+void convertGraph_v3(Graph * grille, vector<Data>* datas, vector<vector<int> >* matrix);
+
+void updateGraph_v3(Graph * grille, vector<Data>* datas);
+
 #endif

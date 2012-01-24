@@ -2,7 +2,7 @@
 
 // #include <sys/time.h>
 
-// #include "myNode.h"
+// #include "myNode.h
 // #include "toolkit.h"
 // #include <cstdio>
 
@@ -178,6 +178,52 @@ void tutte_2_bis(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods,
   while (current_eps > eps);
 
   cout << endl;
+  cout << "GLOBAL epsilon : " << current_eps << endl;
+  cout << "TOTAL itération : " << nbIter << endl;
+  cout << endl;
+}
+
+void tutte_seq_3(vector<Data>* datas, vector<vector<int> >* matrix, double eps){
+  double current_eps = 0;
+  uint nbIter = 0;
+  uint size = datas->size(); 
+
+  do {
+    current_eps = 0;
+
+    // Pour chaque noeud du graphe 
+    for(uint i = 0; i < size; ++i) {
+      // On ne considére que les noeuds mobiles
+      if (((*datas)[i]).mobile) {
+	// On récupère le voisinage et le position courante en X
+	float lastX = ((*datas)[i]).coord.getX();
+	float lastY = ((*datas)[i]).coord.getY();
+      
+	// On calcul le barycentre de ce voisinage
+	// On ne considère pas la troisième coordonnée
+	uint degre = ((*matrix)[i]).size();
+	float resX=0, resY=0;
+	float x, y, z;
+	for(uint j = 0; j < degre; j++) {
+	  ((*datas)[(*matrix)[i][j]]).coord.get(x, y, z);
+	  resX += x;
+	  resY += y;
+	}
+	// On MAJ les coordonnées du noeud courant
+	x = resX/degre;
+	y = resY/degre;
+	((*datas)[i]).coord = Coord(x, y, 0);
+
+	// On MAJ l'epsilon
+	x = abs(lastX - x);
+	y = abs(lastY - y);
+	current_eps = max (current_eps, max(x,y));
+      }
+    } // fin du for(uint i = 0; i < MyNodes->size(); i++)
+    nbIter++;
+  }
+  while (eps < current_eps);
+
   cout << "GLOBAL epsilon : " << current_eps << endl;
   cout << "TOTAL itération : " << nbIter << endl;
   cout << endl;

@@ -16,4 +16,6 @@ void tutte_2_bis(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods,
 void tutte_2_openmp(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods, 
 		    vector<Vec2f> * coords, double eps);
 
+void tutte_seq_3(vector<Data>* datas, vector<vector<int> >* matrix, double eps);
+
 #endif
