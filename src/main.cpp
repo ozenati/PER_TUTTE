@@ -156,6 +156,36 @@ void tutte_seq_3 (Graph * graph, Graph * grille, char * filename_out){
 
 }
 
+/*
+ * tutte on the v3 of our data structure
+ */
+void tutte_parallel_asynchrone(Graph * graph, Graph * grille, char * filename_out){
+  vector <Data> datas;
+  vector<vector<int> > matrix(grille->numberOfNodes());
+
+  struct timeval timeBegin, timeEnd;
+  gettimeofday(&timeBegin, NULL);
+
+  // On récupére les noeuds de la grille dans nos vecteur
+  convertGraph_v3(grille, &datas , &matrix);
+
+  // On applique tutte sur notre structure de noeud
+  tutte_seq_3(&datas, &matrix, 1e-6);
+
+  // On récupére les déplacement dans notre grille
+  updateGraph_v3(grille, &datas);
+
+  gettimeofday(&timeEnd, NULL);
+  double res = timeEnd.tv_sec - timeBegin.tv_sec + (double)(timeEnd.tv_usec - timeBegin.tv_usec)/1e6;
+
+  cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
+
+ // On sauvegarde le graphe complet avec la grille modifiée
+  tlp::saveGraph(graph, filename_out);
+
+}
+
+
 int main(int argc, char * argv[])  {
   if (strcmp(argv[1], "-l") == 0) {
     cout << "" << endl;

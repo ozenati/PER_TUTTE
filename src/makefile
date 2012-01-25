@@ -7,7 +7,8 @@
 
 CC= g++
 IFLAGS= -I../include/
-CXXFLAGS=-W -Wall -g $(IFLAGS) -fopenmp
+CXXFLAGS=-W -Wall $(IFLAGS) -fopenmp -DNDEBUG -O3 \
+	-mtune=native -funroll-all-loops
 LDFLAGS= -ldl
 TULIP_CONFIG=`tulip-config --libs --cxxflags`
 
@@ -20,12 +21,13 @@ OBJDEP= myNode.o toolkit.o tutte_sequentiel_asynchrone.o separator.o \
 
 all: $(EXE)
 
-tutte_parallel_asynchrone.o:tutte_parallel_asynchrone.cpp
-	$(CC) -c -fopenmp  `tulip-config --cxxflags` $(IFLAGS) tutte_parallel_asynchrone.cpp
+# tutte_parallel_asynchrone.o:tutte_parallel_asynchrone.cpp
+# 	$(CC) -c -fopenmp  `tulip-config --cxxflags` $(IFLAGS) tutte_parallel_asynchrone.cpp
+
 %o: %c
 
 $(EXE): $(OBJ) $(OBJDEP) 
-	$(CC) $(CXXFLAGS) $(IFLAGS) $(OBJDEP) $@.o $(TULIP_CONFIG) $(LDFLAGS) -fopenmp -o $@
+	$(CC) $(CXXFLAGS) $(IFLAGS) $(OBJDEP) $@.o $(TULIP_CONFIG) $(LDFLAGS) -o $@
 
 clean:
 	rm -f *.o $(EXE)

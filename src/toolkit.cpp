@@ -236,10 +236,24 @@ void convertGraph_v3(Graph * grille, vector<Data>* datas, vector<vector<int> >* 
     d.n = itN->next();
     AllNodes[d.n] = i;
     d.coord = layout->getNodeValue(d.n);
-    d.mobile = (fixed->getNodeValue(d.n)) || (bordure->getNodeValue(d.n));
+    d.mobile = !((fixed->getNodeValue(d.n)) || (bordure->getNodeValue(d.n)));
     datas->push_back(d);
     i++;
   } delete itN;
+
+Iterator <edge> *itE = grille->getEdges();
+  while (itE->hasNext()) {
+    edge current_edge = itE->next();
+    if (bordure->getEdgeValue(current_edge)) {
+      pair<node, node> nodes = grille->ends(current_edge);
+
+      int key = AllNodes[nodes.first];
+      (* datas)[key].mobile = false;
+	
+      key = AllNodes[nodes.second];
+      (* datas)[key].mobile = false;
+    }
+  }delete itE;
 
 // Récupérer le voisinage de chaque noeud de la map
   uint size = datas->size();
