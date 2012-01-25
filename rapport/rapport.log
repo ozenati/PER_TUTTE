@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2010.8.26)  25 JAN 2012 17:12
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2010.8.26)  25 JAN 2012 17:29
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -961,7 +961,7 @@ Overfull \hbox (48.2035pt too wide) in paragraph at lines 24--35
 Here is how much of TeX's memory you used:
  7218 strings out of 94074
  96036 string characters out of 1165153
- 201327 words of memory out of 1500000
+ 202327 words of memory out of 1500000
  10281 multiletter control sequences out of 10000+50000
  73461 words of font info for 55 fonts, out of 1200000 for 2000
  645 hyphenation exceptions out of 8191
@@ -982,7 +982,7 @@ e/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/l
 m/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texm
 f/fonts/type1/public/lm/lmtt12.pfb></usr/share/texmf-texlive/fonts/type1/bluesk
 y/ams/msbm10.pfb>
-Output written on rapport.pdf (14 pages, 404713 bytes).
+Output written on rapport.pdf (14 pages, 405888 bytes).
 PDF statistics:
  134 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
