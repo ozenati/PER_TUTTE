@@ -22,6 +22,7 @@ void tutte_parallel_asynchrone(vector<vector<MyNode *> *> *vectors, double eps) 
   do 
     {
       global_eps = 0;
+      //cout << "Iteration " << nbIter << endl;
       // Pour toutes les classes de couleurs de noeuds
       for (it=vectors->begin(); it < vectors->end(); it++)
 	{
