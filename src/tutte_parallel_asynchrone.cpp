@@ -17,7 +17,6 @@
 void tutte_parallel_asynchrone(vector<vector<MyNode *> *> *vectors, double eps) { 
   double global_eps = 0;
   uint nbIter = 0;
-  vector<MyNode *> * current_voisin;
   vector<vector<MyNode *> *>::iterator it;
 
   do 
@@ -32,13 +31,13 @@ void tutte_parallel_asynchrone(vector<vector<MyNode *> *> *vectors, double eps) 
 
 #pragma omp parallel
 	  {
-	    fprintf(stderr, "1 passe : nbIter : %d\n", nbIter);
 	    double my_eps = global_eps;
 #pragma omp for
 	    // Pour chaque noeud de l'ensemble courant
 	    for(uint i = 0; i < MyNodes->size(); i++) 
 	      {
 		MyNode * current_n = (*MyNodes)[i];
+		vector<MyNode *> * current_voisin;
 
 		// On ne considére que les noeuds mobiles
 		if (current_n->getMobile()) 
@@ -65,7 +64,6 @@ void tutte_parallel_asynchrone(vector<vector<MyNode *> *> *vectors, double eps) 
 		    // On MAJ l'epsilon
 		    my_eps = max(my_eps, sqrt(pow(lastX - resX/degre,2) + pow(lastY - resY/degre,2)));
 		  }
-		fprintf(stderr, "2 passe : nbIter : %d\n", nbIter);
 	      } // fin de la boucle sur les noeuds de l'ensemble courant
 	    if (my_eps>global_eps) 
 	      {

@@ -48,10 +48,48 @@ separateMap2Vectors(map<int, MyNode *> *all_nodes)
   return vectors;
 }
 
+// vector<vector<MyNode_ver2> *> *
+// separateMap2Vectors_ver2(vector<MyNode_ver2> * all_nodes, 
+// 			      vector<int> * Neighbourhoods, vector<Vec2f> * coords)
+// {
+//   vector<vector<MyNode *> *> *vectors = new vector<vector<MyNode *> *>;
+  
+//   while(!all_nodes->empty())
+//     {
+//       // map<int, MyNode *> z_nodes;// = *all_nodes;
+//       // copy(&z_nodes,all_nodes);
+//       vector<MyNode_ver2> z_nodes = *all_nodes:
+//       vector<MyNode_ver2> *v = new vector<MyNode_ver2>;
+//       while(!z_nodes.empty())
+// 	{
+// 	  // map<int, MyNode *>::iterator elt;
+// 	  // elt = z_nodes.begin();
+// 	  // MyNode *n = elt->second;
+// 	  MyNode_ver2 n = *(z_nodes.begin());
+// 	  v->push_back(n);
+// 	  all_nodes->erase(z_nodes.begin());
+// 	  z_nodes.erase(z_nodes.begin());
+// 	  // vector<MyNode *> *nv = n->getVoisin();
+// 	  // vector<MyNode *>::iterator it;
+// 	  // for ( it=nv->begin() ; it < nv->end(); it++ )
+// 	  int i;
+// 	  for(i = 0; i < n.degree; i++)
+// 	    {
+// 	      MyNode *nvm = *it;
+// 	      z_nodes.erase(nvm->getNode().id);
+// 	    }
+// 	}
+//       vectors->push_back(v);
+//     }
+//   return vectors;
+// }
+
 
 map<int, MyNode *> *
 convertGraph2Map(Graph *graph)
 {
+  Graph *grille = graph->getSubGraph(2);
+    //  Graph * graph = grille->getSuperGraph();
   LayoutProperty *layout = graph->getLocalProperty<LayoutProperty>("viewLayout");
   BooleanProperty *fixed = graph->getProperty<BooleanProperty>("fixed nodes");
   BooleanProperty *bordure = graph->getProperty<BooleanProperty>("viewSelection");
@@ -59,7 +97,7 @@ convertGraph2Map(Graph *graph)
   map<int,MyNode *> all_nodes;
 
   // Boucle sur tous les noeuds
-  Iterator<node> *itNodes = graph->getNodes();
+  Iterator<node> *itNodes = grille->getNodes();
   while(itNodes->hasNext()) 
     {
       node n = itNodes->next();
@@ -74,7 +112,7 @@ convertGraph2Map(Graph *graph)
       MyNode *pn = all_nodes[n.id];
 
       // Boucle sur tous les voisins du noeud courant
-      Iterator<node> *itN = graph->getInOutNodes(n);
+      Iterator<node> *itN = grille->getInOutNodes(n);
       while(itN->hasNext())
 	{
 	  node n = itN->next();
