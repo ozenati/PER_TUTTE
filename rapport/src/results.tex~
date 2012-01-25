@@ -31,7 +31,7 @@ migration & 5 & 0.006314 & 0\\
 \hline
 
 \end{tabular}
-%\caption{title}
+\caption{title}
 \end{center}
 
 \section{complexity}

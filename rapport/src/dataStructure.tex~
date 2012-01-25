@@ -87,7 +87,5 @@ setter and setter are respectively \verb+setAttribut(args)+ and \verb+getAttribu
 \item[Getters]: \verb+setMobile(const bool b), setCoord(const Coord &), getVoisin()+.
 \end{dinglist}
 
-\subsection{Second implementation}
-\subsection{Third implementation}
 %\subsection{Enhanced implementation}
 \newpage
