@@ -127,6 +127,35 @@ void tutte_seq_2_openmp(Graph * graph, Graph * grille, char * filename_out) {
   free(coords);
 }
 
+/*
+ * tutte on the v3 of our data structure
+ */
+void tutte_seq_3 (Graph * graph, Graph * grille, char * filename_out){
+  vector <Data> datas;
+  vector<vector<int> > matrix(grille->numberOfNodes());
+
+  struct timeval timeBegin, timeEnd;
+  gettimeofday(&timeBegin, NULL);
+
+  // On récupére les noeuds de la grille dans nos vecteur
+  convertGraph_v3(grille, &datas , &matrix);
+
+  // On applique tutte sur notre structure de noeud
+  tutte_seq_3(&datas, &matrix, 1e-6);
+
+  // On récupére les déplacement dans notre grille
+  updateGraph_v3(grille, &datas);
+
+  gettimeofday(&timeEnd, NULL);
+  double res = timeEnd.tv_sec - timeBegin.tv_sec + (double)(timeEnd.tv_usec - timeBegin.tv_usec)/1e6;
+
+  cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
+
+ // On sauvegarde le graphe complet avec la grille modifiée
+  tlp::saveGraph(graph, filename_out);
+
+}
+
 int main(int argc, char * argv[])  {
   if (strcmp(argv[1], "-l") == 0) {
     cout << "" << endl;
@@ -134,7 +163,8 @@ int main(int argc, char * argv[])  {
     cout << "0 : sequential tutte" << endl;
     cout << "1 : sequential tutte version 2" << endl;
     cout << "2 : sequential tutte version 2 bis (Vec2f)" << endl;
-    cout << "3 : openMP tutte" << endl;
+    cout << "3 : sequential tutte version 3" << endl;
+    cout << "4 : openMP tutte" << endl;
     cout << "" << endl;
     exit(EXIT_SUCCESS);
   }
@@ -162,23 +192,27 @@ int main(int argc, char * argv[])  {
   char * filename_output = argv[3];
   switch(tutte_version) {
   case 0:
-    cout << "Tutte séquentiel asynchrone." << endl;
+    cout << "Tutte séquentiel asynchrone;" << endl;
     tutte_seq(graph, grille, filename_output);
     break;
   case 1:
-    cout << "Tutte séquentiel asynchrone 2." << endl;
+    cout << "Tutte séquentiel asynchrone 2;" << endl;
     tutte_seq_2(graph, grille, filename_output);
     break;
   case 2:
-    cout << "Tutte séquentiel asynchrone 2 (Vec2f)." << endl;
+    cout << "Tutte séquentiel asynchrone 2 (Vec2f);" << endl;
     tutte_seq_2_bis(graph, grille, filename_output);
     break;
   case 3:
-    cout << "Tutte parallèle synchrone." << endl;
+    cout << "Tutte séquentiel asynchrone 3;" << endl;
+    tutte_seq_3(graph, grille, filename_output);
+    break;
+  case 4:
+    cout << "Tutte parallèle synchrone;" << endl;
     tutte_seq_2_openmp(graph, grille, filename_output);
     break;
   default:
-    cout << "The tutte_version must in 0..3" << endl;
+    cout << "The tutte_version must in 0..4;" << endl;
   }
   
   delete graph;

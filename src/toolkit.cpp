@@ -2,7 +2,7 @@
 
 #include "toolkit.h"
 
-#define max(x, y)   x>y?x:y
+#define max(x, y)   (x)>(y)?(x):(y)
 
 vector<MyNode> * convertGraph2Vector(Graph * grille) {
   Graph * graph = grille->getSuperGraph();
@@ -210,5 +210,53 @@ void convertVector_ver2_2Graph(vector<MyNode_ver2> * MyNodes_2, vector<Vec2f> * 
   
   for(uint i = 0; i < MyNodes_2->size(); i++) {
     layout->setNodeValue((* MyNodes_2)[i].n, Coord((* coords)[i][0], (* coords)[i][1], 0));
+  }
+}
+
+
+/*
+ * toolkit part for tutte on V3 of our structure
+ */
+
+void convertGraph_v3(Graph * grille, vector<Data>* datas, vector<vector<int> >* matrix) {
+  Graph * graph = grille->getSuperGraph();
+
+  // On récupére la propriété pour les coordonnées (layout) et pour fixer les noeuds
+  LayoutProperty *layout=graph->getLocalProperty<LayoutProperty>("viewLayout");
+
+  BooleanProperty * fixed=graph->getProperty<BooleanProperty>("fixed nodes");
+  BooleanProperty * bordure=graph->getProperty<BooleanProperty>("viewSelection");
+
+  // Récupérer tous les noeuds du graph dans une map de MyNode
+  map<node, int> AllNodes;
+  Iterator<node> *itN = graph->getNodes();
+  int i = 0;
+  while(itN->hasNext()) {
+    Data d;
+    d.n = itN->next();
+    AllNodes[d.n] = i;
+    d.coord = layout->getNodeValue(d.n);
+    d.mobile = (fixed->getNodeValue(d.n)) || (bordure->getNodeValue(d.n));
+    datas->push_back(d);
+    i++;
+  } delete itN;
+
+// Récupérer le voisinage de chaque noeud de la map
+  uint size = datas->size();
+  for (unsigned int i = 0; i < size; i++) {
+    Iterator<node> *itN=graph->getInOutNodes(((*datas)[i]).n);
+    while(itN->hasNext()) {
+      int id = AllNodes[itN->next()];
+      (*matrix)[i].push_back(id);
+    } delete itN;
+  }
+}
+// On MAJ les coordonnées de chaque noeud de la grille de départ
+void updateGraph_v3(Graph * grille, vector<Data>* datas){
+  Graph * graph = grille->getSuperGraph();
+  LayoutProperty *layout=graph->getLocalProperty<LayoutProperty>("viewLayout");
+  uint size = datas->size();
+  for(uint i = 0; i < size; i++) {
+    layout->setNodeValue(((*datas)[i]).n, ((*datas)[i]).coord);
   }
 }
