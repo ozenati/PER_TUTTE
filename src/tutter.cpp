@@ -24,31 +24,8 @@ int main(int argc, char * argv[])  {
 
   // Lecture d'un graphe d'entré
   tlp::Graph* graph = tlp::loadGraph(argv[1]);
-
-  // Récupérer la grille sur laquelle il faut appliquer l'algo de Tutte
-  //tlp::Graph *grille = graph->getSubGraph(2);
-
-  // On récupére les noeuds de la grille dans notre structre de noeud
-  //  vector<MyNode> * MyNodes = convertGraph2Vector(graph);
-
   map<int, MyNode *> *all_nodes = convertGraph2Map(graph);
-
   vector<vector<MyNode *> *> *vectors = separateMap2Vectors(all_nodes);
-
-  // int i;
-  // vector<vector<MyNode *> *>::iterator it;
-  // for (it=vectors->begin(), i = 0 ; it < vectors->end(); it++, i++)
-  //   {
-  //     cout << "Ensemble " << i << " contient:" << endl;
-  //     cout << "{";
-  //     vector<MyNode *>::iterator it2 = (*it)->begin();
-  //     for (it2=(*it)->begin(); it2 < (*it)->end(); it2++)
-  // 	{
-  // 	  MyNode *n = *it2;
-  // 	  cout << n->getNode().id << " ";
-  // 	}
-  //     cout << "}" << endl; 
-  //   }
 
   struct timeval timeBegin, timeEnd;
   gettimeofday(&timeBegin, NULL);

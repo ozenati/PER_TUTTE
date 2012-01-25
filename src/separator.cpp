@@ -20,6 +20,16 @@ void copy(map<int, MyNode *> *dest,map<int, MyNode *> *src)
 vector<vector<MyNode *> *> *
 separateMap2Vectors(map<int, MyNode *> *all_nodes)
 {
+  std::map<int,MyNode *>::iterator mit(all_nodes->begin()), mend(all_nodes->end());
+  int nb_fixe = 0;
+  for(;mit!=mend;++mit)
+    if(!mit->second->getMobile())
+      {
+	nb_fixe++;
+	all_nodes->erase(mit->second->getNode().id);
+      }
+  cout << nb_fixe << " points fixes" << endl;
+ 
   vector<vector<MyNode *> *> *vectors = new vector<vector<MyNode *> *>;
   
   while(!all_nodes->empty())
@@ -44,6 +54,14 @@ separateMap2Vectors(map<int, MyNode *> *all_nodes)
 	    }
 	}
       vectors->push_back(v);
+    }
+  // Information 
+  cout << vectors->size() << " ensembles generé" << endl;
+  vector<vector<MyNode *> *>::iterator it;
+  int i;
+  for (it=vectors->begin(), i = 0 ; it < vectors->end(); it++, i++)
+    {
+      cout << "Ensemble " << i << " contient " << (*it)->size()  << " elements" << endl;
     }
   return vectors;
 }
@@ -89,7 +107,8 @@ map<int, MyNode *> *
 convertGraph2Map(Graph *graph)
 {
   Graph *grille = graph->getSubGraph(2);
-    //  Graph * graph = grille->getSuperGraph();
+  if(!grille)
+    grille = graph;
   LayoutProperty *layout = graph->getLocalProperty<LayoutProperty>("viewLayout");
   BooleanProperty *fixed = graph->getProperty<BooleanProperty>("fixed nodes");
   BooleanProperty *bordure = graph->getProperty<BooleanProperty>("viewSelection");

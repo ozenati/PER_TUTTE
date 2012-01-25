@@ -10,7 +10,7 @@
 #include <omp.h>
 
 #define max(x, y)   x>y?x:y
-
+#define carre(n) ((n)*(n))
 // TODO 
 // Créer une version asynchrone sur la structure de donnée 2
 
@@ -22,7 +22,6 @@ void tutte_parallel_asynchrone(vector<vector<MyNode *> *> *vectors, double eps) 
   do 
     {
       global_eps = 0;
-      cout << "Iteration " << nbIter << endl;
       // Pour toutes les classes de couleurs de noeuds
       for (it=vectors->begin(); it < vectors->end(); it++)
 	{
@@ -40,8 +39,8 @@ void tutte_parallel_asynchrone(vector<vector<MyNode *> *> *vectors, double eps) 
 		vector<MyNode *> * current_voisin;
 
 		// On ne considére que les noeuds mobiles
-		if (current_n->getMobile()) 
-		  {
+		//		if (current_n->getMobile()) 
+		// {
 		    // On récupère le voisinage et le position courante en X
 		    current_voisin = current_n->getVoisin();
 		    float lastX = current_n->getCoord().getX();
@@ -62,8 +61,8 @@ void tutte_parallel_asynchrone(vector<vector<MyNode *> *> *vectors, double eps) 
 		    current_n->setCoord(Coord(resX/degre, resY/degre, 0));
 		    //cout << current_n->getNode().id << " " << current_n->getCoord() << endl;
 		    // On MAJ l'epsilon
-		    my_eps = max(my_eps, sqrt(pow(lastX - resX/degre,2) + pow(lastY - resY/degre,2)));
-		  }
+		    my_eps = max(my_eps, sqrt(carre(lastX - resX/degre) + carre(lastY - resY/degre)));
+		    // }
 	      } // fin de la boucle sur les noeuds de l'ensemble courant
 	    if (my_eps>global_eps) 
 	      {
@@ -74,6 +73,7 @@ void tutte_parallel_asynchrone(vector<vector<MyNode *> *> *vectors, double eps) 
 	      }
 	  } // fin du bloc parallel
 	} // fin de la boucle sur toutes les classes de couleurs
+      cout << "Iteration " << nbIter  << " eps = " << global_eps << endl;
       nbIter++;
     }
   while (global_eps > eps);
