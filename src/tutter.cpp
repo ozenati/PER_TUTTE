@@ -55,7 +55,7 @@ int main(int argc, char * argv[])  {
 
   // On applique tutte sur notre structure de noeud
   //  tutte(MyNodes, 1e-6);
-  tutte_parallel_asynchrone(vectors, 1e-6);
+  tutte_parallel_asynchrone(vectors, 1e-6, false);
   gettimeofday(&timeEnd, NULL);
   double res = timeEnd.tv_sec - timeBegin.tv_sec + (double)(timeEnd.tv_usec - timeBegin.tv_usec)/1e6;
 
