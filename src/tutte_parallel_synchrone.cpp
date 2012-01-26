@@ -1,25 +1,19 @@
-#include <cstdio>
-
 #include "toolkit.h"
-
-#define max(x, y)   x>y?x:y
 
 // TUTTE VERSION 2 parallèle
 void tutte_2_openmp(vector<MyNode_ver2> * MyNodes_2, 
 		    vector<int> * Neighbourhoods, 
 		    vector<Vec2f> * coords, 
 		    double eps, bool silent) {
-  double local_eps = 0, global_eps = 0;
+  float local_eps = 0, global_eps = 0;
   uint nbIter = 0, i;
 
   vector<Vec2f> newCoords (*coords);
   uint size = MyNodes_2->size();
-  float tmp_eps;
-  (void)tmp_eps;
 
   do {
     global_eps = 0;
-#pragma omp parallel shared(newCoords, coords, local_eps) private(i)
+#pragma omp parallel shared(newCoords, coords, global_eps) private(i, local_eps)
     {
       local_eps = global_eps;
 #pragma omp for schedule(static)
@@ -52,15 +46,18 @@ void tutte_2_openmp(vector<MyNode_ver2> * MyNodes_2,
 	  local_eps = max(local_eps, abs(lastX - newCoords[i][0]));
 	  local_eps = max(local_eps, abs(lastY - newCoords[i][1]));
 	}
-      } // fin du for(uint i = 0; i < MyNodes->size(); i++)
-	
+      } // fin du #pragma omp for schedule(static)
+
+      if (global_eps < local_eps) {
 #pragma omp critical
-      {
-	global_eps = max(local_eps, global_eps);
+	{
+	  global_eps = std::max(local_eps, global_eps);
+	}
       }
-      
-      newCoords.swap(*coords);
+
     }  // fin de la région parallèle
+
+    newCoords.swap(*coords);
     
     nbIter++;
   }  // fin de la boucle sur l'ensemble des itértions

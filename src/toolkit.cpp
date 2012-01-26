@@ -13,8 +13,8 @@ vector<MyNode> * convertGraph2Vector(Graph * grille) {
 
   // Récupérer tous les noeuds du graph dans une map de MyNode
   map<node, int, nidCompare> AllNodes;
-  vector<MyNode> * MyNodes= new vector<MyNode>;
-  
+  vector<MyNode> * MyNodes = new vector<MyNode>(grille->numberOfNodes());
+
   Iterator<node> *itN = grille->getNodes();
   int i = 0;
   while(itN->hasNext()) {
@@ -28,10 +28,11 @@ vector<MyNode> * convertGraph2Vector(Graph * grille) {
     bool res = !(fixed->getNodeValue(tmp_n)) && !(bordure->getNodeValue(tmp_n));
     MyNode n(tmp_n, res, c); 
     
-    MyNodes->push_back(n);
-    i++;
+    (*MyNodes)[i] = n;
+    ++i;
   } delete itN;
 
+  // Si un noeud appartient à la bordure, alors il est fixe
   Iterator <edge> *itE = grille->getEdges();
   while (itE->hasNext()) {
     edge current_edge = itE->next();
@@ -128,13 +129,11 @@ void convertGraph2Vector_ver2(Graph * grille, vector<MyNode_ver2> * MyNodes_2,
 		
 	bool res = !(fixed->getNodeValue(tmp_n2)) && !(bordure->getNodeValue(tmp_n2));
 	
-	// index_neighbourhood n'est pas mis à jour
 	MyNode_ver2 N2;
 	N2.n = tmp_n2;
 	N2.mobile = res;
 	N2.degre = grille->deg(tmp_n2);
 	
-	//MyNodes_2->push_back(N2);
 	(* MyNodes_2)[index_current_node] = N2;
 	
 	Coord c = layout->getNodeValue(tmp_n2);
@@ -150,22 +149,8 @@ void convertGraph2Vector_ver2(Graph * grille, vector<MyNode_ver2> * MyNodes_2,
       Neighbourhoods->push_back(AllNodes[tmp_n2]);
       
     } delete itN2; // fin de la boucle sur le voisinage
-
-    // if (i < 2) {
-    //   cout << "tmp_n.id : " << tmp_n.id << endl;
-    //   cout << "neighbourhood->size() : " << Neighbourhoods->size() << endl;
-    //   cout << "MyNodes_2->size() : " << MyNodes_2->size() << endl;
-    //   cout << endl;
-    //   cout   << "id : " << AllNodes[tmp_n]
-    // 	     << " id_reel : " << tmp_n
-    // 	     << "  <" << (* coords)[AllNodes[tmp_n]][0] << ", " << (* coords)[AllNodes[tmp_n]][1] << ">" << endl;
-    // }
-    
-    // i++;
   } delete itN; // fin de la boucle principale
   
-  //cout << "coords->size() : " << coords->size() << endl;
-
   // FAIRE UNE BOUCLE SUR LES ARÊTES POUR DETECTER LES ARÊTES FIXES ET METTRE A JOUR LA MOBILITE DES NOEUDS
   Iterator <edge> *itE = grille->getEdges();
   while (itE->hasNext()) {
@@ -180,17 +165,6 @@ void convertGraph2Vector_ver2(Graph * grille, vector<MyNode_ver2> * MyNodes_2,
       (* MyNodes_2)[key].mobile = false;
     }
   }delete itE;
-
-  // On regarde le voisinage du troisième noeud
-//   cout << "id_print : " << id_toprint << endl;
-//   cout << "id_reel : " << (* MyNodes_2)[id_toprint].n.id << endl;
-//   cout << "degre : " << (* MyNodes_2)[id_toprint].degre << endl;
-//   cout << "index_neighbourhood : " << (* MyNodes_2)[id_toprint].index_neighbourhood << endl;
-//   for(int i = 0; i < (* MyNodes_2)[id_toprint].degre; i++) {
-//     cout << (* MyNodes_2)[(* Neighbourhoods)[(* MyNodes_2)[id_toprint].index_neighbourhood + i]].n.id << ", ";
-//     //cout << (* Neighbourhoods)[(* MyNodes_2)[id_toprint].index_neighbourhood + i] << ", ";
-//   }
-//   cout << endl;
 }
 
 // On MAJ les coordonnées de chaque noeud de la grille de départ
@@ -217,16 +191,14 @@ void convertVector_ver2_2Graph(vector<MyNode_ver2> * MyNodes_2, vector<Vec2f> * 
 /*
  * toolkit part for tutte on V3 of our structure
  */
-
 void convertGraph_v3(Graph * grille, vector<Data>* datas, vector<vector<int> >* matrix) {
   Graph * graph = grille->getSuperGraph();
-
+  
   // On récupére la propriété pour les coordonnées (layout) et pour fixer les noeuds
   LayoutProperty *layout=graph->getLocalProperty<LayoutProperty>("viewLayout");
-
   BooleanProperty * fixed=graph->getProperty<BooleanProperty>("fixed nodes");
   BooleanProperty * bordure=graph->getProperty<BooleanProperty>("viewSelection");
-
+  
   // Récupérer tous les noeuds du graph dans une map de MyNode
   map<node, int> AllNodes;
   Iterator<node> *itN = graph->getNodes();
@@ -265,6 +237,7 @@ Iterator <edge> *itE = grille->getEdges();
     } delete itN;
   }
 }
+
 // On MAJ les coordonnées de chaque noeud de la grille de départ
 void updateGraph_v3(Graph * grille, vector<Data>* datas){
   Graph * graph = grille->getSuperGraph();

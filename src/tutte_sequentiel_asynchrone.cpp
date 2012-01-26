@@ -1,25 +1,13 @@
-// #include <iostream>
-
-// #include <sys/time.h>
-
-// #include "myNode.h
-// #include "toolkit.h"
-// #include <cstdio>
-
-// #include <omp.h>
-
 #include <stdio.h>
 
 #include "toolkit.h"
-
-#define max(x, y)   ((x)>(y))?(x):(y)
 
 using namespace std;
 using namespace tlp;
 
 // TUTTE VERSION 1
 void tutte(vector<MyNode> * MyNodes, double eps, bool silent) { 
-  double current_eps = 0;
+  float current_eps = 0;
   uint nbIter = 0;
 
   do {
@@ -49,17 +37,17 @@ void tutte(vector<MyNode> * MyNodes, double eps, bool silent) {
 	  resY += y;
 	}
 	// On MAJ les coordonnées du noeud courant
-	current_n->setCoord(Coord(resX/degre, resY/degre, 0));
+	resX /= degre;
+	resY /= degre;
+	current_n->setCoord(Coord(resX, resY, 0));
 	
 	// On MAJ l'epsilon
-	current_eps = max(current_eps, sqrt((lastX - resX/degre)*(lastX - resX/degre) 
-					    + (lastY - resY/degre)*(lastY - resY/degre)));
+	current_eps = std::max(current_eps, abs(lastX - resX));
+	current_eps = std::max(current_eps, abs(lastY - resY));
       }
     } // fin du for(uint i = 0; i < MyNodes->size(); i++)
 
     nbIter++;
-    // cout << "nbIter : " << nbIter << endl;
-    // cout << "epsilon courant : " << current_eps << endl;
   }
   while (current_eps > eps);
 
@@ -74,11 +62,8 @@ void tutte(vector<MyNode> * MyNodes, double eps, bool silent) {
 // TUTTE VERSION 2 : meilleur structure de donnée
 void tutte_2(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods, 
 	     vector<Vec2f> * coords, double eps, bool silent) {
-  double current_eps = 0;
+  float current_eps = 0;
   uint nbIter = 0, size = MyNodes_2->size();
-
-  // Vec2f null(0);
-  // Vec2f res; 
 
   do {
     current_eps = 0;
@@ -95,7 +80,6 @@ void tutte_2(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods,
 	float lastY = (* coords)[i][1];
 
 	float resX=0, resY=0;
-	// res = null;
 	int index_neigh = 0;
 	int * p_neigh = &((* Neighbourhoods)[current_n->index_neighbourhood]);
 	int degre = current_n->degre;
@@ -104,25 +88,18 @@ void tutte_2(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods,
 
 	  resX += (* coords)[index_neigh][0];
 	  resY += (* coords)[index_neigh][1];
-
-	  // res += (* coords)[index_neigh];
 	}
-
-	// res /= current_n->degre;
-	// (* coords)[i] = res;
 
 	(* coords)[i][0] = resX/current_n->degre;
 	(* coords)[i][1] = resY/current_n->degre;
 
 	// On MAJ l'epsilon par rapport à X et Y
-	current_eps = max(current_eps, abs(lastX - (* coords)[i][0]) );
-	current_eps = max(current_eps, abs(lastY - (* coords)[i][1]) );
+	current_eps = std::max(current_eps, abs(lastX - (* coords)[i][0]) );
+	current_eps = std::max(current_eps, abs(lastY - (* coords)[i][1]) );
       }
     } // fin du for(uint i = 0; i < MyNodes->size(); i++)
 
     nbIter++;
-    // cout << "nbIter : " << nbIter << endl;
-    // cout << "epsilon courant : " << current_eps << endl;
   }
   while (current_eps > eps);
 
@@ -137,7 +114,7 @@ void tutte_2(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods,
 // TUTTE VERSION 2 BIS : utilisation de Vec2f
 void tutte_2_bis(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods, 
 		 vector<Vec2f> * coords, double eps, bool silent) {
-  double current_eps = 0;
+  float current_eps = 0;
   uint nbIter = 0, size = MyNodes_2->size();
 
   Vec2f null(0);
@@ -170,14 +147,12 @@ void tutte_2_bis(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods,
 	(* coords)[i] = res;
 
 	// On MAJ l'epsilon par rapport à X et Y
-	current_eps = max(current_eps, abs(lastX - (* coords)[i][0]) );
-	current_eps = max(current_eps, abs(lastY - (* coords)[i][1]) );
+	current_eps = std::max(current_eps, abs(lastX - (* coords)[i][0]) );
+	current_eps = std::max(current_eps, abs(lastY - (* coords)[i][1]) );
       }
     } // fin du for(uint i = 0; i < MyNodes->size(); i++)
 
     nbIter++;
-    // cout << "nbIter : " << nbIter << endl;
-    // cout << "epsilon courant : " << current_eps << endl;
   }
   while (current_eps > eps);
 
@@ -190,7 +165,7 @@ void tutte_2_bis(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods,
 }
 
 void tutte_seq_3(vector<Data>* datas, vector<vector<int> >* matrix, double eps, bool silent){
-  double current_eps = 0;
+  float current_eps = 0;
   uint nbIter = 0;
   uint size = datas->size(); 
 
@@ -223,7 +198,7 @@ void tutte_seq_3(vector<Data>* datas, vector<vector<int> >* matrix, double eps, 
 	// On MAJ l'epsilon
 	x = abs(lastX - x);
 	y = abs(lastY - y);
-	current_eps = max (current_eps, max(x,y));
+	current_eps = std::max (current_eps, std::max(x,y));
       }
     } // fin du for(uint i = 0; i < MyNodes->size(); i++)
     nbIter++;

@@ -182,9 +182,7 @@ void tutte_parallel_asynchrone(Graph * graph, Graph * grille, char * filename_ou
 
  // On sauvegarde le graphe complet avec la grille modifiée
   tlp::saveGraph(graph, filename_out);
-
 }
-
 
 int main(int argc, char * argv[])  {
   if (argc != 4) {

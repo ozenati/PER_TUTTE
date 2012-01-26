@@ -6,9 +6,9 @@
 #      n'importe quel nom.
 
 CC= g++
-IFLAGS= -I../include/
-CXXFLAGS=-W -Wall $(IFLAGS) -fopenmp -DNDEBUG -O3 \
-	-mtune=native -funroll-all-loops
+IFLAGS= -I../include/ 
+CXXFLAGS=-W -Wall -fopenmp $(IFLAGS) -DNDEBUG  \
+	-funroll-all-loops -O3 -mtune=native
 LDFLAGS= -ldl -lgomp
 TULIP_CONFIG=`tulip-config --libs --cxxflags`
 
