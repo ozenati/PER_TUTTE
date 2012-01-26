@@ -2,6 +2,8 @@
 #include <tulip/Graph.h>
 #include <tulip/GlyphManager.h>
 #include <tulip/LayoutProperty.h>
+#include <tulip/ColorProperty.h>
+#include <tulip/Color.h>
 #include <map>
 
 #include "myNode.h"
@@ -165,16 +167,27 @@ convertGraph2Map(Graph *graph)
 
 void applyVectors2Graph(vector<vector<MyNode *> *> *vectors, Graph * graph) {
   LayoutProperty *layout=graph->getLocalProperty<LayoutProperty>("viewLayout");
-  
+  ColorProperty *color=graph->getLocalProperty<ColorProperty>("viewColor");  
   vector<vector<MyNode *> *>::iterator it;
-  for (it=vectors->begin(); it < vectors->end(); it++)
+  Color couleurs[6];
+  couleurs[0] = Color(120,23,56,255);
+  couleurs[1] = Color(12,24,200,255);
+  couleurs[2] = Color(0,200,10,255);
+  couleurs[3] = Color(120,120,120,255);
+  couleurs[4] = Color(0,24,230,255);
+  couleurs[5] = Color(200,24,200,255);
+
+  int c;
+  for (it=vectors->begin(),c = 0; it < vectors->end(); it++,c++)
     {
       // Selection de l'ensemble courant;
       vector<MyNode *> *MyNodes = (*it);
-      
-      for(uint i = 0; i < MyNodes->size(); i++) {
-	layout->setNodeValue((* MyNodes)[i]->getNode(), (* MyNodes)[i]->getCoord());
-      }
+      for(uint i = 0; i < MyNodes->size(); i++) 
+	{
+	  layout->setNodeValue((* MyNodes)[i]->getNode(), (* MyNodes)[i]->getCoord());
+	  //cout<<color->getNodeValue((* MyNodes)[i]->getNode())<<endl;
+	  color->setNodeValue((* MyNodes)[i]->getNode(), couleurs[c]);
+	}
     }
 }
 
