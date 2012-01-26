@@ -15,8 +15,8 @@ void tutte_seq(Graph * graph, Graph * grille, char * filename_out) {
   // On récupére les noeuds de la grille dans notre structure de noeud
   vector<MyNode> * MyNodes = convertGraph2Vector(grille);
 
-  struct timeval timeBegin, timeEnd;
-  gettimeofday(&timeBegin, NULL);
+  double t0, t1;
+  t0 = omp_get_wtime();
 
   // On applique tutte sur notre structure de noeud
   tutte(MyNodes, 1e-6, false);
@@ -24,8 +24,8 @@ void tutte_seq(Graph * graph, Graph * grille, char * filename_out) {
   // On récupére les déplacement dans notre grille
   convertVector2Graph(MyNodes, grille);
   
-  gettimeofday(&timeEnd, NULL);
-  double res = timeEnd.tv_sec - timeBegin.tv_sec + (double)(timeEnd.tv_usec - timeBegin.tv_usec)/1e6;
+  t1 = omp_get_wtime();
+  double res = t1 - t0;
 
   cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
 
@@ -44,8 +44,8 @@ void tutte_seq_2(Graph * graph, Graph * grille, char * filename_out) {
   vector<int> Neighbourhoods;           // contient l'indice de tous les noeuds du voisinage de chaque noeud
   vector<Vec2f> * coords = new vector<Vec2f>(grille->numberOfNodes());                      // contient les coordonnées de chaque noeud
 
-  struct timeval timeBegin, timeEnd;
-  gettimeofday(&timeBegin, NULL);
+  double t0, t1;
+  t0 = omp_get_wtime();
 
   // On récupére les noeuds de la grille dans nos vecteur
   convertGraph2Vector_ver2(grille, &MyNodes_2, &Neighbourhoods, coords);
@@ -56,8 +56,8 @@ void tutte_seq_2(Graph * graph, Graph * grille, char * filename_out) {
   // On récupére les déplacement dans notre grille
   convertVector_ver2_2Graph(&MyNodes_2, coords, grille);
 
-  gettimeofday(&timeEnd, NULL);
-  double res = timeEnd.tv_sec - timeBegin.tv_sec + (double)(timeEnd.tv_usec - timeBegin.tv_usec)/1e6;
+  t1 = omp_get_wtime();
+  double res = t1 - t0;
 
   cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
 
@@ -74,8 +74,8 @@ void tutte_seq_2_bis(Graph * graph, Graph * grille, char * filename_out) {
   vector<int> Neighbourhoods;           // contient l'indice de tous les noeuds du voisinage de chaque noeud
   vector<Vec2f> * coords = new vector<Vec2f>(grille->numberOfNodes());                      // contient les coordonnées de chaque noeud
 
-  struct timeval timeBegin, timeEnd;
-  gettimeofday(&timeBegin, NULL);
+  double t0, t1;
+  t0 = omp_get_wtime();
 
   // On récupére les noeuds de la grille dans nos vecteur
   convertGraph2Vector_ver2(grille, &MyNodes_2, &Neighbourhoods, coords);
@@ -86,8 +86,8 @@ void tutte_seq_2_bis(Graph * graph, Graph * grille, char * filename_out) {
   // On récupére les déplacement dans notre grille
   convertVector_ver2_2Graph(&MyNodes_2, coords, grille);
 
-  gettimeofday(&timeEnd, NULL);
-  double res = timeEnd.tv_sec - timeBegin.tv_sec + (double)(timeEnd.tv_usec - timeBegin.tv_usec)/1e6;
+  t1 = omp_get_wtime();
+  double res = t1 - t0;
 
   cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
 
@@ -104,8 +104,8 @@ void tutte_seq_2_openmp(Graph * graph, Graph * grille, char * filename_out) {
   vector<int> Neighbourhoods;           // contient l'indice de tous les noeuds du voisinage de chaque noeud
   vector<Vec2f> * coords = new vector<Vec2f>(grille->numberOfNodes());                      // contient les coordonnées de chaque noeud
 
-  struct timeval timeBegin, timeEnd;
-  gettimeofday(&timeBegin, NULL);
+  double t0, t1;
+  t0 = omp_get_wtime();
 
   // On récupére les noeuds de la grille dans nos vecteur
   convertGraph2Vector_ver2(grille, &MyNodes_2, &Neighbourhoods, coords);
@@ -116,8 +116,8 @@ void tutte_seq_2_openmp(Graph * graph, Graph * grille, char * filename_out) {
   // On récupére les déplacement dans notre grille
   convertVector_ver2_2Graph(&MyNodes_2, coords, grille);
 
-  gettimeofday(&timeEnd, NULL);
-  double res = timeEnd.tv_sec - timeBegin.tv_sec + (double)(timeEnd.tv_usec - timeBegin.tv_usec)/1e6;
+  t1 = omp_get_wtime();
+  double res = t1 - t0;
 
   cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
 
@@ -134,8 +134,8 @@ void tutte_seq_3 (Graph * graph, Graph * grille, char * filename_out){
   vector <Data> datas;
   vector<vector<int> > matrix(grille->numberOfNodes());
 
-  struct timeval timeBegin, timeEnd;
-  gettimeofday(&timeBegin, NULL);
+  double t0, t1;
+  t0 = omp_get_wtime();
 
   // On récupére les noeuds de la grille dans nos vecteur
   convertGraph_v3(grille, &datas , &matrix);
@@ -146,42 +146,39 @@ void tutte_seq_3 (Graph * graph, Graph * grille, char * filename_out){
   // On récupére les déplacement dans notre grille
   updateGraph_v3(grille, &datas);
 
-  gettimeofday(&timeEnd, NULL);
-  double res = timeEnd.tv_sec - timeBegin.tv_sec + (double)(timeEnd.tv_usec - timeBegin.tv_usec)/1e6;
+  t1 = omp_get_wtime();
+  double res = t1 - t0;
 
   cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
 
  // On sauvegarde le graphe complet avec la grille modifiée
   tlp::saveGraph(graph, filename_out);
-
 }
 
-/*
- * tutte on the v3 of our data structure
- */
-void tutte_parallel_asynchrone(Graph * graph, Graph * grille, char * filename_out){
-  vector <Data> datas;
-  vector<vector<int> > matrix(grille->numberOfNodes());
+void tutte_parallel_asynchrone(Graph * graph, char * filename_out){
+  double t0, t1;
+  t0 = omp_get_wtime();
 
-  struct timeval timeBegin, timeEnd;
-  gettimeofday(&timeBegin, NULL);
-
-  // On récupére les noeuds de la grille dans nos vecteur
-  convertGraph_v3(grille, &datas , &matrix);
+  map<int, MyNode *> *all_nodes = convertGraph2Map(graph);
+  vector<vector<MyNode *> *> *vectors = separateMap2Vectors(all_nodes);
 
   // On applique tutte sur notre structure de noeud
-  tutte_seq_3(&datas, &matrix, 1e-6, false);
+  tutte_parallel_asynchrone(vectors, 1e-6, false);
 
   // On récupére les déplacement dans notre grille
-  updateGraph_v3(grille, &datas);
+  applyVectors2Graph(vectors, graph);
 
-  gettimeofday(&timeEnd, NULL);
-  double res = timeEnd.tv_sec - timeBegin.tv_sec + (double)(timeEnd.tv_usec - timeBegin.tv_usec)/1e6;
+  t1 = omp_get_wtime();
+  double res = t1 - t0;
 
   cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
 
- // On sauvegarde le graphe complet avec la grille modifiée
+  // On sauvegarde le graphe complet avec la grille modifiée
   tlp::saveGraph(graph, filename_out);
+
+  // Libération des ressources enjeux
+  delete vectors;
+  delete all_nodes;
 }
 
 int main(int argc, char * argv[])  {
@@ -239,8 +236,12 @@ int main(int argc, char * argv[])  {
     cout << "Tutte parallèle synchrone;" << endl;
     tutte_seq_2_openmp(graph, grille, filename_output);
     break;
+  case 5:
+    cout << "Tutte parallèle asynchrone;" << endl;
+    tutte_parallel_asynchrone(graph, filename_output);
+    break;
   default:
-    cout << "The tutte_version must in 0..4;" << endl;
+    cout << "The tutte_version must in 0..5" << endl;
   }
   
   delete graph;

@@ -20,6 +20,14 @@ struct nidCompare
   }
 };
 
+class MyNode_ver2 {
+ public:
+  node n;
+  bool mobile;
+  int index_neighbourhood;
+  int degre;
+};
+
 class MyNode {
  private:
   node n;
