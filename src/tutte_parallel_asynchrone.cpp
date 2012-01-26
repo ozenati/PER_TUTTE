@@ -17,21 +17,21 @@
 void tutte_parallel_asynchrone(vector<vector<MyNode *> *> *vectors, double eps, bool silent) { 
   double global_eps = 0;
   uint nbIter = 0;
-  vector<vector<MyNode *> *>::iterator it;
+
   do 
     {
       global_eps = 0;
 #pragma omp parallel
 	  {
 	    double my_eps = global_eps;
-
+	    vector<vector<MyNode *> *>::iterator it;
       // Pour toutes les classes de couleurs de noeuds
       for (it=vectors->begin(); it < vectors->end(); it++)
 	{
 	  // Selection de l'ensemble courant;
 	  vector<MyNode *> *MyNodes = (*it);
 	  
-#pragma omp for schedule(static) nowait
+#pragma omp for schedule(static)
 	    // Pour chaque noeud de l'ensemble courant
 	    for(uint i = 0; i < MyNodes->size(); i++) 
 	      {
