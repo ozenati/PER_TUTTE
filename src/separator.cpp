@@ -146,6 +146,20 @@ convertGraph2Map(Graph *graph)
       delete itN;
     }
   delete itNodes;
+
+  Iterator <edge> *itE = grille->getEdges();
+  while (itE->hasNext()) 
+    {
+      edge current_edge = itE->next();
+      if (bordure->getEdgeValue(current_edge)) 
+	{
+	  pair<node, node> nodes = grille->ends(current_edge);
+	  all_nodes[nodes.first.id]->setMobile(false);
+	  all_nodes[nodes.second.id]->setMobile(false);  
+	}
+    }
+  delete itE;
+
   return new map<int, MyNode *>(all_nodes);
 }
 
