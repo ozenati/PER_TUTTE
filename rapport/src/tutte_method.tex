@@ -1,3 +1,38 @@
 \section{Tutte Sequential}
 
+To obtain the graph resulted of the Tutte's theorem, an algorithm is
+needed. In this section, a sequentiel algorithm is described. This
+algorithm is an iterative solution. To compute a solution, a set of node
+consistute a convex polygon must be decided. Let $P$ this set of node. Let
+$G_k$ be the the graph genereted at the step $k$.
+\\
+
+To obtain the graph of the next step, all the node of the interior of the
+convex polygon $P$ will be visisted. For each node visited, the barycentric
+coordinates of its neighbourhood is computed. Then this coordinates is used
+to update the position of the current node. Once each node were visited,
+the computation of the graph $G_{k+1}$ is finished.
+\\
+In this projet, the stop condition used for this algorithm is an epsilon
+between the relative positions of the node of the graph $G_k$ and
+$G_{k+1}$. For all node of the graph, if the lenght of each deplacement is
+inferior to a given epsilon, the graph $G_{k+1}$ is the solution.
+\\
+
+Following is a synthetic view of this algorithm : 
+\begin{verbatim}
+G = {V,E}
+P = set of node constitute a convex polygon
+procedure tutte(G, P, epsilon)
+  epsilon_current = 0
+  for each node of (V \ convex polygon)
+    barycenter = barycenter of node
+    epsilon_current = max(epsilon_current, distance(node, barycenter)
+    node = barycenter
+  if (epsilon_current < epsilon)
+    exit()
+  tutte(G, P, epsilon)
+\end{verbatim}
+
+
 % Le but ici est d'exposé la méthode algorithmique qui découle de l'algorithme de Tutte et  de prouver que cette méthode converge (retrouver l'article qui en parle)
