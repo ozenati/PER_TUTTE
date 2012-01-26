@@ -9,7 +9,7 @@ CC= g++
 IFLAGS= -I../include/
 CXXFLAGS=-W -Wall $(IFLAGS) -fopenmp -DNDEBUG -O3 \
 	-mtune=native -funroll-all-loops
-LDFLAGS= -ldl
+LDFLAGS= -ldl -lgomp
 TULIP_CONFIG=`tulip-config --libs --cxxflags`
 
 SRC= main.cpp tutter.cpp benchmark.cpp

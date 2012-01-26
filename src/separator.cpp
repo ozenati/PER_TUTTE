@@ -22,16 +22,6 @@ void copy(map<int, MyNode *> *dest,map<int, MyNode *> *src)
 vector<vector<MyNode *> *> *
 separateMap2Vectors(map<int, MyNode *> *all_nodes)
 {
-  std::map<int,MyNode *>::iterator mit(all_nodes->begin()), mend(all_nodes->end());
-  int nb_fixe = 0;
-  for(;mit!=mend;++mit)
-    if(!mit->second->getMobile())
-      {
-	nb_fixe++;
-	all_nodes->erase(mit->second->getNode().id);
-      }
-  cout << nb_fixe << " points fixes" << endl;
- 
   vector<vector<MyNode *> *> *vectors = new vector<vector<MyNode *> *>;
   
   while(!all_nodes->empty())
@@ -44,9 +34,11 @@ separateMap2Vectors(map<int, MyNode *> *all_nodes)
 	  map<int, MyNode *>::iterator elt;
 	  elt = z_nodes.begin();
 	  MyNode *n = elt->second;
-	  v->push_back(n);
 	  all_nodes->erase(n->getNode().id);
 	  z_nodes.erase(n->getNode().id);
+	  if(n->getMobile()==false)
+	    continue;
+	  v->push_back(n);
 	  vector<MyNode *> *nv = n->getVoisin();
 	  vector<MyNode *>::iterator it;
 	  for ( it=nv->begin() ; it < nv->end(); it++ )
@@ -69,17 +61,17 @@ separateMap2Vectors(map<int, MyNode *> *all_nodes)
 }
 
 // vector<vector<MyNode_ver2> *> *
-// separateMap2Vectors_ver2(vector<MyNode_ver2> * all_nodes, 
-// 			      vector<int> * Neighbourhoods, vector<Vec2f> * coords)
+// separateMap2Vectors_ver2(vector<MyNode_ver2> * allNodes, 
+// 			 vector<int> * Neighbourhoods, vector<Vec2f> * coords)
 // {
 //   vector<vector<MyNode *> *> *vectors = new vector<vector<MyNode *> *>;
-  
+//   vector<MyNode_ver2> * all_nodes = new vector<MyNode_ver2>(*allNodes);
 //   while(!all_nodes->empty())
 //     {
 //       // map<int, MyNode *> z_nodes;// = *all_nodes;
 //       // copy(&z_nodes,all_nodes);
 //       vector<MyNode_ver2> z_nodes = *all_nodes:
-//       vector<MyNode_ver2> *v = new vector<MyNode_ver2>;
+// 	vector<MyNode_ver2> *v = new vector<MyNode_ver2>;
 //       while(!z_nodes.empty())
 // 	{
 // 	  // map<int, MyNode *>::iterator elt;
@@ -95,7 +87,8 @@ separateMap2Vectors(map<int, MyNode *> *all_nodes)
 // 	  int i;
 // 	  for(i = 0; i < n.degree; i++)
 // 	    {
-// 	      MyNode *nvm = *it;
+// 	      // MyNode *nvm = *it;
+// 	      if()
 // 	      z_nodes.erase(nvm->getNode().id);
 // 	    }
 // 	}
@@ -170,12 +163,12 @@ void applyVectors2Graph(vector<vector<MyNode *> *> *vectors, Graph * graph) {
   ColorProperty *color=graph->getLocalProperty<ColorProperty>("viewColor");  
   vector<vector<MyNode *> *>::iterator it;
   Color couleurs[6];
-  couleurs[0] = Color(120,23,56,255);
-  couleurs[1] = Color(12,24,200,255);
-  couleurs[2] = Color(0,200,10,255);
-  couleurs[3] = Color(120,120,120,255);
-  couleurs[4] = Color(0,24,230,255);
-  couleurs[5] = Color(200,24,200,255);
+  couleurs[0] = Color(0,0,255,255);
+  couleurs[1] = Color(0,255,0,255);
+  couleurs[2] = Color(0,255,255,255);
+  couleurs[3] = Color(255,255,0,255);
+  couleurs[4] = Color(255,0,255,255);
+  couleurs[5] = Color(120,120,120,255);
 
   int c;
   for (it=vectors->begin(),c = 0; it < vectors->end(); it++,c++)
@@ -185,7 +178,6 @@ void applyVectors2Graph(vector<vector<MyNode *> *> *vectors, Graph * graph) {
       for(uint i = 0; i < MyNodes->size(); i++) 
 	{
 	  layout->setNodeValue((* MyNodes)[i]->getNode(), (* MyNodes)[i]->getCoord());
-	  //cout<<color->getNodeValue((* MyNodes)[i]->getNode())<<endl;
 	  color->setNodeValue((* MyNodes)[i]->getNode(), couleurs[c]);
 	}
     }
