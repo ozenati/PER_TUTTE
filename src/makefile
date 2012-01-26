@@ -12,7 +12,7 @@ CXXFLAGS=-W -Wall $(IFLAGS) -fopenmp -DNDEBUG -O3 \
 LDFLAGS= -ldl
 TULIP_CONFIG=`tulip-config --libs --cxxflags`
 
-SRC= main.cpp tutter.cpp
+SRC= main.cpp tutter.cpp benchmark.cpp
 OBJ= $(SRC:.cpp=.o)
 EXE= $(OBJ:.o=)
 

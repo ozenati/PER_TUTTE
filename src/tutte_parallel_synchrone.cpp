@@ -8,7 +8,7 @@
 void tutte_2_openmp(vector<MyNode_ver2> * MyNodes_2, 
 		    vector<int> * Neighbourhoods, 
 		    vector<Vec2f> * coords, 
-		    double eps) {
+		    double eps, bool silent) {
   double local_eps = 0, global_eps = 0;
   uint nbIter = 0, i;
 
@@ -66,8 +66,10 @@ void tutte_2_openmp(vector<MyNode_ver2> * MyNodes_2,
   }  // fin de la boucle sur l'ensemble des itértions
   while (global_eps > eps);
     
-  cout << endl;
-  cout << "GLOBAL epsilon : " << global_eps << endl;
-  cout << "TOTAL itération : " << nbIter << endl;
-  cout << endl;
+  if (!silent) {
+    cout << endl;
+    cout << "GLOBAL epsilon : " << global_eps << endl;
+    cout << "TOTAL itération : " << nbIter << endl;
+    cout << endl;
+  }
 }

@@ -3,9 +3,9 @@
 ## Il faut compiler le programme avant de lancer le benchmark
 # make clean && make
 
-if [ ! -f ./main ]
+if [ ! -f ./benchmark ]
 then
-    echo "You must compile the programme (make) : file ./main do not exists."
+    echo "You must compile the programme (make) : file ./benchmark do not exists."
     exit 1
 fi
 
@@ -30,19 +30,30 @@ echo ""
 for i in $(seq 0 4); 
 do
     ## Moyenne sur 10 exection
-    tmp=0
+    moy=0
+    carre=0
     for j in $(seq 1 $nb_exec);
     do
 	## Récupération du temps d'exécution du i-ème tutte
-	echo $(./main ../graphes/imdb.tlp.gz $i toto.tlp) >> "Ftmp.txt"
-	add=$(echo $(cat "Ftmp.txt" | tail -n 1 | cut -d":" -f4))
+	# echo $(./benchmark ../graphes/imdb.tlp.gz $i) >> "Ftmp.txt"
+	line=$(echo $(./benchmark ../graphes/imdb.tlp.gz $i))
+	echo $line
+	tutte_version=$(echo $line | tail -n 1 | cut -d";" -f1)
+	add=$(echo $line | tail -n 1 | cut -d":" -f4)
 	add=$(echo $add | cut -d" " -f1)
-	tmp=$(echo "$tmp + $add" | bc)
+	# echo $add
+	moy=$(echo "$moy + $add" | bc)
+	carre=$(echo "$carre + ($add * $add)" | bc)
     done
 
-    tmp=$(echo "scale=4; $tmp / $nb_exec" | bc)
-    tutte_version=$(echo $(cat "Ftmp.txt" | tail -n 1 | cut -d";" -f1))
-    echo -n "${tutte_version}: "
-    echo $tmp
+    moy=$(echo "scale=4; $moy / $nb_exec" | bc)
+    moy_carre=$(echo "scale=8; $carre / $nb_exec" | bc)
+    ecart_type=$(echo "scale=8; sqrt($moy_carre - ($moy * $moy))" | bc)
+    # tutte_version=$(echo $(cat "Ftmp.txt" | tail -n 1 | cut -d";" -f1))
+    echo "${tutte_version}: "
+    echo -n "moyenne : \t"
+    echo $moy
+    echo -n "écart type : \t"
+    echo $ecart_type
 done
 echo

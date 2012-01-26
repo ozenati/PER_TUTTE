@@ -18,7 +18,7 @@ using namespace std;
 using namespace tlp;
 
 // TUTTE VERSION 1
-void tutte(vector<MyNode> * MyNodes, double eps) { 
+void tutte(vector<MyNode> * MyNodes, double eps, bool silent) { 
   double current_eps = 0;
   uint nbIter = 0;
 
@@ -63,15 +63,17 @@ void tutte(vector<MyNode> * MyNodes, double eps) {
   }
   while (current_eps > eps);
 
-  cout << endl;
-  cout << "GLOBAL epsilon : " << current_eps << endl;
-  cout << "TOTAL itération : " << nbIter << endl;
-  cout << endl;
+  if (!silent) {
+    cout << endl;
+    cout << "GLOBAL epsilon : " << current_eps << endl;
+    cout << "TOTAL itération : " << nbIter << endl;
+    cout << endl;
+  }
 }
 
 // TUTTE VERSION 2 : meilleur structure de donnée
 void tutte_2(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods, 
-	     vector<Vec2f> * coords, double eps) {
+	     vector<Vec2f> * coords, double eps, bool silent) {
   double current_eps = 0;
   uint nbIter = 0, size = MyNodes_2->size();
 
@@ -124,15 +126,17 @@ void tutte_2(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods,
   }
   while (current_eps > eps);
 
-  cout << endl;
-  cout << "GLOBAL epsilon : " << current_eps << endl;
-  cout << "TOTAL itération : " << nbIter << endl;
-  cout << endl;
+  if (!silent) {
+    cout << endl;
+    cout << "GLOBAL epsilon : " << current_eps << endl;
+    cout << "TOTAL itération : " << nbIter << endl;
+    cout << endl;
+  }
 }
 
 // TUTTE VERSION 2 BIS : utilisation de Vec2f
 void tutte_2_bis(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods, 
-	     vector<Vec2f> * coords, double eps) {
+		 vector<Vec2f> * coords, double eps, bool silent) {
   double current_eps = 0;
   uint nbIter = 0, size = MyNodes_2->size();
 
@@ -177,13 +181,15 @@ void tutte_2_bis(vector<MyNode_ver2> * MyNodes_2, vector<int> * Neighbourhoods,
   }
   while (current_eps > eps);
 
-  cout << endl;
-  cout << "GLOBAL epsilon : " << current_eps << endl;
-  cout << "TOTAL itération : " << nbIter << endl;
-  cout << endl;
+  if (!silent) {
+    cout << endl;
+    cout << "GLOBAL epsilon : " << current_eps << endl;
+    cout << "TOTAL itération : " << nbIter << endl;
+    cout << endl;
+  }
 }
 
-void tutte_seq_3(vector<Data>* datas, vector<vector<int> >* matrix, double eps){
+void tutte_seq_3(vector<Data>* datas, vector<vector<int> >* matrix, double eps, bool silent){
   double current_eps = 0;
   uint nbIter = 0;
   uint size = datas->size(); 
@@ -224,7 +230,10 @@ void tutte_seq_3(vector<Data>* datas, vector<vector<int> >* matrix, double eps){
   }
   while (eps < current_eps);
 
-  cout << "GLOBAL epsilon : " << current_eps << endl;
-  cout << "TOTAL itération : " << nbIter << endl;
-  cout << endl;
+  if (!silent) {
+    cout << endl;
+    cout << "GLOBAL epsilon : " << current_eps << endl;
+    cout << "TOTAL itération : " << nbIter << endl;
+    cout << endl;
+  }
 }
