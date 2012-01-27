@@ -1,8 +1,8 @@
 \subsubsection{Distribution of nodes: Graph coloring}
-In order to implement a parallel asynchronous version of Tutte algorithm, it is necessary to separate graph nodes into different sets. The objectif is to extract an independance between nodes. In fact, each node have to move while maintaining neighbors positions. Thus, the independance must be between node and his neighbors. This problem is similar to the famous problem of graph colorating.
+In order to implement a parallel asynchronous version of the Tutte algorithm, it is necessary to separate graph nodes into different sets. The objective is to extract an independence between nodes. In fact, each node has to move while the neighbours maintain their positions. Thus, the independence must be between the moving node and its neighbours. This problem is similar to the famous problem of graph coloring.
 \paragraph*{}
-The objectif of the modified Tutte algorithm is to handle graph of thousands nodes. To separate such a number of nodes, it is more performant to use a heuristic of the algorithm of graph coloring.\\
-The greedy algorithm is a simple and good solution to separate nodes into sets fastly and effictively.
+The objective of the modified Tutte algorithm is to handle graphs of thousands of nodes. To separate such a number of nodes, it is more effective to use a heuristic of the algorithm of graph coloring.\\
+The greedy algorithm is a simple and good solution to separate nodes into sets fast and effectively.
 \paragraph*{}
 The algorithm used in this project is :
 \begin{verbatim}
@@ -21,15 +21,15 @@ While Y is not empty
 End while
 \end{verbatim}
 \subsubsection{Applying Tutte algorithm to sets}
-Once a sets of nodes is obteined, it is possible to apply a parallel Tutte algorithm. The question is how to parallelize it on sets of nodes. The natural idea is to attribute one sets per thread :
+Once a set of nodes is obtained, it is possible to apply a parallel Tutte algorithm. The question is how to parallelize it on sets of nodes. The natural idea is to attribute one set per thread :
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.5]{img/distribution_verticale.png}
 \caption{One set per thread}
 \end{figure}
-This distribution is far from being optimal. In fact, each thread have to lock neighbors node before moving it, wich introduce an importante critical section. In addition to being unfair, this distribution is limited by number of sets produced.\\
+This distribution is far from being optimal. In fact, each thread has to lock the neighbours nodes before moving the concerned node, which introduces an important critical section. In addition to being unfair, this distribution is limited by the number of sets produced.\\
 
-The best distribution for sets obteined by graph coloring is to execute $n$ threads on one set. Each thread move an number of nodes of the set without any critical section. This is because each node of the set is not the neighbor of all others nodes of the same set. Once the thread finish moving all his nodes of the set, he must wait for others threads (implemented by a barrier). After, the same processus is applyed on the next set.
+The best distribution for sets obtained by graph coloring is to execute $n$ threads on one set. Each thread moves a number of nodes of the set without any critical section, since each node of the set is not the neighbour of all the other nodes of the same set. Once the thread has moved all its nodes of the set, it must wait for other threads to have completed the same process (implemented by a barrier). Then, the overall process is applied to the next set.
 
 \begin{figure}[!h]
 \centering

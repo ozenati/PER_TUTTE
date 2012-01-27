@@ -1,28 +1,28 @@
 \section{Tutte Sequential}
 
-To obtain the graph resulted of the Tutte's theorem, an algorithm is
+To obtain the graph resulting from the Tutte theorem, an algorithm is
 needed. In this section, a sequential algorithm is described. This
-algorithm is an iterative solution. To compute a solution, a set of node
-that constitute a convex polygon must be decided. Let $P$ this set of node. Let
+algorithm is an iterative solution. To compute a solution, a set of nodes
+ making up a convex polygon must be decided. Let $P$ be this set of nodes. Let
 $G_k$ be the graph generated at the step $k$.
 \\
 
-To obtain the graph of the next step, all the node of the interior of the
+To obtain the graph of the next step, all the nodes of the interior of the
 convex polygon $P$ will be visited. For each node visited, the barycentric
-coordinates of its neighbourhood is computed. Then this coordinates is used
-to update the position of the current node. Once each node were visited,
-the computation of the graph $G_{k+1}$ is finished.
+coordinates of its neighbourhood are computed. Then these coordinates are used
+to update the position of the current node. Once each node has been visited,
+the computation of the graph $G_{k+1}$ is completed.
 \\
 In this project, the stop condition used for this algorithm is an epsilon
 between the relative positions of the node of the graph $G_k$ and
-$G_{k+1}$. For all node of the graph, if the length of each movement is
+$G_{k+1}$. For all nodes of the graph, if the length of each movement is
 inferior to a given epsilon, the graph $G_{k+1}$ is the solution.
 \\
 
-Following is a synthetic view of this algorithm : 
+This gives a synthetic view of this algorithm : 
 \begin{verbatim}
 G = {V,E}
-P = set of node constitute a convex polygon
+P = set of nodes constitute a convex polygon
 procedure tutte(G, P, epsilon)
   epsilon_current = 0
   for each node of (V \ convex polygon)

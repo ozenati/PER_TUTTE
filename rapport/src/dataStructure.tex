@@ -1,29 +1,27 @@
-In the implementation of our sulution we have defined our own data
-structure on which we excute the Tutte's algorithm. We have
+In the implementation of our solution we have defined our own data
+structure on which we execute the Tutte algorithm. We have
 implemented some mechanisms to convert a tulip format graph to our own
-graph structure and also to get informations from our structure
-inserted in a tulip format graph. In other words our structure is a
-temporary structure for storing informations about nodes in order to
-execute the Tutte's algorithm.
+graph structure and also to get information from our structure
+inserted in a Tulip format graph. In other words our structure is a
+temporary structure for storing information about nodes in order to
+execute the Tutte algorithm.
 
 \subsection{Issues}
-As a format tulip contains a lot of informations so it costs a lot to
-manipulate them and so far away we do not need all the informations
-about a given tulip graph. To point out we especially do not need all
-the properties about nodes to conduct the Tutte's algorithm.For
-intance, for a given node we just want to know if it is fixed for a
-fixed node's position nevers changes during the tutte's algorithme. In
-addition of that, as we are looking for performance, we need a light
-and adapted structure to the principe of Tutte's algorithm. Below are
-some of criterias which make us thought we need a new data structure.
+As a Tulip Data Structure contains a lot of information, it is expensive to
+manipulate them. Furthermore, we do not need all the information
+from a given Tulip graph. Especially, we do not need all
+the properties about nodes to conduct the Tutte algorithm. For
+instance, for a given node we just want to know if it is fixed, for a
+fixed node, position never changes during the Tutte algorithm. In
+addition to that, as we are looking for performance, we need a light structure matching the principe of Tutte algorithm. the following points are the criteria which we selected to set up a new data structure.
 \begin{enumerate}
-\item The fact that a given node is fixed or not is indicated firsly
-  by a mobility property. However there is anover property incating
-  nodes wich are part of graph contouring and these nodes need to be
-  fixed too. So to deal with the fact that a given node is fixed or
-  not we need to manipulate two properties that cost a lot.
+\item The fact that a given node is fixed or not is indicated firstly
+  by a mobility property. However, there is another property indicating
+  nodes which are part of graph contouring, and these nodes need to be
+  fixed too. Therefore, to deal with the fact that a given node is fixed or
+  not, we need to manipulate two properties that cost a lot.
 
-\item In tulip format there is an hierarchy of graphs or we only need
+\item In Tulip data structure there is a hierarchy of graphs. However, we only need
   the parent of the graph, the one which is not subgraph of another
   one. we do not need the sub-graph relation between graphs.
 
@@ -34,13 +32,13 @@ some of criterias which make us thought we need a new data structure.
 \end{enumerate}  
 
 \subsection{First implementation}
-In order to avoid memory leak and implemente easily the Tutte's
-algorithme, we merely stock in our sttructure only the informations
-needed to run the algorithm. We implemented our structure so that one
+In order to avoid memory leak and implement the Tutte
+algorithm easily, we merely store only the information
+needed to run the algorithm in our structure. We implemented our structure so that one
 can easily access the neighbourhood of a given node for it is very
-crucial in am Tutte'algorithm implementation. To do this we define a
-class that contains diferent informations needed on a given node (the
-attibuts) and all the operations we need to run on a node (the
+crucial in a Tutte algorithm implementation. To do this we define a
+class that contains the various data needed on a given node (the
+attibutes) and all the operations we need to run on a node (the
 methods).
 
 \newpage
@@ -68,20 +66,20 @@ class MyNode {
 };
 \end{lstlisting}
 
-\subsubsection{The vertex's attributs needed}
+\subsubsection{The vertex attributes needed}
 \begin{dinglist}{70}
-\item[n]: this attribut has \texttt{node} type of \textsf{tulip} library and contains the \texttt{ID} of the node.  
-\item[mobile]: this attribut has a \texttt{boolean} type and used to know a given node is considered fixed.
-\item[coord]: this attribut has a \texttt{Coord} type of \textsf{tulip} library and is used to stocked the node coordinate. 
-\item[voisin]: this attribut has a \texttt{vector} type of \texttt{C++} library and contain the neighbourhood.
+\item[n]: this attribute is of \texttt{node} type of \textsf{Tulip} library and contains the \texttt{ID} of the node.  
+\item[mobile]: this attribute is of \texttt{boolean} type and is used to know a given node is considered fixed.
+\item[coord]: this attribut is of \texttt{Coord} type of \textsf{tulip} library and is used to store the node coordinates. 
+\item[voisin]: this attribute is of \texttt{vector} type of \texttt{C++} library and contains the neighbourhood.
 \end{dinglist}
 
 \subsubsection{The operations on a vertex}
 We used two types of operations or methods: \textsf{setter} and
 \textsf{getter}. A \textsf{setter} is a method used to set the value
 of an attribut and a \textsf{getter} is used to get the value of an
-attribut. For a given attribut \texttt{attribut} , the cooresponding
-setter and setter are respectively \verb+setAttribut(args)+ and \verb+getAttribut()+. Below are the lists of the setters and getters of nodes in our structure:
+attribut. For a given attribut \texttt{attribut} , the corresponding
+setter and getter are respectively \verb+setAttribut(args)+ and \verb+getAttribut()+. Below are the lists of the setters and getters of nodes in our structure:
 \begin{dinglist}{70}
 \item[Setters]: \verb+getMobile(), getCoord(), getVoisin()+  
 \item[Getters]: \verb+setMobile(const bool b), setCoord(const Coord &), getVoisin()+.
