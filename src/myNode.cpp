@@ -76,13 +76,3 @@ std::ostream& operator<<(std::ostream &os, const MyNode &my_n) {
 
   return os;
 }
-
-/*
- * tutte v3
- */
-
-Data::Data() {
-}
-
-Data::~Data() {
-}
