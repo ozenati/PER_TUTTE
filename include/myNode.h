@@ -56,13 +56,9 @@ std::ostream& operator<<(std::ostream &os, const MyNode &my_n);
 /*
  * node data structure for tutte v3 
  */
-class Data {
- public:
+typedef struct Data {
   node n;
   Coord coord;
   bool mobile;
-
-  Data();
-  ~Data();
-};
+} Data;
 #endif
