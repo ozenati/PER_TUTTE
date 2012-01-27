@@ -7,13 +7,16 @@ temporary structure for storing information about nodes in order to
 execute the Tutte algorithm.
 
 \subsection{Issues}
-As a Tulip Data Structure contains a lot of information, it is expensive to
-manipulate them. Furthermore, we do not need all the information
-from a given Tulip graph. Especially, we do not need all
+As a Tulip Data Structure contains a lot of information, it is
+expensive to manipulate them. Furthermore, we do not need all the
+information from a given Tulip graph. Especially, we do not need all
 the properties about nodes to conduct the Tutte algorithm. For
 instance, for a given node we just want to know if it is fixed, for a
 fixed node, position never changes during the Tutte algorithm. In
-addition to that, as we are looking for performance, we need a light structure matching the principe of Tutte algorithm. the following points are the criteria which we selected to set up a new data structure.
+addition to that, as we are looking for performance, we need a light
+structure matching the principe of Tutte algorithm. The following
+points are the main reasons which lead us to set up a new data
+structure.
 \begin{enumerate}
 \item The fact that a given node is fixed or not is indicated firstly
   by a mobility property. However, there is another property indicating
@@ -31,15 +34,16 @@ addition to that, as we are looking for performance, we need a light structure m
 
 \end{enumerate}  
 
-\subsection{First implementation}
-In order to avoid memory leak and implement the Tutte
-algorithm easily, we merely store only the information
-needed to run the algorithm in our structure. We implemented our structure so that one
-can easily access the neighbourhood of a given node for it is very
-crucial in a Tutte algorithm implementation. To do this we define a
-class that contains the various data needed on a given node (the
-attibutes) and all the operations we need to run on a node (the
-methods).
+\subsection{Implementations}
+We tested three implementations in order to find out the right one. Because we care of memory leak, we merely store only the information needed to run the algorithm in our structure.
+
+\subsubsection{First implementation}
+In this implementation our structure is such that a given node
+contains its neighbourhood. So one can easily access the neighbourhood
+of a given node for it is very crucial in a Tutte algorithm
+implementation. To do this we define a class that contains the various
+data needed on a given node (the attibutes) and all the operations we
+need to run on a node (the methods).
 
 \newpage
 \begin{lstlisting}
@@ -66,7 +70,7 @@ class MyNode {
 };
 \end{lstlisting}
 
-\subsubsection{The vertex attributes needed}
+\paragraph{The vertex attributes needed}
 \begin{dinglist}{70}
 \item[n]: this attribute is of \texttt{node} type of \textsf{Tulip} library and contains the \texttt{ID} of the node.  
 \item[mobile]: this attribute is of \texttt{boolean} type and is used to know a given node is considered fixed.
@@ -74,7 +78,7 @@ class MyNode {
 \item[voisin]: this attribute is of \texttt{vector} type of \texttt{C++} library and contains the neighbourhood.
 \end{dinglist}
 
-\subsubsection{The operations on a vertex}
+\paragraph{The operations on a vertex}
 We used two types of operations or methods: \textsf{setter} and
 \textsf{getter}. A \textsf{setter} is a method used to set the value
 of an attribut and a \textsf{getter} is used to get the value of an
@@ -85,7 +89,15 @@ setter and getter are respectively \verb+setAttribut(args)+ and \verb+getAttribu
 \item[Getters]: \verb+setMobile(const bool b), setCoord(const Coord &), getVoisin()+.
 \end{dinglist}
 
-\subsection{Second implementation}
-\subsection{Third implementation}
+\subsubsection{Second implementation}
+
+\subsubsection{Third implementation}
+In this third implementation we do not use a class to store the
+different informations about node to run Tutte algorithm. 
+As we are looking for a more light data structure in order to ameliorate 
+memory access, we use a struct to group datas needed about a given node
+under one name 
+
+
 %\subsection{Enhanced implementation}
 \newpage
