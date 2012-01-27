@@ -19,6 +19,8 @@ void tutte_seq(Graph * graph, Graph * grille, int nb_exec) {
   vector<MyNode> save(*MyNodes);
 
   double t_res = 0, t0, t1;
+  double t_max = 0, t_min = 10;
+  double t_carre = 0;
 
   for (int i = 0; i < nb_exec; ++i) {
     // On applique tutte sur notre structure de noeud
@@ -26,12 +28,20 @@ void tutte_seq(Graph * graph, Graph * grille, int nb_exec) {
     tutte(MyNodes, 1e-6, true);
     t1 = omp_get_wtime();
     t_res += t1 - t0;
+    t_max = std::max(t_max, t1 - t0);
+    t_min = std::min(t_min, t1 - t0);
+    t_carre += (t1 - t0) * (t1 - t0);
 
     *MyNodes = save;
   }
 
   double res = t_res/nb_exec;
   cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
+  cout << "max : " << t_max << "s" << endl;
+  cout << "min : " << t_min << "s" << endl;
+  double ecart_type = sqrt(fabs((t_carre / nb_exec) - res));
+  cout << "ecart type : " << ecart_type << "s" << endl;
+  cout << endl;
 
   // Libération des ressources enjeux
   delete MyNodes;
@@ -50,6 +60,8 @@ void tutte_seq_2(Graph * graph, Graph * grille, int nb_exec) {
   vector<Vec2f> save(coords);
 
   double t_res = 0, t0, t1;
+  double t_max = 0, t_min = 10;
+  double t_carre = 0;
 
   for (int i = 0; i < nb_exec; ++i) {
     // On applique tutte sur notre structure de noeud
@@ -57,6 +69,9 @@ void tutte_seq_2(Graph * graph, Graph * grille, int nb_exec) {
     tutte_2(&MyNodes_2, &Neighbourhoods, &coords, 1e-6, true);
     t1 = omp_get_wtime();
     t_res += t1 - t0;
+    t_max = std::max(t_max, t1 - t0);
+    t_min = std::min(t_min, t1 - t0);
+    t_carre += (t1 - t0) * (t1 - t0);
 
     //cout << t1 - t0 << endl;
     
@@ -65,6 +80,11 @@ void tutte_seq_2(Graph * graph, Graph * grille, int nb_exec) {
 
   double res = t_res/nb_exec;
   cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
+  cout << "max : " << t_max << "s" << endl;
+  cout << "min : " << t_min << "s" << endl;
+  double ecart_type = sqrt(fabs((t_carre / nb_exec) - res));
+  cout << "ecart type : " << ecart_type << "s" << endl;
+  cout << endl;
 }
 
 void tutte_seq_2_bis(Graph * graph, Graph * grille, int nb_exec) {
@@ -80,6 +100,8 @@ void tutte_seq_2_bis(Graph * graph, Graph * grille, int nb_exec) {
   vector<Vec2f> save(coords);
 
   double t_res = 0, t0, t1;
+  double t_max = 0, t_min = 10;
+  double t_carre = 0;
 
   for (int i = 0; i < nb_exec; ++i) {
     // On applique tutte sur notre structure de noeud
@@ -87,12 +109,20 @@ void tutte_seq_2_bis(Graph * graph, Graph * grille, int nb_exec) {
     tutte_2_bis(&MyNodes_2, &Neighbourhoods, &coords, 1e-6, true);
     t1 = omp_get_wtime();
     t_res += t1 - t0;
+    t_max = std::max(t_max, t1 - t0);
+    t_min = std::min(t_min, t1 - t0);
+    t_carre += (t1 - t0) * (t1 - t0);
 
     coords = save;
   }
 
   double res = t_res/nb_exec;
   cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
+  cout << "max : " << t_max << "s" << endl;
+  cout << "min : " << t_min << "s" << endl;
+  double ecart_type = sqrt(fabs((t_carre / nb_exec) - res));
+  cout << "ecart type : " << ecart_type << "s" << endl;
+  cout << endl;
 }
 
 void tutte_seq_2_openmp(Graph * graph, Graph * grille, int nb_exec) {
@@ -108,6 +138,8 @@ void tutte_seq_2_openmp(Graph * graph, Graph * grille, int nb_exec) {
   vector<Vec2f> save(coords);
 
   double t_res = 0, t0, t1;
+  double t_max = 0, t_min = 10;
+  double t_carre = 0;
 
   for (int i = 0; i < nb_exec; ++i) {
     // On applique tutte sur notre structure de noeud
@@ -115,6 +147,9 @@ void tutte_seq_2_openmp(Graph * graph, Graph * grille, int nb_exec) {
     tutte_2_openmp(&MyNodes_2, &Neighbourhoods, &coords, 1e-6, true);
     t1 = omp_get_wtime();
     t_res += t1 - t0;
+    t_max = std::max(t_max, t1 - t0);
+    t_min = std::min(t_min, t1 - t0);
+    t_carre += (t1 - t0) * (t1 - t0);
 
     //cerr << i << " : " << t1 - t0 << endl;
     
@@ -122,7 +157,12 @@ void tutte_seq_2_openmp(Graph * graph, Graph * grille, int nb_exec) {
   }
 
   double res = t_res/nb_exec;
-  cerr << "temps d'exécution de Tutte : " << res << " s" << endl; 
+  cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
+  cout << "max : " << t_max << "s" << endl;
+  cout << "min : " << t_min << "s" << endl;
+  double ecart_type = sqrt(fabs((t_carre / nb_exec) - res));
+  cout << "ecart type : " << ecart_type << "s" << endl;
+  cout << endl;
 }
 
 /*
@@ -140,6 +180,8 @@ void tutte_seq_3 (Graph * graph, Graph * grille, int nb_exec){
   vector<Data> save = datas;
 
   double t_res = 0, t0, t1;
+  double t_max = 0, t_min = 10;
+  double t_carre = 0;
 
   for (int i = 0; i < nb_exec; ++i) {
     // On applique tutte sur notre structure de noeud
@@ -147,6 +189,9 @@ void tutte_seq_3 (Graph * graph, Graph * grille, int nb_exec){
     tutte_seq_3(&datas, &matrix, 1e-6, true);
     t1 = omp_get_wtime();
     t_res += t1 - t0;
+    t_max = std::max(t_max, t1 - t0);
+    t_min = std::min(t_min, t1 - t0);
+    t_carre += (t1 - t0) * (t1 - t0);
 
     //cerr << i << " : " << t1 - t0 << endl;
     
@@ -155,36 +200,48 @@ void tutte_seq_3 (Graph * graph, Graph * grille, int nb_exec){
 
   double res = t_res/nb_exec;
   cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
+  cout << "max : " << t_max << "s" << endl;
+  cout << "min : " << t_min << "s" << endl;
+  double ecart_type = sqrt(fabs((t_carre / nb_exec) - res));
+  cout << "ecart type : " << ecart_type << "s" << endl;
+  cout << endl;
 }
 
-/*
- * tutte on the v3 of our data structure
- */
-// void tutte_parallel_asynchrone(Graph * graph, Graph * grille, int nb_exec){
-//   (void)graph;
+void tutte_parallel_asynchrone(Graph * graph, int nb_exec){
+  map<int, MyNode *> *all_nodes = convertGraph2Map(graph);
+  vector<vector<MyNode *> *> *vectors = separateMap2Vectors(all_nodes);
+  vector<vector<MyNode *> *> save_vectors(*vectors);
 
-//   vector <Data> datas;
-//   vector<vector<int> > matrix(grille->numberOfNodes());
+  double t_res = 0, t0, t1;
+  double t_max = 0, t_min = 10;
+  double t_carre = 0;
 
-//   // On récupére les noeuds de la grille dans nos vecteur
-//   convertGraph_v3(grille, &datas , &matrix);
+  for (int i = 0; i < nb_exec; ++i) {
+    t0 = omp_get_wtime();
+    tutte_parallel_asynchrone(vectors, 1e-6, false);
+    t1 = omp_get_wtime();
+    t_res += t1 - t0;
+    t_max = std::max(t_max, t1 - t0);
+    t_min = std::min(t_min, t1 - t0);
+    t_carre += (t1 - t0) * (t1 - t0);
 
-//   double t0 = omp_get_wtime();
+    cerr << i << " : " << t1 - t0 << endl;
+    
+    *vectors = save_vectors;
+  }
 
-//   for (int i = 0; i < nb_exec; ++i) {
-//     // On applique tutte sur notre structure de noeud
-//     tutte_seq_3(&datas, &matrix, 1e-6, true);
-//   }
+  double res = t_res/nb_exec;
+  cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
+  cout << "max : " << t_max << "s" << endl;
+  cout << "min : " << t_min << "s" << endl;
+  double ecart_type = sqrt(fabs((t_carre / nb_exec) - res));
+  cout << "ecart type : " << ecart_type << "s" << endl;
+  cout << endl;
 
-//   double t1 = omp_get_wtime();
-//   double res = (t1 - t0)/nb_exec;
-
-//   // On récupére les déplacement dans notre grille
-//   updateGraph_v3(grille, &datas);
-
-//   cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
-// }
-
+  // Libération des ressources enjeux
+  delete vectors;
+  delete all_nodes;
+}
 
 int main(int argc, char * argv[])  {
   if (argc != 2) {
@@ -228,6 +285,8 @@ int main(int argc, char * argv[])  {
   tutte_seq_3(graph, grille, nb_exec);
   cout << "Tutte parallèle synchrone;" << endl;
   tutte_seq_2_openmp(graph, grille, nb_exec);
+  // cout << "Tutte parallèle asynchrone;" << endl;
+  // tutte_parallel_asynchrone(graph, nb_exec);
   
   delete graph;
   

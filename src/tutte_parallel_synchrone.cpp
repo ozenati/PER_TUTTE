@@ -48,15 +48,13 @@ void tutte_2_openmp(vector<MyNode_ver2> * MyNodes_2,
 	}
       } // fin du #pragma omp for schedule(static)
 
-      if (global_eps < local_eps) {
 #pragma omp critical
-	{
-	  global_eps = std::max(local_eps, global_eps);
-	}
+      {
+	global_eps = std::max(local_eps, global_eps);
       }
 
     }  // fin de la région parallèle
-
+    
     newCoords.swap(*coords);
     
     nbIter++;
