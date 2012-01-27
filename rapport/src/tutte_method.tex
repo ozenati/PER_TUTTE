@@ -19,6 +19,15 @@ $G_{k+1}$. For all nodes of the graph, if the length of each movement is
 inferior to a given epsilon, the graph $G_{k+1}$ is the solution.
 \\
 
+The figure \ref{transition} gives an exemple of the mouvement of one node
+during one step.
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.5]{img/transition.png}
+\caption{barycenter computation of the red node}
+\label{transition}
+\end{figure}
+
 This gives a synthetic view of this algorithm : 
 \begin{verbatim}
 G = {V,E}
@@ -34,5 +43,10 @@ procedure tutte(G, P, epsilon)
   tutte(G, P, epsilon)
 \end{verbatim}
 
+From the complexity point of view, during one iteration all the nodes of
+the set $V$ - $convex~polygon$ are visited. For each node, all its
+neighbourhood is visited. Let $aver\_d$ be the average degre of this planar
+graph. So the compexity of an iteration is $\mathit{O(n \times aver\_d)}$
+with $n = |V|$.
 
 % Le but ici est d'exposé la méthode algorithmique qui découle de l'algorithme de Tutte et  de prouver que cette méthode converge (retrouver l'article qui en parle)
