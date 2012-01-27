@@ -1,40 +1,51 @@
 \section{Tutte's algorithm}
 
-This part of text comes from the article~\cite{pa}.
 
-In this paper, we will use basic graph theory terminology, see for
-example~\cite{pb}. Let $G=(V,E)$ be a planar graph. A mapping $\Gamma$
-of $G$ into the plane is a function $\Gamma : V \cup E \to P(\mathbb{R}^2)$
-which maps a vertex $v \in V$ to a point in $\mathbb{R}^2$ and an edge $e =
-uv \in E$ to the straight line segment joining $\Gamma(u)$ and
+The basic graph theory terminology defined in the article ~\cite{pa, pb}
+will be used.  Let $G=(V,E)$ be a planar graph. A mapping $\Gamma$ of $G$
+into the plane is a function $\Gamma : V \cup E \to P(\mathbb{R}^2)$. This
+function maps a vertex $v \in V$ to a point in $\mathbb{R}^2$ and an edge
+$e = uv \in E$ to the straight line segment joining $\Gamma(u)$ and
 $\Gamma(v)$.  A mapping is an embedding if distinct vertices are mapped to
 distinct points, and the open segment of each edge does not intersect any
 other open segment of an edge or a vertex.
+\\
 
-In 1963, Tutte~\cite{pc} gave a way to build embeddings of any planar,
-3-connected graph $G=~(V,E)$. Let $C$ be a cycle whose vertices are the
-vertices of a face of G in some (not necessarily straight-line) embedding
-of $G$. Let $\Gamma$ be a mapping of $G$ into the plane, satisfying the
-conditions:
+A way to build embeddings of any planar, 3-connected graph $G=~(V,E)$ have
+been produced by Tutte in 1963 ~\cite{pc}. Let $C$ be a cycle of
+vertices. Those vertices are the vertices of a face of G in some (not
+necessarily straight-line) embedding of $G$. Let $\Gamma$ be a mapping of
+$G$ into the plane.
 
-\begin{itemize}
+% In 1963, Tutte~\cite{pc} gave a way to build embeddings of any planar,
+% 3-connected graph $G=~(V,E)$. Let $C$ be a cycle whose vertices are the
+% vertices of a face of G in some (not necessarily straight-line) embedding
+% of $G$. Let $\Gamma$ be a mapping of $G$ into the plane, satisfying the
+% conditions:
 
-\item the set Ve of the vertices of the cycle C is mapped to the vertices of a strictly
-convex polygon Q, in such a way that the order of the points is respected;
+% \begin{itemize}
 
-\item each vertex in $V_i = V \ V_e$ is a barycenter with positive coefficients of
-its adjacent vertices (Tutte assumed all coefficients to be equal to 1, but
-the proof extends without changes to this case). In other words, the images
-v of the vertices v under $\Gamma$ are obtained by solving a linear system
-(S): for each $u \in V_{i, v|uv \in E} \lambda_{uv} (u - v) = 0$, where the
-$\lambda_{uv}$ are positive reals. It can be shown that the system (S) admits
-a unique solution.
+% \item the set Ve of the vertices of the cycle C is mapped to the vertices of a strictly
+% convex polygon Q, in such a way that the order of the points is respected;
 
-\end{itemize}
+% \item each vertex in $V_i = V \ V_e$ is a barycenter with positive coefficients of
+% its adjacent vertices (Tutte assumed all coefficients to be equal to 1, but
+% the proof extends without changes to this case). In other words, the images
+% v of the vertices v under $\Gamma$ are obtained by solving a linear system
+% (S): for each $u \in V_{i, v|uv \in E} \lambda_{uv} (u - v) = 0$, where the
+% $\lambda_{uv}$ are positive reals. It can be shown that the system (S) admits
+% a unique solution.
 
-\begin{theo} \label{theo:box}
-(Tutte’s Theorem) $\Gamma$ is an embedding of G into the plane, with
-strictly convex interior faces.
+% \end{itemize}
+
+\begin{theo} \label{theo:box} (Tutte’s Theorem) Let $Ve$ a set of the
+  vertices of the cycle $C$ is mapped to the vertices of a strictly convex
+  polygon $Q$, in such a way that the order of the points is respected.  If
+  for each vertex in $V_i = V \ V_e$ is a barycenter with positive
+  coefficients of its adjacent vertices (Tutte assumed all coefficients to
+  be equal to 1, but the proof extends without changes to this case), so
+  $\Gamma$ is an embedding of $G$ into the plane, with strictly convex
+  interior faces.
 \end{theo}
 
 %\subsection*{Concave Polygon}
