@@ -7,11 +7,10 @@ temporary structure for storing information about nodes in order to
 execute the Tutte algorithm.
 
 \subsection{Issues}
-As a Tulip Data Structure contains a lot of information, it is
+As the Tulip data structure contains a lot of information, it is
 expensive to manipulate them. Furthermore, we do not need all the
-information from a given Tulip graph. Especially, we do not need all
-the properties about nodes to conduct the Tutte algorithm. For
-instance, for a given node we just want to know if it is fixed, for a
+information from a given Tulip graph. For
+instance, for a given node, we just want to know if it is fixed. For a
 fixed node, position never changes during the Tutte algorithm. In
 addition to that, as we are looking for performance, we need a light
 structure matching the principe of Tutte algorithm. The following
@@ -35,7 +34,7 @@ structure.
 \end{enumerate}  
 
 \subsection{Implementations}
-We tested three implementations in order to find out the right one. Because we care of memory leak, we merely store only the information needed to run the algorithm in our structure.
+We tested three implementations in order to find out the right one. Because we care of memory and speed, we merely store only the information needed to run the algorithm in our structure.
 
 \subsubsection{First implementation}
 In this implementation our structure is such that a given node
