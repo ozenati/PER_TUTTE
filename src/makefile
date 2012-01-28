@@ -17,7 +17,7 @@ OBJ= $(SRC:.cpp=.o)
 EXE= $(OBJ:.o=)
 
 OBJDEP= myNode.o toolkit.o tutte_sequentiel_asynchrone.o separator.o \
-	 tutte_parallel_synchrone.o tutte_parallel_asynchrone.o 
+	 tutte_parallel_synchrone.o tutte_parallel_asynchrone.o EdgeCrossings.o
 
 all: $(EXE)
 

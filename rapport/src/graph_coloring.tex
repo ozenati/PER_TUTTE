@@ -20,6 +20,8 @@ While Y is not empty
    color ++
 End while
 \end{verbatim}
+
+This algorithm is known to use at most $d(G)+1$ colors where $d(G)$ represents the largest value of the degree in the graph G. However, its shortcommings is that it produce sets of different size. This can be inconvenient for task distribution.
 \subsubsection{Applying Tutte algorithm to sets}
 Once a set of nodes is obtained, it is possible to apply a parallel Tutte algorithm. The question is how to parallelize it on sets of nodes. The natural idea is to attribute one set per thread :
 \begin{figure}[!h]

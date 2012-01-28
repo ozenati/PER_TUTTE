@@ -4,5 +4,6 @@ src/separator
 src/tutter
 src/main
 src/*.o
+src/*~
 tutte_seq
 tulip-config
