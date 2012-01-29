@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdio>
 
 #include <sys/time.h>
 
@@ -35,12 +36,12 @@ void tutte_seq(Graph * graph, Graph * grille, int nb_exec) {
     *MyNodes = save;
   }
 
-  double res = t_res/nb_exec;
-  cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
-  cout << "max : " << t_max << "s" << endl;
-  cout << "min : " << t_min << "s" << endl;
-  double ecart_type = sqrt(fabs((t_carre / nb_exec) - res));
-  cout << "ecart type : " << ecart_type << "s" << endl;
+  double moy = t_res/nb_exec;
+  cout << "temps d'exécution de Tutte : " << moy << " s" << endl; 
+  cout << "max : " << t_max << " s" << endl;
+  cout << "min : " << t_min << " s" << endl;
+  double ecart_type = sqrt(fabs((t_carre / nb_exec) - moy * moy));
+  cout << "ecart type : " << ecart_type << " s" << endl;
   cout << endl;
 
   // Libération des ressources enjeux
@@ -78,12 +79,12 @@ void tutte_seq_2(Graph * graph, Graph * grille, int nb_exec) {
     coords = save;
   }
 
-  double res = t_res/nb_exec;
-  cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
-  cout << "max : " << t_max << "s" << endl;
-  cout << "min : " << t_min << "s" << endl;
-  double ecart_type = sqrt(fabs((t_carre / nb_exec) - res));
-  cout << "ecart type : " << ecart_type << "s" << endl;
+  double moy = t_res/nb_exec;
+  cout << "temps d'exécution de Tutte : " << moy << " s" << endl; 
+  cout << "max : " << t_max << " s" << endl;
+  cout << "min : " << t_min << " s" << endl;
+  double ecart_type = sqrt(fabs((t_carre / nb_exec) - moy * moy));
+  cout << "ecart type : " << ecart_type << " s" << endl;
   cout << endl;
 }
 
@@ -116,12 +117,12 @@ void tutte_seq_2_bis(Graph * graph, Graph * grille, int nb_exec) {
     coords = save;
   }
 
-  double res = t_res/nb_exec;
-  cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
-  cout << "max : " << t_max << "s" << endl;
-  cout << "min : " << t_min << "s" << endl;
-  double ecart_type = sqrt(fabs((t_carre / nb_exec) - res));
-  cout << "ecart type : " << ecart_type << "s" << endl;
+  double moy = t_res/nb_exec;
+  cout << "temps d'exécution de Tutte : " << moy << " s" << endl; 
+  cout << "max : " << t_max << " s" << endl;
+  cout << "min : " << t_min << " s" << endl;
+  double ecart_type = sqrt(fabs((t_carre / nb_exec) - moy * moy));
+  cout << "ecart type : " << ecart_type << " s" << endl;
   cout << endl;
 }
 
@@ -156,12 +157,12 @@ void tutte_seq_2_openmp(Graph * graph, Graph * grille, int nb_exec) {
     coords = save;
   }
 
-  double res = t_res/nb_exec;
-  cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
-  cout << "max : " << t_max << "s" << endl;
-  cout << "min : " << t_min << "s" << endl;
-  double ecart_type = sqrt(fabs((t_carre / nb_exec) - res));
-  cout << "ecart type : " << ecart_type << "s" << endl;
+  double moy = t_res/nb_exec;
+  cout << "temps d'exécution de Tutte : " << moy << " s" << endl; 
+  cout << "max : " << t_max << " s" << endl;
+  cout << "min : " << t_min << " s" << endl;
+  double ecart_type = sqrt(fabs((t_carre / nb_exec) - moy * moy));
+  cout << "ecart type : " << ecart_type << " s" << endl;
   cout << endl;
 }
 
@@ -198,12 +199,12 @@ void tutte_seq_3 (Graph * graph, Graph * grille, int nb_exec){
     datas = save;
   }
 
-  double res = t_res/nb_exec;
-  cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
-  cout << "max : " << t_max << "s" << endl;
-  cout << "min : " << t_min << "s" << endl;
-  double ecart_type = sqrt(fabs((t_carre / nb_exec) - res));
-  cout << "ecart type : " << ecart_type << "s" << endl;
+  double moy = t_res/nb_exec;
+  cout << "temps d'exécution de Tutte : " << moy << " s" << endl; 
+  cout << "max : " << t_max << " s" << endl;
+  cout << "min : " << t_min << " s" << endl;
+  double ecart_type = sqrt(fabs((t_carre / nb_exec) - moy * moy));
+  cout << "ecart type : " << ecart_type << " s" << endl;
   cout << endl;
 }
 
@@ -230,12 +231,12 @@ void tutte_parallel_asynchrone(Graph * graph, int nb_exec){
     *vectors = save_vectors;
   }
 
-  double res = t_res/nb_exec;
-  cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
-  cout << "max : " << t_max << "s" << endl;
-  cout << "min : " << t_min << "s" << endl;
-  double ecart_type = sqrt(fabs((t_carre / nb_exec) - res));
-  cout << "ecart type : " << ecart_type << "s" << endl;
+  double moy = t_res/nb_exec;
+  cout << "temps d'exécution de Tutte : " << moy << " s" << endl; 
+  cout << "max : " << t_max << " s" << endl;
+  cout << "min : " << t_min << " s" << endl;
+  double ecart_type = sqrt(fabs((t_carre / nb_exec) - moy * moy));
+  cout << "ecart type : " << ecart_type << " s" << endl;
   cout << endl;
 
   // Libération des ressources enjeux
@@ -245,18 +246,6 @@ void tutte_parallel_asynchrone(Graph * graph, int nb_exec){
 
 int main(int argc, char * argv[])  {
   if (argc != 2) {
-    if ((1 < argc) && (strcmp(argv[1], "-l") == 0)) {
-      cout << "" << endl;
-      cout << "  ==  Tutte versions   ==  " << endl;
-      cout << "0 : sequential tutte" << endl;
-      cout << "1 : sequential tutte version 2" << endl;
-      cout << "2 : sequential tutte version 2 bis (Vec2f)" << endl;
-      cout << "3 : sequential tutte version 3" << endl;
-      cout << "4 : openMP tutte" << endl;
-      cout << "" << endl;
-      exit(EXIT_SUCCESS);
-    }
-
     cout << "Usage : "<< argv[0] << " <nb_exec>" << endl;
     cout << "" << endl;
     cout << "Type \"./benchmark -l\" to view the list of tutte version." <<endl;
@@ -266,6 +255,41 @@ int main(int argc, char * argv[])  {
 
   // Permet d'utiliser loadGraph méthode
   tlp::initTulipLib();
+
+  // FILE * fichier = popen("ls ../graphes_bench/", "r");
+
+  // int TAILLE_MAX = 128;
+  // char buff[TAILLE_MAX];
+
+  // vector<char *> graphe_name;
+
+  
+  // fgets(buff, TAILLE_MAX, fichier);
+  // char * new_chaine = (char *)malloc(strlen(buff) * sizeof(char));
+  // strcpy(new_chaine, buff);
+  // graphe_name.push_back(new_chaine);
+ 
+  // //cout << graphe_name[0] << endl;
+
+  // while ( !feof(fichier) ) {
+  //   cout << buff << endl;
+  //   fgets(buff, TAILLE_MAX, fichier);
+    
+  //   if (!feof(fichier)) {
+  //     char * new_chaine = (char *)malloc((strlen(buff) + strlen("../graphes_bench/")) * sizeof(char));
+  //     strcpy(new_chaine, buff);
+  //     strcat(new_chaine, "../graphes_bench/");
+  //     graphe_name.push_back(new_chaine);
+  //   }
+  // }
+  
+  // cout << endl;
+
+  // uint i = 0;
+  // for (i = 0; i < graphe_name.size(); i++)
+  //   cout << graphe_name[i] << endl;
+
+  // pclose(fichier);
 
   // Lecture d'un graphe d'entré
   tlp::Graph* graph = tlp::loadGraph("../graphes/imdb.tlp.gz");
