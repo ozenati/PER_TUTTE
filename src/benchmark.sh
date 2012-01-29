@@ -34,6 +34,7 @@ echo ""
 for g in $1*;
 do
     ./benchmark $g $2 | tail -n 4
+    echo "passe $g" >/dev/fd/2
 done
 
 # ## Pour toutes les variantes de Tutte

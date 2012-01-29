@@ -1,0 +1,22 @@
+The order of execution of the different Tutte : 
+Tutte séquentiel asynchrone
+Tutte séquentiel asynchrone 2
+Tutte séquentiel asynchrone 2 (Vec2f)
+Tutte séquentiel asynchrone 3
+Tutte parallèle synchrone
+Tutte parallèle asynchrone
+
+The given time of execution for a tutte version is an average over 1000 executions
+
+Benchmark on graph : ../graphes_bench/aiir_traffic.tlp.gz
+menMeans = (0.068634, 0.0162732, 0.0162326, 0.0137414, 0.0202103, 0.050945, )
+menStd = (0.000134027, 2.48238e-05, 2.15133e-05, 5.20517e-05, 4.77279e-05, 0.000306196, )
+
+Benchmark on graph : ../graphes_bench/imdb.tlp.gz
+menMeans = (0.330761, 0.0703849, 0.0705067, 0.074734, 0.0882206, 0.207048, )
+menStd = (0.00280537, 0.000108425, 6.23691e-05, 0.000228272, 0.000153175, 0.000457334, )
+
+Benchmark on graph : ../graphes_bench/migration.tlp.gz
+menMeans = (0.0010435, 0.000238641, 0.000240193, 0.000233299, 0.00214291, 0.000448204, )
+menStd = (4.78756e-06, 1.49911e-06, 1.37312e-06, 1.38273e-05, 4.54968e-06, 3.44309e-05, )
+
