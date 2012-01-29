@@ -1,8 +1,8 @@
 In the implementation of our solution we have defined our own data
 structure on which we execute the Tutte algorithm. We have
 implemented some mechanisms to convert a tulip format graph to our own
-graph structure and also to get inserted information from our structure
- in a Tulip format graph. In other words, our structure is a
+graph structure and also to get information from our structure to insert them 
+into a Tulip graph. In other words, our structure is a
 temporary structure for storing information about nodes in order to
 execute the Tutte algorithm.
 
@@ -72,17 +72,10 @@ class MyNode {
 \noindent
 \underline{\bf Vertex attributes needed}
 \begin{dinglist}{70}
-<<<<<<< HEAD
 \item[n]: \texttt{node} type of \textsf{Tulip} library; contains the \texttt{ID} of the node.  
 \item[mobile]: \texttt{boolean} type; is used to know a given node is considered fixed.
 \item[coord]: \texttt{Coord} type of \textsf{Tulip} library; is used to store the node coordinates. 
 \item[voisin]: \texttt{vector} type of \texttt{C++} library; contains the neighbourhood.
-=======
-\item[n]: this attribute is of \texttt{node} type of \textsf{Tulip} library and contains the \texttt{ID} of the node.  
-\item[mobile]: this attribute is of \texttt{boolean} type and is used to know if a given node is considered fixed.
-\item[coord]: this attribut is of \texttt{Coord} type of \textsf{tulip} library and is used to store the node coordinates. 
-\item[voisin]: this attribute is of \texttt{vector} type of \texttt{C++} library and contains the neighbourhood.
->>>>>>> a7462e5897dcf9d2837562e62234a196a698e359
 \end{dinglist}
 \noindent
 \underline{\bf Operations on a vertex}~\\
@@ -98,15 +91,15 @@ are the lists of the setters and getters of nodes in our structure:
 \end{dinglist}
 
 \subsubsection{Second implementation}
-In the seconde implementation, the built data structure aims to decrease
+In the second implementation, the built data structure aims to decrease
 the number of pointer translation of the system. Also, the method to fill
-our data structure tries to put the coordinates of a node neighbourghood
-near to its node.
+our data structure tries to put the neighbourghood coordinates of a node 
+near to its own.
 
 A new basic class of MyNode\_ver2 have been implemented. The vector \\
 \verb+vector<MyNode *> voisin+ is substituted by an integer \verb+index_neighbourhood+.
 
-Here is their statement this class:
+Here is the statement of this class:
 
 \newpage
 \begin{lstlisting}
@@ -115,11 +108,11 @@ Here is their statement this class:
     node n;
     bool mobile;
     int index_neighbourhood;
-    int degre;
+    int degree;
   };
 \end{lstlisting}
 
-To store all the nodes, the neighboughoods, and the coordinates three tables are needed. 
+To store all the nodes, the neighboughoods and the coordinates, three tables are needed. 
 
 \begin{lstlisting}
   vector<MyNode_ver2> MyNodes_2;
@@ -138,7 +131,7 @@ gives the index of the neighbourhood of the node in the vector \verb+Neighbourho
 
 \subsubsection{Third implementation}
 In this third implementation, we do not use a class to store the
-different informations about node to run Tutte algorithm. 
+various data about node to run Tutte algorithm. 
 As we are looking for a lighter data structure in order to ameliorate 
 memory access, we use a \textsf{struct} to group data needed about a given node
 under one name (\textsf{Data}). 
