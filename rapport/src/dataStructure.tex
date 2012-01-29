@@ -1,8 +1,8 @@
 In the implementation of our solution we have defined our own data
 structure on which we execute the Tutte algorithm. We have
 implemented some mechanisms to convert a tulip format graph to our own
-graph structure and also to get information from our structure
-inserted in a Tulip format graph. In other words our structure is a
+graph structure and also to get inserted information from our structure
+ in a Tulip format graph. In other words, our structure is a
 temporary structure for storing information about nodes in order to
 execute the Tutte algorithm.
 
@@ -24,9 +24,10 @@ structure.
   not, we need to manipulate two properties that cost a lot.
 
 \item In Tulip data structure there is a hierarchy of graphs. However, we only need
-  the parent of the graph, the one which is not subgraph of another
-  one. we do not need the sub-graph relation between graphs.
+  the parent of the graph. We do not need the sub-graph relation between graphs.
 
+%%, the one which is not subgraph of another
+  %%one
 %% \item The informations about nodes are not in node but there is a
 %% map between nodes and properties. For a given node, it cost a lot
 %% to acces to one of its properties.
@@ -37,11 +38,11 @@ structure.
 We tested three implementations in order to find out the right one. Because we care of memory and speed, we merely store only the information needed to run the algorithm in our structure.
 
 \subsubsection{First implementation}
-In this implementation our structure is such that a given node
+In this implementation, our structure is constructed so that a given node
 contains its neighbourhood. So one can easily access the neighbourhood
-of a given node for it is very crucial in a Tutte algorithm
-implementation. To do this we define a class that contains the various
-data needed on a given node (the attibutes) and all the operations we
+of a given node because it is very crucial in a Tutte algorithm
+implementation. To do this, we define a class that contains the various
+data needed on a given node (the attributes) and all the operations we
 need to run on a node (the methods).
 
 \newpage
@@ -71,10 +72,17 @@ class MyNode {
 \noindent
 \underline{\bf Vertex attributes needed}
 \begin{dinglist}{70}
+<<<<<<< HEAD
 \item[n]: \texttt{node} type of \textsf{Tulip} library; contains the \texttt{ID} of the node.  
 \item[mobile]: \texttt{boolean} type; is used to know a given node is considered fixed.
 \item[coord]: \texttt{Coord} type of \textsf{Tulip} library; is used to store the node coordinates. 
 \item[voisin]: \texttt{vector} type of \texttt{C++} library; contains the neighbourhood.
+=======
+\item[n]: this attribute is of \texttt{node} type of \textsf{Tulip} library and contains the \texttt{ID} of the node.  
+\item[mobile]: this attribute is of \texttt{boolean} type and is used to know if a given node is considered fixed.
+\item[coord]: this attribut is of \texttt{Coord} type of \textsf{tulip} library and is used to store the node coordinates. 
+\item[voisin]: this attribute is of \texttt{vector} type of \texttt{C++} library and contains the neighbourhood.
+>>>>>>> a7462e5897dcf9d2837562e62234a196a698e359
 \end{dinglist}
 \noindent
 \underline{\bf Operations on a vertex}~\\
@@ -129,10 +137,10 @@ The attribute \verb+index_neighbourhood+ of the class \verb+MyNode_ver2+
 gives the index of the neighbourhood of the node in the vector \verb+Neighbourhoods+.
 
 \subsubsection{Third implementation}
-In this third implementation we do not use a class to store the
+In this third implementation, we do not use a class to store the
 different informations about node to run Tutte algorithm. 
-As we are looking for a more light data structure in order to ameliorate 
-memory access, we use a \textsf{struct} to group datas needed about a given node
+As we are looking for a lighter data structure in order to ameliorate 
+memory access, we use a \textsf{struct} to group data needed about a given node
 under one name (\textsf{Data}). 
 \begin{lstlisting}
   struct Data {
@@ -141,12 +149,12 @@ under one name (\textsf{Data}).
     bool mobile;
   } Data;
 \end{lstlisting}
-In addition of the structure above, we use two tables. A \texttt{data store table} table to store datas about nodes and \texttt{neighbourhoods table} to link nodes with their neighbourhoods. The picture below illustrate the principle.
+In addition of the structure above, we use two tables. A \texttt{data store table} table to store data about nodes and \texttt{neighbourhoods table} to link nodes with their neighbourhoods. The picture below illustrate the principle.
 \begin {figure}[H]
   \centering
   \includegraphics[scale=0.5]{img/struct3.png}
   \caption{Third implementation graph representation}
   \label{struct3}
 \end {figure}
-\noindent One can read in the \texttt{neighbourhoods table} that neighbours of the node 0 are nodes \texttt{4, 2, 3, 0, 1} and node 1 have not got neighbours. One can access all the informations about node 0 located at the index 0 of the \texttt{data store table}.  
+\noindent One can read in the \texttt{neighbourhoods table} that neighbours of the node 0 are nodes \texttt{4, 3,  1} and node 2 have not got neighbours. One can access all information about node 0 located at the index 0 of the \texttt{data store table}.  
 %\subsection{Enhanced implementation}

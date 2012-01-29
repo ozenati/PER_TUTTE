@@ -38,8 +38,9 @@ int main(int argc, char * argv[])  {
   double res = timeEnd.tv_sec - timeBegin.tv_sec + (double)(timeEnd.tv_usec - timeBegin.tv_usec)/1e6;
 
   cout << "temps d'exécution de Tutte : " << res << " s" << endl; 
-  int n = computeNbCrossings(graph, graph->getLocalProperty<LayoutProperty>("viewLayout"));
-  cout << "nb de problemes " << n << endl;
+  // int n = computeNbCrossings(graph, graph->getLocalProperty<LayoutProperty>("viewLayout"));
+  // cout << "nb de problemes " << n << endl;
+
   // On récupére les déplacement dans notre grille
   //convertVector2Graph(MyNodes, graph);
   applyVectors2Graph(vectors, graph);

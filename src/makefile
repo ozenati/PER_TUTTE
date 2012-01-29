@@ -7,6 +7,7 @@
 
 CC= g++
 IFLAGS= -I../include/ 
+#CXXFLAGS=-W -Wall -fopenmp $(IFLAGS) -g
 CXXFLAGS=-W -Wall -fopenmp $(IFLAGS) -DNDEBUG  \
 	-funroll-all-loops -O3 -mtune=native
 LDFLAGS= -ldl -lgomp
