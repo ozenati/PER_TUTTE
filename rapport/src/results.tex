@@ -18,22 +18,38 @@ migration & 14318 & 49460\\
 \end{center}
 
 
-For the first implementation with a basic structure to
-work on the graph, we obtain these results~:
+The histogram (figure \ref{histo}) shows the different times of execution
+that we obtain through our different implementations:
 
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline
-Graph & number of iterations & mean time of execution of Tutte's algorithm & standard deviation\\
-\hline
-aiir\_traffic & 61 & 0.2526 & 0\\
-imdb & 473 & 1.2957 & 0\\
-migration & 5 & 0.006314 & 0\\
-\hline
+\begin{figure}[!h]
+  \centering
+  \includegraphics[scale=0.4]{img/histogramme.png}
+  \caption{All the mean times of execution}
+  \label{histo}
+\end{figure}
 
-\end{tabular}
-%\caption{title}
-\end{center}
+\underline{\bf Definition of each tags above a bar}
+\begin{dinglist}{70}
+\item [SA 1]: Tutte sequential asynchronous version on the first data structure;
+\item [SA 2]: Tutte sequential asynchronous version on the second data structure;
+\item [SA 2b]: Tutte sequential asynchronous version on the second data structure with usage of Vec2f;
+\item [SA 3]: Tutte sequential asynchronous version on the third data structure;
+\item [PS]: Tutte parallel synchronous version on the second data structure;
+\item [PA]: Tutte parallel asynchronous version on the first data structure;
+\end{dinglist}
+
+The mean times of computation showed on the figure \ref{histo} are been
+obtained over 1000 executions of each algorithm. The configuration of the
+computer that has done the executions is :
+\begin{description}
+\item {Processor}: Intel Core i5-2410M
+\item {RAM} : DDRIII 6 GB
+\end{description}
+
+One can notice that the best implement is the sequential asynchronous
+version on the second data structure. Also, the parallel implementations
+are not the faster one certainly because the number data to treat is not
+enough great.
 
 \subsection{Not planar graph}
 The results we get here are not as good as we expected. Although the
@@ -41,7 +57,7 @@ computation time is quite improved, the produced graphs are not planar. The
 reason is because the graph provided has some fixed nodes inside the
 grid. Consequently, after the call of our implementation of the Tutte
 Algorithm, some edges crossing (due to those fixed nodes) appear and remove
-the planarity of the graph.
+the planar property of the graph.
 
 As an explanation, we can say that by moving nodes around an internal fixed
 node, and in relation with the number of edges in one side of the graph, mobile
