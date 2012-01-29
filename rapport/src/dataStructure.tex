@@ -1,8 +1,8 @@
 In the implementation of our solution we have defined our own data
 structure on which we execute the Tutte algorithm. We have
 implemented some mechanisms to convert a tulip format graph to our own
-graph structure and also to get inserted information from our structure
- in a Tulip format graph. In other words, our structure is a
+graph structure and also to get information from our structure to insert them 
+into a Tulip graph. In other words, our structure is a
 temporary structure for storing information about nodes in order to
 execute the Tutte algorithm.
 
@@ -93,7 +93,7 @@ setter and getter are respectively \verb+setAttribut(args)+ and \verb+getAttribu
 
 \subsubsection{Third implementation}
 In this third implementation, we do not use a class to store the
-different informations about node to run Tutte algorithm. 
+various data about node to run Tutte algorithm. 
 As we are looking for a lighter data structure in order to ameliorate 
 memory access, we use a \textsf{struct} to group data needed about a given node
 under one name (\textsf{Data}). 
