@@ -91,15 +91,15 @@ are the lists of the setters and getters of nodes in our structure:
 \end{dinglist}
 
 \subsubsection{Second implementation}
-In the seconde implementation, the built data structure aims to decrease
+In the second implementation, the built data structure aims to decrease
 the number of pointer translation of the system. Also, the method to fill
-our data structure tries to put the coordinates of a node neighbourghood
-near to its node.
+our data structure tries to put the neighbourghood coordinates of a node 
+near to its own.
 
 A new basic class of MyNode\_ver2 have been implemented. The vector \\
 \verb+vector<MyNode *> voisin+ is substituted by an integer \verb+index_neighbourhood+.
 
-Here is their statement this class:
+Here is the statement of this class:
 
 \newpage
 \begin{lstlisting}
@@ -108,11 +108,11 @@ Here is their statement this class:
     node n;
     bool mobile;
     int index_neighbourhood;
-    int degre;
+    int degree;
   };
 \end{lstlisting}
 
-To store all the nodes, the neighboughoods, and the coordinates three tables are needed. 
+To store all the nodes, the neighboughoods and the coordinates, three tables are needed. 
 
 \begin{lstlisting}
   vector<MyNode_ver2> MyNodes_2;
