@@ -18,13 +18,22 @@ fi
 graph_path=$1
 nb_exec=$2
 
+echo "The order of execution of the different Tutte : "
+echo "Tutte séquentiel asynchrone"
+echo "Tutte séquentiel asynchrone 2"
+echo "Tutte séquentiel asynchrone 2 (Vec2f)"
+echo "Tutte séquentiel asynchrone 3" 
+echo "Tutte parallèle synchrone"
+echo "Tutte parallèle asynchrone"
+
+
 echo ""
 echo "The given time of execution for a tutte version is an average over $nb_exec executions"
 echo ""
 
-for g in $1/*;
+for g in $1*;
 do
-    ./benchmark $g $2
+    ./benchmark $g $2 | tail -n 4
 done
 
 # ## Pour toutes les variantes de Tutte
