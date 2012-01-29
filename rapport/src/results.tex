@@ -34,3 +34,8 @@ migration & 5 & 0.006314 & 0\\
 %\caption{title}
 \end{center}
 
+The results we get here is not what we expected. Despite the fact that the computation time is quite improved, the graph provided has some fixed nodes inside the grid, and this makes that after the call of our implementation of the Tutte Algorithm, some cross of edges (due to those fixed nodes) appear and remove the planarity of the graph. As an explanation, we can say that by moving nodes around an internal fixed node, and in relation with the number of edges in one direction, mobile nodes tend to orient themselves to the direction of the fixed node having most of edges. With this orientation, a mobile node which is opposite to the side with a lot of edges will move to this side and create a cross of edges.
+
+Here are some pictures to recap:
+%\begin{}      
+%\end{}
