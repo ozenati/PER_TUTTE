@@ -252,7 +252,7 @@ void tutte_parallel_asynchrone(Graph * graph, int nb_exec){
 
     // cerr << i << " : " << t1 - t0 << endl;
     
-    remise_a_zero(vectors,coordonnees);//    *vectors = save_vectors;
+    remise_a_zero(vectors,coordonnees);
   }
 
   double moy = t_res/nb_exec;
@@ -270,7 +270,7 @@ void tutte_parallel_asynchrone(Graph * graph, int nb_exec){
 
 int main(int argc, char * argv[])  {
   if (argc != 3) {
-    cout << "Usage : "<< argv[0] << " <graphe_path> <nb_exec>" << endl;
+    cout << "Usage : "<< argv[0] << " <graph_path> <nb_exec>" << endl;
     cout << "" << endl;
     cout << "Type \"./benchmark -l\" to view the list of tutte version." <<endl;
     cout << "" << endl;
