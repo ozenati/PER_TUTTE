@@ -1,3 +1,4 @@
+\subsection{Benchmark}
 
 The authors provided us with three graphs in order to test our
 different implementations of the Tutte method.\\
@@ -34,6 +35,7 @@ migration & 5 & 0.006314 & 0\\
 %\caption{title}
 \end{center}
 
+\subsection{Not planar graph}
 The results we get here is not as good as we expected. Although the
 computation time is quite improved, the produced graph is not planar.  The
 reason is because the graph provided has some fixed nodes inside the
@@ -48,41 +50,35 @@ most of edges (see the figure \ref{mauvais_1}). With a such graph, a
 mobile node which is opposite to the side with a lot of edges will move to
 this side and create an edge-crossing (see the figure \ref{mauvais_2}).
 
-Here are some pictures:
-
-% \begin{figure}[!h]
-% \centering
-% \includegraphics[scale=0.25]{snapshots/constate_fix_init.png}
-% \caption{One initial set}
-% \label{mauvais_1}
-% \end{figure}
-
-% \begin{figure}[!h]
-% \centering
-% \includegraphics[scale=0.25]{snapshots/constate_probleme.png}
-% \caption{The set not correctly modified(one fixed node)}
-% \label{mauvais_2}
-% \end{figure}
-
-
 \begin{figure}[!h]
-  %\begin{minipage}[!h]{.46\linewidth}
   \begin{minipage}[!h]{.5\linewidth}
    \centering
-   \includegraphics[scale=0.25]{snapshots/constate_fix_init.png}
-   \caption{One initial set}
+   \includegraphics[scale=0.27]{snapshots/constate_fix_init.png}
+   \caption{The initial graph. The blue node is fixed}
    \label{mauvais_1}
  \end{minipage} \hfill
- \begin{minipage}[!h]{.3\linewidth}
-   \includegraphics[scale=0.35]{snapshots/constate_probleme.png}
-   \caption{The set not correctly modified(one fixed node)}
+ \begin{minipage}[!h]{.45\linewidth}
+   \includegraphics[scale=0.45]{snapshots/constate_probleme.png}
+   \caption{The set not correctly modified}
    \label{mauvais_2}
  \end{minipage}
 \end{figure}
 
-\begin{figure}[!h]
-\centering
-\includegraphics[scale=0.25]{snapshots/constate_nikel.png}
-\caption{The set correctly modified(all nodes mobiles)}
-\end{figure}
+%\newpage 
 
+You can notice that if all nodes in the interior of boundaries are mobile
+so the graph produced stay planar (see figure \ref{correct_1} and \ref{correct_2}).
+
+\begin{figure}[!h]
+  \begin{minipage}[!h]{.5\linewidth}
+    \includegraphics[scale=0.27]{snapshots/constate_mobil_init.png}
+    \caption{The initial graph with all interior nodes mobile}
+    \label{correct_1}
+  \end{minipage}
+  \begin{minipage}[!h]{.55\linewidth}
+    \centering
+    \includegraphics[scale=0.29]{snapshots/constate_nikel.png}
+    \caption{The graph correctly modified}
+    \label{correct_2}
+  \end{minipage} \hfill
+\end{figure}
