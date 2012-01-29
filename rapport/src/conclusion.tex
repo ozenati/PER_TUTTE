@@ -1,10 +1,10 @@
 \chapter*{Conclusion}
 
-After understanding problems due to the grid building, we proposed the Tutte algorithm to increase data comprehension and ease graph reading. Tutte permits us to obtain uniformazed size triangles and increase angles between edges while avoiding edge crossing. 
+After understanding problems due to the grid building, we proposed the Tutte algorithm to increase data comprehension and ease graph reading. This permits us to obtain uniformazed size triangles and increase angles between edges while avoiding edge crossing. 
 Finally, our method allowed an improvement of the clutter reduction and help unterstanding. Furthermore, thanks to our optimizations, the performance is comparable to existing methods.
 
 
-As explained below, the Tutte algorithm only works in some specifics cases. We already know it may fail for a concave polygon or when some nodes are fixed. However, the grid used is particular: it is created by applying a quad-tree algorithm, then a Voronoi decomposition and has the following constraint: two fixed nodes can not be linked by an edge.
+As explained below, the Tutte algorithm only works in some specifics cases. We showed it may fail for a concave polygon or when some nodes are fixed. However, the grid used is particular: it is created by applying a quad-tree algorithm, then a Voronoi decomposition and has the following constraint: two fixed nodes can not be linked by an edge.
 Unfortunately, despite these grid characteristics, we also discovered that the apply of the Tutte algorithm on this graph leads to edge crossing, which breaks the planarity of the final graph. This is because the grid used may contain some fixed nodes created during the grid building.
 
 
