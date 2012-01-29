@@ -38,17 +38,15 @@ migration & 5 & 0.006314 & 0\\
 \subsection{Not planar graph}
 The results we get here are not as good as we expected. Although the
 computation time is quite improved, the produced graphs are not planar. The
-reason is because the graph provided has some fixed nodes inside the
+reason is that the provided graph has some fixed nodes inside the
 grid. Consequently, after the call of our implementation of the Tutte
 Algorithm, some edges crossing (due to those fixed nodes) appear and remove
 the planarity of the graph.
 
-As an explanation, we can say that by moving nodes around an internal fixed
-node, and in relation with the number of edges in one side of the graph, mobile
-nodes tend to orient themselves to the side of the fixed node having
-most of edges (see the figure \ref{mauvais_1}). With a such graph, a
-mobile node which is opposite to the side with a lot of edges will move to
-this side and create an edge-crossing (see the figure \ref{mauvais_2}).
+As an explanation, we can say that moving nodes tend to be oriented to the 
+side which has the highest level of fixed nodes.(see the figure \ref{mauvais_1}). 
+With such a graph, a mobile node which is opposite to the side with numerous
+edges will move to this side and create an edge-crossing (see the figure \ref{mauvais_2}).
 
 \begin{figure}[!h]
   \begin{minipage}[!h]{.5\linewidth}
@@ -66,8 +64,7 @@ this side and create an edge-crossing (see the figure \ref{mauvais_2}).
 
 %\newpage 
 
-You can notice that if all nodes in the interior of boundaries are mobile
-so the graph produced stay planar (see figure \ref{correct_1} and \ref{correct_2}).
+You can notice that if all the nodes in the interior of boundaries are mobile, then the graph produced stay planar (see figure \ref{correct_1} and \ref{correct_2}).
 
 \begin{figure}[!h]
   \begin{minipage}[!h]{.5\linewidth}
