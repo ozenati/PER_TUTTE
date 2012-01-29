@@ -5,5 +5,7 @@ src/tutter
 src/main
 src/*.o
 src/*~
+slides/slide.pdf
+slides/slide.vrb
 tutte_seq
 tulip-config
