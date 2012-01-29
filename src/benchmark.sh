@@ -22,7 +22,10 @@ echo ""
 echo "The given time of execution for a tutte version is an average over $nb_exec executions"
 echo ""
 
-./bench
+for g in $1/*;
+do
+    ./benchmark $g $2
+done
 
 # ## Pour toutes les variantes de Tutte
 # for i in $(seq 0 4); 

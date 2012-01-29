@@ -12,6 +12,11 @@
 using namespace std;
 using namespace tlp;
 
+#define NB_TEST 6
+
+double moyennes[NB_TEST];
+double ecarts[NB_TEST]; 
+
 void tutte_seq(Graph * graph, Graph * grille, int nb_exec) {
   (void)graph;
   (void)nb_exec;
@@ -37,12 +42,14 @@ void tutte_seq(Graph * graph, Graph * grille, int nb_exec) {
   }
 
   double moy = t_res/nb_exec;
-  cout << "temps d'exécution de Tutte : " << moy << " s" << endl; 
-  cout << "max : " << t_max << " s" << endl;
-  cout << "min : " << t_min << " s" << endl;
   double ecart_type = sqrt(fabs((t_carre / nb_exec) - moy * moy));
-  cout << "ecart type : " << ecart_type << " s" << endl;
-  cout << endl;
+  moyennes[0] = moy;
+  ecarts[0] = ecart_type;
+  // cout << "temps d'exécution de Tutte : " << moy << " s" << endl; 
+  // cout << "max : " << t_max << " s" << endl;
+  // cout << "min : " << t_min << " s" << endl;
+  // cout << "ecart type : " << ecart_type << " s" << endl;
+  // cout << endl;
 
   // Libération des ressources enjeux
   delete MyNodes;
@@ -80,12 +87,14 @@ void tutte_seq_2(Graph * graph, Graph * grille, int nb_exec) {
   }
 
   double moy = t_res/nb_exec;
-  cout << "temps d'exécution de Tutte : " << moy << " s" << endl; 
-  cout << "max : " << t_max << " s" << endl;
-  cout << "min : " << t_min << " s" << endl;
   double ecart_type = sqrt(fabs((t_carre / nb_exec) - moy * moy));
-  cout << "ecart type : " << ecart_type << " s" << endl;
-  cout << endl;
+  moyennes[1] = moy;
+  ecarts[1] = ecart_type;
+  // cout << "temps d'exécution de Tutte : " << moy << " s" << endl; 
+  // cout << "max : " << t_max << " s" << endl;
+  // cout << "min : " << t_min << " s" << endl;
+  // cout << "ecart type : " << ecart_type << " s" << endl;
+  // cout << endl;
 }
 
 void tutte_seq_2_bis(Graph * graph, Graph * grille, int nb_exec) {
@@ -118,12 +127,14 @@ void tutte_seq_2_bis(Graph * graph, Graph * grille, int nb_exec) {
   }
 
   double moy = t_res/nb_exec;
-  cout << "temps d'exécution de Tutte : " << moy << " s" << endl; 
-  cout << "max : " << t_max << " s" << endl;
-  cout << "min : " << t_min << " s" << endl;
   double ecart_type = sqrt(fabs((t_carre / nb_exec) - moy * moy));
-  cout << "ecart type : " << ecart_type << " s" << endl;
-  cout << endl;
+  moyennes[2] = moy;
+  ecarts[2] = ecart_type;
+  // cout << "temps d'exécution de Tutte : " << moy << " s" << endl; 
+  // cout << "max : " << t_max << " s" << endl;
+  // cout << "min : " << t_min << " s" << endl;
+  // cout << "ecart type : " << ecart_type << " s" << endl;
+  // cout << endl;
 }
 
 void tutte_seq_2_openmp(Graph * graph, Graph * grille, int nb_exec) {
@@ -158,12 +169,14 @@ void tutte_seq_2_openmp(Graph * graph, Graph * grille, int nb_exec) {
   }
 
   double moy = t_res/nb_exec;
-  cout << "temps d'exécution de Tutte : " << moy << " s" << endl; 
-  cout << "max : " << t_max << " s" << endl;
-  cout << "min : " << t_min << " s" << endl;
   double ecart_type = sqrt(fabs((t_carre / nb_exec) - moy * moy));
-  cout << "ecart type : " << ecart_type << " s" << endl;
-  cout << endl;
+  moyennes[3] = moy;
+  ecarts[3] = ecart_type;
+  // cout << "temps d'exécution de Tutte : " << moy << " s" << endl; 
+  // cout << "max : " << t_max << " s" << endl;
+  // cout << "min : " << t_min << " s" << endl;
+  // cout << "ecart type : " << ecart_type << " s" << endl;
+  // cout << endl;
 }
 
 /*
@@ -200,12 +213,14 @@ void tutte_seq_3 (Graph * graph, Graph * grille, int nb_exec){
   }
 
   double moy = t_res/nb_exec;
-  cout << "temps d'exécution de Tutte : " << moy << " s" << endl; 
-  cout << "max : " << t_max << " s" << endl;
-  cout << "min : " << t_min << " s" << endl;
   double ecart_type = sqrt(fabs((t_carre / nb_exec) - moy * moy));
-  cout << "ecart type : " << ecart_type << " s" << endl;
-  cout << endl;
+  moyennes[4] = moy;
+  ecarts[4] = ecart_type;
+  // cout << "temps d'exécution de Tutte : " << moy << " s" << endl; 
+  // cout << "max : " << t_max << " s" << endl;
+  // cout << "min : " << t_min << " s" << endl;
+  // cout << "ecart type : " << ecart_type << " s" << endl;
+  // cout << endl;
 }
 
 static inline
@@ -256,12 +271,14 @@ void tutte_parallel_asynchrone(Graph * graph, int nb_exec){
   }
 
   double moy = t_res/nb_exec;
-  cout << "temps d'exécution de Tutte : " << moy << " s" << endl; 
-  cout << "max : " << t_max << " s" << endl;
-  cout << "min : " << t_min << " s" << endl;
   double ecart_type = sqrt(fabs((t_carre / nb_exec) - moy * moy));
-  cout << "ecart type : " << ecart_type << " s" << endl;
-  cout << endl;
+  moyennes[5] = moy;
+  ecarts[5] = ecart_type;
+  // cout << "temps d'exécution de Tutte : " << moy << " s" << endl; 
+  // cout << "max : " << t_max << " s" << endl;
+  // cout << "min : " << t_min << " s" << endl;
+  // cout << "ecart type : " << ecart_type << " s" << endl;
+  // cout << endl;
 
   // Libération des ressources enjeux
   delete vectors;
@@ -288,18 +305,43 @@ int main(int argc, char * argv[])  {
 
   int nb_exec = atoi(argv[2]);
 
-  cout << "Tutte séquentiel asynchrone;" << endl;
+  cout << "Benchmark on graph : " << argv[1] << endl << endl;
+
+  cout << "Tutte séquentiel asynchrone -> 0" << endl;
+  cout << "Tutte séquentiel asynchrone 2 -> 1" << endl;
+  cout << "Tutte séquentiel asynchrone 2 (Vec2f) -> 2" << endl;
+  cout << "Tutte séquentiel asynchrone 3 -> 3" << endl;
+  cout << "Tutte parallèle synchrone -> 4" << endl;
+  cout << "Tutte parallèle asynchrone -> 5" << endl;
+ 
   tutte_seq(graph, grille, nb_exec);
-  cout << "Tutte séquentiel asynchrone 2;" << endl;
   tutte_seq_2(graph, grille, nb_exec);
-  cout << "Tutte séquentiel asynchrone 2 (Vec2f);" << endl;
   tutte_seq_2_bis(graph, grille, nb_exec);
-  cout << "Tutte séquentiel asynchrone 3;" << endl;
   tutte_seq_3(graph, grille, nb_exec);
-  cout << "Tutte parallèle synchrone;" << endl;
   tutte_seq_2_openmp(graph, grille, nb_exec);
-  cout << "Tutte parallèle asynchrone;" << endl;
   tutte_parallel_asynchrone(graph, nb_exec);
+
+  cout << "menMeans = (";
+  for(int i; i < NB_TEST; i++)
+    cout << moyennes[i] << ", ";
+  cout << ")" << endl;
+  cout << "menStd = (";
+  for(int i; i < NB_TEST; i++)
+    cout << ecarts[i] << ", ";
+  cout << ")" << endl;
+
+  // cout << "Tutte séquentiel asynchrone;" << endl;
+  // tutte_seq(graph, grille, nb_exec);
+  // cout << "Tutte séquentiel asynchrone 2;" << endl;
+  // tutte_seq_2(graph, grille, nb_exec);
+  // cout << "Tutte séquentiel asynchrone 2 (Vec2f);" << endl;
+  // tutte_seq_2_bis(graph, grille, nb_exec);
+  // cout << "Tutte séquentiel asynchrone 3;" << endl;
+  // tutte_seq_3(graph, grille, nb_exec);
+  // cout << "Tutte parallèle synchrone;" << endl;
+  // tutte_seq_2_openmp(graph, grille, nb_exec);
+  // cout << "Tutte parallèle asynchrone;" << endl;
+  // tutte_parallel_asynchrone(graph, nb_exec);
   
   delete graph;
   
