@@ -50,13 +50,13 @@ separateMap2Vectors(map<int, MyNode *> *all_nodes)
       vectors->push_back(v);
     }
   // Information 
-  cout << vectors->size() << " ensembles generé" << endl;
-  vector<vector<MyNode *> *>::iterator it;
-  int i;
-  for (it=vectors->begin(), i = 0 ; it < vectors->end(); it++, i++)
-    {
-      cout << "Ensemble " << i << " contient " << (*it)->size()  << " elements" << endl;
-    }
+  // cout << vectors->size() << " ensembles generé" << endl;
+  // vector<vector<MyNode *> *>::iterator it;
+  // int i;
+  // for (it=vectors->begin(), i = 0 ; it < vectors->end(); it++, i++)
+  //   {
+  //     cout << "Ensemble " << i << " contient " << (*it)->size()  << " elements" << endl;
+  //   }
   return vectors;
 }
 
