@@ -208,10 +208,34 @@ void tutte_seq_3 (Graph * graph, Graph * grille, int nb_exec){
   cout << endl;
 }
 
+static inline
+void remise_a_zero(vector<vector<MyNode *> *> *vectors, Coord *coordonnees){
+  vector<vector<MyNode *> *>::iterator it;
+  for (it=vectors->begin(); it < vectors->end(); it++)
+    {
+      vector<MyNode *>::iterator it2 = (*it)->begin();
+      for (it2=(*it)->begin(); it2 < (*it)->end(); it2++)
+	(*it2)->setCoord(coordonnees[(*it2)->getNode().id]);
+    }
+}
+
+static inline
+void sauvegarde(vector<vector<MyNode *> *> *vectors, Coord *coordonnees){
+  vector<vector<MyNode *> *>::iterator it;
+  for (it=vectors->begin(); it < vectors->end(); it++)
+    {
+      vector<MyNode *>::iterator it2 = (*it)->begin();
+      for (it2=(*it)->begin(); it2 < (*it)->end(); it2++)
+	coordonnees[(*it2)->getNode().id] = (*it2)->getCoord();
+    }
+}
+
 void tutte_parallel_asynchrone(Graph * graph, int nb_exec){
   map<int, MyNode *> *all_nodes = convertGraph2Map(graph);
+  Coord coordonnees[all_nodes->size()];
   vector<vector<MyNode *> *> *vectors = separateMap2Vectors(all_nodes);
-  vector<vector<MyNode *> *> save_vectors(*vectors);
+
+  sauvegarde(vectors,coordonnees);
 
   double t_res = 0, t0, t1;
   double t_max = 0, t_min = 10;
@@ -228,7 +252,7 @@ void tutte_parallel_asynchrone(Graph * graph, int nb_exec){
 
     cerr << i << " : " << t1 - t0 << endl;
     
-    *vectors = save_vectors;
+    remise_a_zero(vectors,coordonnees);//    *vectors = save_vectors;
   }
 
   double moy = t_res/nb_exec;
@@ -299,18 +323,18 @@ int main(int argc, char * argv[])  {
 
   int nb_exec = atoi(argv[1]);
 
-  cout << "Tutte séquentiel asynchrone;" << endl;
-  tutte_seq(graph, grille, nb_exec);
-  cout << "Tutte séquentiel asynchrone 2;" << endl;
-  tutte_seq_2(graph, grille, nb_exec);
-  cout << "Tutte séquentiel asynchrone 2 (Vec2f);" << endl;
-  tutte_seq_2_bis(graph, grille, nb_exec);
-  cout << "Tutte séquentiel asynchrone 3;" << endl;
-  tutte_seq_3(graph, grille, nb_exec);
-  cout << "Tutte parallèle synchrone;" << endl;
-  tutte_seq_2_openmp(graph, grille, nb_exec);
-  // cout << "Tutte parallèle asynchrone;" << endl;
-  // tutte_parallel_asynchrone(graph, nb_exec);
+  // cout << "Tutte séquentiel asynchrone;" << endl;
+  // tutte_seq(graph, grille, nb_exec);
+  // cout << "Tutte séquentiel asynchrone 2;" << endl;
+  // tutte_seq_2(graph, grille, nb_exec);
+  // cout << "Tutte séquentiel asynchrone 2 (Vec2f);" << endl;
+  // tutte_seq_2_bis(graph, grille, nb_exec);
+  // cout << "Tutte séquentiel asynchrone 3;" << endl;
+  // tutte_seq_3(graph, grille, nb_exec);
+  // cout << "Tutte parallèle synchrone;" << endl;
+  // tutte_seq_2_openmp(graph, grille, nb_exec);
+  cout << "Tutte parallèle asynchrone;" << endl;
+  tutte_parallel_asynchrone(graph, nb_exec);
   
   delete graph;
   
