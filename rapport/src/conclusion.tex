@@ -1,14 +1,13 @@
 \chapter*{Conclusion}
 
+After understanding problems due to the grid building, we proposed the Tutte algorithm to increase data comprehension and ease graph reading. Tutte permits us to obtain uniformazed size triangles and increase angles between edges while avoiding edge crossing. 
+Finally, our method allowed an improvement of the clutter reduction and help unterstanding. Furthermore, thanks to our optimizations, the performance is comparable to existing methods.
 
-With our best Tutte algorithm implementation, we obtain an algorithm convergence in 5 iterations and it spends x seconds to recalculate all the coordinates. \textbf{(à mettre à jour)}
-Finally, our optimizations allowed an improvement of the clutter reduction and the performance compared with existing methods.
+
+As explained below, the Tutte algorithm only works in some specifics cases. We already know it may fail for a concave polygon or when some nodes are fixed. However, the grid used is particular: it is created by applying a quad-tree algorithm, then a Voronoi decomposition and has the following constraint: two fixed nodes can not be linked by an edge.
+Unfortunately, despite these grid characteristics, we also discovered that the apply of the Tutte algorithm on this graph leads to edge crossing, which breaks the planarity of the final graph. This is because the grid used may contain some fixed nodes created during the grid building.
 
 
-After discussing with our teachers in charge, some issues concerning our standalone version remain unsolved and could be taken into account in the future. Rather than work with input graph nodes, it would be interesting to dynamically add nodes (and their edges to keep a triangular-face graph) and to launch again the algorithm in order to refine the given results. It would also be quite interesting to automatically join small triangles or divide big triangles into smaller ones.
-
-Another valuable improvement would be to turn our standalone program into a Tulip plugin in order to integrate it in this software.
- 
-A theoretical point remains unsolved : despite the fact that the contour on which we apply the Tutte algorithm is not necessarily convex, we obtain correct results. It would be useful to understand why Tutte works on such kind of graphs: It could be caused by how the grid is built or by the following constraint: two fixed nodes can not be linked by an edge.
-
+In future work, this problem could be solved by the uniformization of the triangle size, i.e. automatically join small triangles or divide big triangles into smaller ones. It is nevertheless possible to create a post-treatment function to fix edge crossing. 
+Some others issues concerning our program remain unsolved and could be taken into account in the future. Rather than work with input graph nodes, it would be interesting to dynamically add nodes (and their edges to keep a triangular-face graph) and to launch again the algorithm in order to refine the given results.
 
