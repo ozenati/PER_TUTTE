@@ -15,46 +15,72 @@ menStd3 = (3.43957e-05, 6.44661e-06, 7.71777e-06, 6.65779e-05, 3.03403e-05, 0.00
 ind = np.arange(N)  # the x locations for the groups
 width = 0.20       # the width of the bars
 
-plt.subplot(111)
-# rects3 = plt.bar(ind, menMeans3, width,
-#                  color='g',
-#                  yerr=menStd3)
-# #error_kw=dict(elinewidth=6, ecolor='yellow'))
-
-# rects1 = plt.bar(ind+width, menMeans, width,
-#                  color='r',
-#                  yerr=menStd)
-# # error_kw=dict(elinewidth=6, ecolor='pink'))
-
-rects2 = plt.bar(ind+2*width, menMeans2, width,
-                 color='y',
-                 yerr=menStd2)
-  #error_kw=dict(elinewidth=6, ecolor='yellow'))
-
-# add some
-plt.ylabel('Scores')
-plt.title('Scores by group and gender')
-plt.xticks(ind + width, ('SA 1', 
-                         'SA 2',
-                         'SA 2 (vec2f)',
-                         'SA 3',
-                         'PS', 
-                         'PA' )) 
-# plt.xticks(ind, ('G1', 'G2', 'G3', 'G4', 'G5') )
-
-#plt.legend( (rects1[0], rects2[0], rects3[0]), ('Aiir trafic', 'Imdb', 'Migration') )
-
 def autolabel(rects):
     # attach some text labels
     for rect in rects:
         height = rect.get_height()
         a = str(height)
         # a=a.substring(0,5);
-        plt.text(rect.get_x() + rect.get_width(), 1.05*height, '%f.4'%float(height),
+        plt.text(rect.get_x() + rect.get_width(), 1.05*height, '%.4f'%float(height),
                 ha='center', va='bottom')
 
-# autolabel(rects1)
-# autolabel(rects2)
-# autolabel(rects3)
+
+#plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(131)
+rects1 = plt.bar(ind, menMeans, width,
+                 color='r',
+                 capsize=6,
+                 yerr=menStd)
+#                 error_kw=dict(elinewidth=6, ecolor='yellow'))
+
+plt.ylabel('mean time of execution')
+plt.title('Aiir_traffic')
+plt.xticks(ind, ('SA 1', 
+                         'SA 2',
+                         'SA 2b',
+                         'SA 3',
+                         'PS', 
+                         'PA' )) 
+
+autolabel(rects1)
+
+plt.subplot(132)
+rects2 = plt.bar(ind, menMeans2, width,
+                 color='y',
+                 capsize=6,
+                 yerr=menStd2)
+# error_kw=dict(elinewidth=6, ecolor='pink'))
+
+plt.ylabel('mean time of execution')
+plt.title('Imdb')
+plt.xticks(ind, ('SA 1', 
+                         'SA 2',
+                         'SA 2b',
+                         'SA 3',
+                         'PS', 
+                         'PA' )) 
+
+autolabel(rects2)
+
+plt.subplot(133)
+rects3 = plt.bar(ind, menMeans3, width,
+                 color='g',
+                 capsize=6,
+                 yerr=menStd3)
+  #error_kw=dict(elinewidth=6, ecolor='yellow'))
+
+plt.ylabel('mean time of execution')
+plt.title('Migration')
+plt.xticks(ind, ('SA 1', 
+                         'SA 2',
+                         'SA 2b',
+                         'SA 3',
+                         'PS', 
+                         'PA' )) 
+
+#plt.legend( (rects1[0], rects2[0], rects3[0]), ('Aiir trafic', 'Imdb', 'Migration') )
+
+autolabel(rects3)
 
 plt.show()
