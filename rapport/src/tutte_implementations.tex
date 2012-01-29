@@ -7,8 +7,16 @@ In the sequential version, the algorithm presented is an asynchronous Tutte one.
 \item in asynchronous version: each movement is applied directy after being computed
 \item in synchronous version: all movement are computed before being applied
 \end{itemize}
-In the sequential version, the synchronous approach does not present benefits. It is more convenient to consider neighbors movement.
-In the parallel version, the synchronous approach may be interesting in order to reduce critical sections.
+In the sequential version, the synchronous approach does not present
+benefits. It is more convenient to consider neighbors movement.
+
+In the parallel version, the synchronous approach may be interesting in
+order to reduce critical sections. For the both parallel approach use the
+OpenMP library.
+\\
+The complexity these two algorithms is roughly $\mathit{O(\frac{n}{p})}$
+with $n = |V|$ and $p$ is the number of processeurs.
+\\
 
 \subsection{Asynchronous parallel version}
 % in this optimization Ozenati you are suggested to talk about the
@@ -17,6 +25,20 @@ In the parallel version, the synchronous approach may be interesting in order to
 \input{src/graph_coloring}
 
 \subsection{Synchronous parallel version}
-% in this optimization Frozar you are suggested to talk about results with
-% openMP
+
+The parallel synchronous version of the Tutte algorithm is easier to
+implement then the parallel asynchronous. In fact, for this version, one
+doesn't need to compute a coloring separation.
+\\
+
+During an iteration, all the nodes of the graph, instead of applying
+directly the mouvement for a node, the coordinates of his image point is
+saved in a table. At the end of an iteration, all upgrades are applied. In
+this approach, two nodes can be computed independantly in parallel. 
+\\
+
+So for an iteration, the set node to be visited can separate in different
+subsets. Each of these subsets are independant, and so can be computed by
+different threads in parallel. The separation is static, i.e. the number of
+element of each subset is egal to $nb\_node / nb\_thread$.
 
