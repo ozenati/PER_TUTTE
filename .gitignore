@@ -7,5 +7,6 @@ src/*.o
 src/*~
 slides/slide.pdf
 slides/slide.vrb
+rapport/rapport.pdf
 tutte_seq
 tulip-config
