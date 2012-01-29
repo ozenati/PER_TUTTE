@@ -71,24 +71,62 @@ class MyNode {
 \noindent
 \underline{\bf Vertex attributes needed}
 \begin{dinglist}{70}
-\item[n]: this attribute is of \texttt{node} type of \textsf{Tulip} library and contains the \texttt{ID} of the node.  
-\item[mobile]: this attribute is of \texttt{boolean} type and is used to know a given node is considered fixed.
-\item[coord]: this attribut is of \texttt{Coord} type of \textsf{tulip} library and is used to store the node coordinates. 
-\item[voisin]: this attribute is of \texttt{vector} type of \texttt{C++} library and contains the neighbourhood.
+\item[n]: \texttt{node} type of \textsf{Tulip} library; contains the \texttt{ID} of the node.  
+\item[mobile]: \texttt{boolean} type; is used to know a given node is considered fixed.
+\item[coord]: \texttt{Coord} type of \textsf{Tulip} library; is used to store the node coordinates. 
+\item[voisin]: \texttt{vector} type of \texttt{C++} library; contains the neighbourhood.
 \end{dinglist}
 \noindent
 \underline{\bf Operations on a vertex}~\\
 We used two types of operations or methods: \textsf{setter} and
-\textsf{getter}. A \textsf{setter} is a method used to set the value
-of an attribut and a \textsf{getter} is used to get the value of an
-attribut. For a given attribut \texttt{attribut} , the corresponding
-setter and getter are respectively \verb+setAttribut(args)+ and \verb+getAttribut()+. Below are the lists of the setters and getters of nodes in our structure:
+\textsf{getter}. A \textsf{setter} is a method used to set the value of an
+attribut and a \textsf{getter} is used to get the value of an attribut. For
+a given attribut \texttt{attribut} , the corresponding setter and getter
+are respectively \verb+setAttribut(args)+ and \verb+getAttribut()+. Below
+are the lists of the setters and getters of nodes in our structure:
 \begin{dinglist}{70}
 \item[Setters]: \verb+getMobile(), getCoord(), getVoisin()+  
 \item[Getters]: \verb+setMobile(const bool b), setCoord(const Coord &), getVoisin()+.
 \end{dinglist}
 
 \subsubsection{Second implementation}
+In the seconde implementation, the built data structure aims to decrease
+the number of pointer translation of the system. Also, the method to fill
+our data structure tries to put the coordinates of a node neighbourghood
+near to its node.
+
+A new basic class of MyNode\_ver2 have been implemented. The vector \\
+\verb+vector<MyNode *> voisin+ is substituted by an integer \verb+index_neighbourhood+.
+
+Here is their statement this class:
+
+\newpage
+\begin{lstlisting}
+  class MyNode_ver2 {
+    public:
+    node n;
+    bool mobile;
+    int index_neighbourhood;
+    int degre;
+  };
+\end{lstlisting}
+
+To store all the nodes, the neighboughoods, and the coordinates three tables are needed. 
+
+\begin{lstlisting}
+  vector<MyNode_ver2> MyNodes_2;
+  vector<int> Neighbourhoods;
+  vector<Vec2f> * coords;
+\end{lstlisting}
+
+\begin{dinglist}{70}
+\item[MyNodes\_2]: contains all the nodes.
+\item[Neighbourhoods]: contains the index of all the neighbourhoods.
+\item[coords]: is used to store the nodes coordinates. 
+\end{dinglist}
+
+The attribute \verb+index_neighbourhood+ of the class \verb+MyNode_ver2+
+gives the index of the neighbourhood of the node in the vector \verb+Neighbourhoods+.
 
 \subsubsection{Third implementation}
 In this third implementation we do not use a class to store the
