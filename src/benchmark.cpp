@@ -243,14 +243,14 @@ void tutte_parallel_asynchrone(Graph * graph, int nb_exec){
 
   for (int i = 0; i < nb_exec; ++i) {
     t0 = omp_get_wtime();
-    tutte_parallel_asynchrone(vectors, 1e-6, false);
+    tutte_parallel_asynchrone(vectors, 1e-6, true);
     t1 = omp_get_wtime();
     t_res += t1 - t0;
     t_max = std::max(t_max, t1 - t0);
     t_min = std::min(t_min, t1 - t0);
     t_carre += (t1 - t0) * (t1 - t0);
 
-    cerr << i << " : " << t1 - t0 << endl;
+    // cerr << i << " : " << t1 - t0 << endl;
     
     remise_a_zero(vectors,coordonnees);//    *vectors = save_vectors;
   }
@@ -269,8 +269,8 @@ void tutte_parallel_asynchrone(Graph * graph, int nb_exec){
 }
 
 int main(int argc, char * argv[])  {
-  if (argc != 2) {
-    cout << "Usage : "<< argv[0] << " <nb_exec>" << endl;
+  if (argc != 3) {
+    cout << "Usage : "<< argv[0] << " <graphe_path> <nb_exec>" << endl;
     cout << "" << endl;
     cout << "Type \"./benchmark -l\" to view the list of tutte version." <<endl;
     cout << "" << endl;
@@ -280,59 +280,24 @@ int main(int argc, char * argv[])  {
   // Permet d'utiliser loadGraph méthode
   tlp::initTulipLib();
 
-  // FILE * fichier = popen("ls ../graphes_bench/", "r");
-
-  // int TAILLE_MAX = 128;
-  // char buff[TAILLE_MAX];
-
-  // vector<char *> graphe_name;
-
-  
-  // fgets(buff, TAILLE_MAX, fichier);
-  // char * new_chaine = (char *)malloc(strlen(buff) * sizeof(char));
-  // strcpy(new_chaine, buff);
-  // graphe_name.push_back(new_chaine);
- 
-  // //cout << graphe_name[0] << endl;
-
-  // while ( !feof(fichier) ) {
-  //   cout << buff << endl;
-  //   fgets(buff, TAILLE_MAX, fichier);
-    
-  //   if (!feof(fichier)) {
-  //     char * new_chaine = (char *)malloc((strlen(buff) + strlen("../graphes_bench/")) * sizeof(char));
-  //     strcpy(new_chaine, buff);
-  //     strcat(new_chaine, "../graphes_bench/");
-  //     graphe_name.push_back(new_chaine);
-  //   }
-  // }
-  
-  // cout << endl;
-
-  // uint i = 0;
-  // for (i = 0; i < graphe_name.size(); i++)
-  //   cout << graphe_name[i] << endl;
-
-  // pclose(fichier);
-
   // Lecture d'un graphe d'entré
-  tlp::Graph* graph = tlp::loadGraph("../graphes/imdb.tlp.gz");
+  tlp::Graph* graph = tlp::loadGraph(argv[1]);
   
   // Récupérer la grille sur laquelle il faut appliquer l'algo de Tutte
   tlp::Graph *grille = graph->getSubGraph(2);
 
-  int nb_exec = atoi(argv[1]);
+  int nb_exec = atoi(argv[2]);
 
-  // cout << "Tutte séquentiel asynchrone;" << endl;
-  // tutte_seq(graph, grille, nb_exec);
-  // cout << "Tutte séquentiel asynchrone 2;" << endl;
-  // tutte_seq_2(graph, grille, nb_exec);
-  // cout << "Tutte séquentiel asynchrone 2 (Vec2f);" << endl;
-  // tutte_seq_2_bis(graph, grille, nb_exec);
-  // cout << "Tutte séquentiel asynchrone 3;" << endl;
-  // tutte_seq_3(graph, grille, nb_exec);
-  // cout << "Tutte parallèle synchrone;" << endl;
-  // tutte_seq_2_openmp(graph, grille, nb_exec);
+  cout << "Tutte séquentiel asynchrone;" << endl;
+  tutte_seq(graph, grille, nb_exec);
+  cout << "Tutte séquentiel asynchrone 2;" << endl;
+  tutte_seq_2(graph, grille, nb_exec);
+  cout << "Tutte séquentiel asynchrone 2 (Vec2f);" << endl;
+  tutte_seq_2_bis(graph, grille, nb_exec);
+  cout << "Tutte séquentiel asynchrone 3;" << endl;
+  tutte_seq_3(graph, grille, nb_exec);
+  cout << "Tutte parallèle synchrone;" << endl;
+  tutte_seq_2_openmp(graph, grille, nb_exec);
   cout << "Tutte parallèle asynchrone;" << endl;
   tutte_parallel_asynchrone(graph, nb_exec);
   
