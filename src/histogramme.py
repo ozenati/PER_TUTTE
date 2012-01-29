@@ -16,23 +16,20 @@ ind = np.arange(N)  # the x locations for the groups
 width = 0.20       # the width of the bars
 
 plt.subplot(111)
-rects3 = plt.bar(ind, menMeans3, width,
-                 color='g',
-                 yerr=menStd3, 
-                 log='true')
-#error_kw=dict(elinewidth=6, ecolor='yellow'))
+# rects3 = plt.bar(ind, menMeans3, width,
+#                  color='g',
+#                  yerr=menStd3)
+# #error_kw=dict(elinewidth=6, ecolor='yellow'))
 
-rects1 = plt.bar(ind+width, menMeans, width,
-                 color='r',
-                 yerr=menStd, 
-                 log='true')
-# error_kw=dict(elinewidth=6, ecolor='pink'))
+# rects1 = plt.bar(ind+width, menMeans, width,
+#                  color='r',
+#                  yerr=menStd)
+# # error_kw=dict(elinewidth=6, ecolor='pink'))
 
 rects2 = plt.bar(ind+2*width, menMeans2, width,
                  color='y',
-                 yerr=menStd2, 
-                 log='true')
-#error_kw=dict(elinewidth=6, ecolor='yellow'))
+                 yerr=menStd2)
+  #error_kw=dict(elinewidth=6, ecolor='yellow'))
 
 # add some
 plt.ylabel('Scores')
@@ -45,7 +42,7 @@ plt.xticks(ind + width, ('SA 1',
                          'PA' )) 
 # plt.xticks(ind, ('G1', 'G2', 'G3', 'G4', 'G5') )
 
-plt.legend( (rects1[0], rects2[0], rects3[0]), ('Aiir trafic', 'Imdb', 'Migration') )
+#plt.legend( (rects1[0], rects2[0], rects3[0]), ('Aiir trafic', 'Imdb', 'Migration') )
 
 def autolabel(rects):
     # attach some text labels
@@ -56,8 +53,8 @@ def autolabel(rects):
         plt.text(rect.get_x() + rect.get_width(), 1.05*height, '%f.4'%float(height),
                 ha='center', va='bottom')
 
-autolabel(rects1)
-autolabel(rects2)
-autolabel(rects3)
+# autolabel(rects1)
+# autolabel(rects2)
+# autolabel(rects3)
 
 plt.show()
