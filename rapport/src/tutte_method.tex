@@ -31,11 +31,11 @@ during one step.
 This gives a synthetic view of this algorithm : 
 \begin{verbatim}
 G = {V,E}
-P = set of nodes constitute a convex polygon
+P = set of nodes constituent a convex polygon
 procedure tutte(G, P, epsilon)
   epsilon_current = 0
   for each node of (V \ convex polygon)
-    barycenter = barycenter of node
+    barycenter = barycenter of neighboring nodes
     epsilon_current = max(epsilon_current, distance(node, barycenter))
     node = barycenter
   if (epsilon_current < epsilon)
@@ -45,7 +45,7 @@ procedure tutte(G, P, epsilon)
 
 From the complexity point of view, during one iteration all the nodes of
 the set $V$ - $convex~polygon$ are visited. For each node, all its
-neighbourhood is visited. Let $mean\_d$ be the average degre of this planar
+neighbourhood is visited. Let $mean\_d$ be the average degree of this planar
 graph. So the compexity of an iteration is $\mathit{O(n \times mean\_d)}$
 with $n = |V|$.
 
