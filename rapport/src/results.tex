@@ -58,7 +58,10 @@ reason is that the provided graph has some fixed nodes inside the
 grid. Consequently, after the call of our implementation of the Tutte
 Algorithm, some edges crossing (due to those fixed nodes) appear and remove
 the planar property of the graph.
-
+\begin{figure}
+\includegraphics[width=\textwidth]{img/bad_case.png}
+\caption{Overview of edge crossing on Aiir Traffic graph}
+\end{figure}
 As an explanation, we can say that moving nodes tend to be oriented to the 
 side which has the highest level of fixed nodes.(see the figure \ref{mauvais_1}). 
 With such a graph, a mobile node which is opposite to the side with numerous
