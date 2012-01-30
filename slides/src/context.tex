@@ -9,6 +9,7 @@ Easy understanding with effective representation
   \end{figure}
   \pause
   \begin{alertblock}{}
+  \centering
     Only available for few graphs
 \end{alertblock}
 \vspace{1cm}
@@ -115,4 +116,38 @@ Keep node position but edge aggregation
     \end{column}
   \end{columns}
 
+} 
+
+\frame{
+  \frametitle{The context}
+  \framesubtitle{Problematic}
+
+ \begin{columns}[!ht]
+\vspace{1cm}
+    \begin{column}{6cm} 
+    \begin{block}{}
+    \begin{itemize}
+    \item Grid built Quadtree and Voronoi diagram
+    \item Djiskstra to create Edge Bundling
+    \end{itemize}
+    \end{block}
+    \begin{alertblock}{}{Drawbacks}
+    \begin{itemize}
+    \item Bends
+    \item Irregular triangles
+    \item Angular resolution
+    \end{itemize}
+    \end{alertblock}
+    \begin{exampleblock}{}
+    \centering
+    Tutte as a solution
+    \end{exampleblock}
+    \end{column}
+    \begin{column}{6cm}   
+      \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.17]{../rapport/img/problematic.jpg}
+      \end{figure}
+    \end{column}
+  \end{columns}
 } 
